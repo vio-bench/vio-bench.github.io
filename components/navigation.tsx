@@ -22,21 +22,23 @@ export function Navigation() {
         className={open ? "nav is-open" : "nav"}
         aria-label="Main navigation"
       >
-        {["Learn", "Systems", "Run", "Benchmark", "Resources"].map((label) => (
-          <Link
-            key={label}
-            onClick={() => setOpen(false)}
-            className={
-              path.startsWith("/" + label.toLowerCase()) ? "active" : ""
-            }
-            aria-current={
-              path.startsWith("/" + label.toLowerCase()) ? "page" : undefined
-            }
-            href={"/" + label.toLowerCase() + "/"}
-          >
-            {label}
-          </Link>
-        ))}
+        {["Learn", "Systems", "Benchmark", "Results", "Run", "Resources"].map(
+          (label) => (
+            <Link
+              key={label}
+              onClick={() => setOpen(false)}
+              className={
+                path.startsWith("/" + label.toLowerCase()) ? "active" : ""
+              }
+              aria-current={
+                path.startsWith("/" + label.toLowerCase()) ? "page" : undefined
+              }
+              href={"/" + label.toLowerCase() + "/"}
+            >
+              {label}
+            </Link>
+          ),
+        )}
         <a className="github-link" href="https://github.com/vio-bench">
           GitHub <ArrowUpRight size={15} />
         </a>

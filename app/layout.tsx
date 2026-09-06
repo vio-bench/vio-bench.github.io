@@ -54,7 +54,8 @@ export default function RootLayout({
             </div>
             <div className="footer-links">
               <Link href="/learn/">Learning path</Link>
-              <Link href="/benchmark/protocol/">How to read the data</Link>
+              <Link href="/results/">Results and leaderboards</Link>
+              <Link href="/benchmark/protocol/">Evaluation definitions</Link>
               <a href="https://github.com/vio-bench/vio-bench.github.io">
                 Website source ↗
               </a>

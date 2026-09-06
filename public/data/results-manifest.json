@@ -1,0 +1,16 @@
+{
+  "sourceRevision": "bac8b9feb05c93a1d33b5fec08259730517965ee",
+  "checkedOn": "2026-09-06",
+  "artifacts": {
+    "accuracy.json": "5b41705f67dc8541161caa96c043a116a6ed9a571f72953b9f69ff8042b0241a",
+    "efficiency.json": "ef1f0aec3f389926b0fbbda1f5ba388e302c7d301f05c5aad6ebb304a56cd487",
+    "source-tables.json": "4190882369a1c258941b6ffb155538b7921fcfa899629192238250fd593e96a5"
+  },
+  "counts": {
+    "accuracyCells": 180,
+    "accuracyConfigurations": 18,
+    "reportSequences": 98,
+    "resourceRecords": 164,
+    "sourceTables": 157
+  }
+}

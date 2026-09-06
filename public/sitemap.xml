@@ -27,4 +27,8 @@
 <url><loc>https://vio-bench.github.io/systems/airslam/</loc></url>
 <url><loc>https://vio-bench.github.io/systems/okvis2-x/</loc></url>
 <url><loc>https://vio-bench.github.io/systems/sqrtvins/</loc></url>
+<url><loc>https://vio-bench.github.io/results/</loc></url>
+<url><loc>https://vio-bench.github.io/results/accuracy/</loc></url>
+<url><loc>https://vio-bench.github.io/results/efficiency/</loc></url>
+<url><loc>https://vio-bench.github.io/results/tables/</loc></url>
 </urlset>

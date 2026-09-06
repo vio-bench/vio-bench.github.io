@@ -13,6 +13,7 @@ if (read(["status", "--porcelain"]))
 const revision = read(["rev-parse", "HEAD"]);
 const branch = read(["branch", "--show-current"]);
 if (branch !== "main") throw Error("Deploy from reviewed main source.");
+run("npm", ["run", "test"]);
 run("npm", ["run", "build"]);
 run("npm", ["run", "check"]);
 run("npm", ["run", "validate"]);

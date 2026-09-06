@@ -31,8 +31,8 @@ export default function Home() {
           </p>
           <div className="button-row">
             <ButtonLink href="/learn/">Start learning</ButtonLink>
-            <ButtonLink href="/run/openvins/" secondary>
-              Run OpenVINS
+            <ButtonLink href="/results/" secondary>
+              View benchmark results
             </ButtonLink>
           </div>
           <div className="hero-note">
@@ -145,9 +145,9 @@ export default function Home() {
               icon: ChartNoAxesCombined,
               n: "03",
               title: "Understand the results",
-              body: "Explore a measured runtime snapshot and learn what makes a comparison meaningful.",
-              href: "/benchmark/",
-              cta: "Explore VIOBench",
+              body: "Compare accuracy and resource measurements, then inspect the complete sequence-level result tables.",
+              href: "/results/",
+              cta: "Explore the leaderboards",
             },
           ].map((c) => (
             <Link href={c.href} key={c.n} className="path-card">
@@ -163,6 +163,20 @@ export default function Home() {
               </span>
             </Link>
           ))}
+        </div>
+      </section>
+      <section className="container">
+        <div className="results-promo">
+          <div>
+            <span className="eyebrow">VIOBENCH / REPORTED RESULTS</span>
+            <h2>Explore the benchmark evidence.</h2>
+            <p>
+              Five datasets, 98 report sequences, 18 accuracy configurations,
+              and 164 resource records. Compare a selected condition and inspect
+              the values behind it.
+            </p>
+          </div>
+          <ButtonLink href="/results/">View all results</ButtonLink>
         </div>
       </section>
       <section className="section tinted">
