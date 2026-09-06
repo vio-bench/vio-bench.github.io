@@ -1,0 +1,11 @@
+{
+  "name": "EPICA",
+  "docs": "https://epic-lab-gwu.github.io/EPIC-Alignment/",
+  "quickstart": "https://epic-lab-gwu.github.io/EPIC-Alignment/quickstart/",
+  "cli": "https://epic-lab-gwu.github.io/EPIC-Alignment/cli/",
+  "metrics": "https://epic-lab-gwu.github.io/EPIC-Alignment/error_metrics/",
+  "architecture": "https://epic-lab-gwu.github.io/EPIC-Alignment/architecture/",
+  "benchmark": "https://epic-lab-gwu.github.io/EPIC-Alignment/benchmark_workflow/",
+  "package": "https://pypi.org/project/epica/",
+  "checkedOn": "2026-09-06"
+}

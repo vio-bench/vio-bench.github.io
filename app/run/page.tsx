@@ -72,9 +72,9 @@ export default function Run() {
               {
                 icon: BookOpen,
                 title: "Evaluate the output",
-                body: "Identify the pose frame, alignment, timestamp overlap, and missing output before interpreting trajectory error.",
-                href: "/learn/trajectory-evaluation/",
-                cta: "Trajectory evaluation tutorial",
+                body: "Learn the evaluation workflow, then use EPICA to align a reference–estimate pair and inspect its error and evaluated extent.",
+                href: "/evaluation/",
+                cta: "Evaluation with EPICA",
               },
             ].map((c) => (
               <Link className="path-card" key={c.href} href={c.href}>

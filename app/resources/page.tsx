@@ -1,5 +1,6 @@
 import { PageIntro, SourceList, Callout } from "@/components/ui";
 import datasets from "@/data/datasets.json";
+import epica from "@/data/epica.json";
 export const metadata = { title: "Datasets and resources" };
 export default function Resources() {
   return (
@@ -48,6 +49,11 @@ export default function Resources() {
           </div>
           <div className="tool-list">
             {[
+              {
+                title: "EPICA — our trajectory evaluation toolkit",
+                body: "Public documentation for trajectory synchronization, alignment, error metrics, and batch evaluation.",
+                url: epica.docs,
+              },
               {
                 title: "OpenVINS documentation",
                 body: "Estimator derivations, state representations, calibration, simulation, and evaluation.",

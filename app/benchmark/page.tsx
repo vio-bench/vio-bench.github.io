@@ -13,8 +13,8 @@ export default function Benchmark() {
       >
         <div className="button-row">
           <ButtonLink href="/results/">Explore all results</ButtonLink>
-          <ButtonLink href="/benchmark/protocol/" secondary>
-            Read the evaluation notes
+          <ButtonLink href="/evaluation/" secondary>
+            Evaluation with EPICA
           </ButtonLink>
         </div>
       </PageIntro>
@@ -139,8 +139,8 @@ export default function Benchmark() {
               </Link>
             </p>
             <p>
-              <Link className="text-link" href="/learn/trajectory-evaluation/">
-                Understand trajectory evaluation →
+              <Link className="text-link" href="/evaluation/">
+                Understand evaluation with EPICA →
               </Link>
             </p>
           </aside>

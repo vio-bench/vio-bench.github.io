@@ -22,7 +22,7 @@ export function Navigation() {
         className={open ? "nav is-open" : "nav"}
         aria-label="Main navigation"
       >
-        {["Learn", "Systems", "Benchmark", "Results", "Run", "Resources"].map(
+        {["Learn", "Systems", "Run", "Evaluation", "Benchmark", "Results", "Resources"].map(
           (label) => (
             <Link
               key={label}

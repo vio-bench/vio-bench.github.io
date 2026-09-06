@@ -7,6 +7,7 @@ An open learning home for visual–inertial odometry: https://vio-bench.github.i
 - Eight connected lessons with exercises and primary sources.
 - Eleven public upstream system profiles with configuration caveats.
 - An OpenVINS / EuRoC local run guide, reviewed against upstream documentation and source.
+- A dedicated Evaluation guide covering frames, synchronization, alignment, ATE/RPE, evaluated extent, and EPICA commands, with direct links to the public EPICA documentation.
 - Accuracy leaderboards and a five-dataset overview: 180 canonical ATE cells, 18 configurations, and 98 report sequences.
 - All 164 resource-table rows across five fixed inputs, mono/stereo modes, and three platforms.
 - All 157 original Final dataset tables, including separate ATE protocols, SR and RPE, with downloads.
@@ -39,6 +40,7 @@ The static export is generated into `out/`. GitHub Pages serves the `gh-pages` b
 - `data/tutorials.json`: lessons, prerequisites, exercises, and source links.
 - `data/systems.json`: upstream profiles. Capability statements require a primary source.
 - `data/run-guide.json`: reviewed commands and their expected outputs; distinguish a documented route from an executed test.
+- `data/epica.json`: verified public EPICA documentation and package links. The Evaluation guide describes the workflow; `/benchmark/protocol/` retains release-specific Results definitions.
 - `data/datasets.json`: official dataset metadata and learning focus.
 - `public/data/accuracy.json`: canonical dataset cells and complete sequence/configuration ledger. Never mix ATE protocols or source Average columns into the means.
 - `public/data/efficiency.json`: all source resource rows and extended metrics, preserving nulls and run-count exceptions.

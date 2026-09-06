@@ -55,7 +55,7 @@ export default function RootLayout({
             <div className="footer-links">
               <Link href="/learn/">Learning path</Link>
               <Link href="/results/">Results and leaderboards</Link>
-              <Link href="/benchmark/protocol/">Evaluation definitions</Link>
+              <Link href="/evaluation/">Evaluation with EPICA</Link>
               <a href="https://github.com/vio-bench/vio-bench.github.io">
                 Website source ↗
               </a>

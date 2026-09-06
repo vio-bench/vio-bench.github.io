@@ -91,8 +91,8 @@ export default function OpenVINS() {
             <Link href="/learn/calibration-and-time/">
               Review calibration ←
             </Link>
-            <Link href="/learn/trajectory-evaluation/">
-              Understand the error metrics →
+            <Link href="/evaluation/">
+              Evaluate with EPICA →
             </Link>
           </div>
         </article>

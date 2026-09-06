@@ -10,6 +10,7 @@ export function ResultsNavigation() {
         { href: "/results/accuracy/", label: "Accuracy leaderboard" },
         { href: "/results/efficiency/", label: "Runtime & resources" },
         { href: "/results/tables/", label: "All source tables" },
+        { href: "/evaluation/", label: "Evaluation & EPICA" },
       ].map((x) => (
         <Link
           href={x.href}

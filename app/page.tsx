@@ -81,7 +81,7 @@ export default function Home() {
             <div className="flow-arrow" aria-hidden="true">
               ↓
             </div>
-            <Link href="/learn/trajectory-evaluation/" className="output-block">
+            <Link href="/evaluation/" className="output-block">
               <span className="overview-stage">03 / OUTPUT & EVALUATION</span>
               <strong>Pose · velocity · sensor biases</strong>
               <span>

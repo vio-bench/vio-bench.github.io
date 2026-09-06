@@ -122,7 +122,7 @@ img {
 .nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 22px;
   font-size: 15px;
   font-weight: 600;
 }
@@ -1877,4 +1877,115 @@ tbody tr:last-child td {
 }
 .results-filters .field input[type="search"] {
   min-width: 0;
+}
+.evaluation-layout .prose {
+  min-width: 0;
+}
+.evaluation-layout section:first-child h2 {
+  margin-top: 0;
+}
+.evaluation-steps {
+  list-style: none;
+  padding: 8px 25px;
+  margin: 26px 0 38px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.evaluation-steps li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 18px;
+  padding: 16px 0;
+  margin: 0;
+}
+.evaluation-steps li + li {
+  border-top: 1px solid var(--line);
+}
+.evaluation-steps li > span {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  padding-top: 3px;
+}
+.evaluation-steps strong {
+  color: var(--ink);
+}
+.evaluation-steps p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 5px 0 0;
+}
+.evaluation-table table {
+  min-width: 580px;
+}
+.evaluation-table td {
+  white-space: normal;
+}
+.evaluation-doc-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 25px;
+}
+.prose .evaluation-doc-links a {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+}
+.evaluation-doc-links a:hover {
+  background: var(--tint);
+  border-color: #bcccf2;
+}
+.evaluation-doc-links strong,
+.evaluation-doc-links span {
+  display: block;
+}
+.evaluation-doc-links span {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.evaluation-reviewed {
+  margin-top: 45px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  .menu-button {
+    display: block;
+  }
+  .nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 87px;
+    background: #fff;
+    padding: 15px 25px 25px;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 20px 30px #182a4410;
+  }
+  .nav.is-open {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+  }
+  .nav > a {
+    padding: 11px;
+  }
+  .nav > a.active:after {
+    display: none;
+  }
+  .nav .github-link {
+    border: 0;
+    padding: 11px;
+  }
+}
+@media (max-width: 600px) {
+  .evaluation-doc-links {
+    grid-template-columns: 1fr;
+  }
 }

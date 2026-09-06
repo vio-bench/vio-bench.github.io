@@ -87,6 +87,16 @@ export default async function Lesson({
           </section>
           <h2>Go to the source</h2>
           <SourceList sources={l.sources} />
+          {slug === "trajectory-evaluation" && (
+            <div className="callout">
+              <strong>Continue with EPICA</strong>
+              <p>
+                Follow the <Link href="/evaluation/">Evaluation guide</Link> to
+                prepare a trajectory pair, choose an alignment, run EPICA, and
+                connect the output to the benchmark results.
+              </p>
+            </div>
+          )}
           <nav className="lesson-nav" aria-label="Lesson navigation">
             {index > 0 ? (
               <Link href={"/learn/" + lessons[index - 1].slug + "/"}>

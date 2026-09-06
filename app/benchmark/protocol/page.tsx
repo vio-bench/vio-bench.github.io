@@ -13,6 +13,7 @@ export default function Protocol() {
       <div className="container page-content article-layout">
         <aside className="sidebar">
           <strong>Measurement notes</strong>
+          <Link href="/evaluation/">Evaluation guide & EPICA</Link>
           <a href="#source">Source and version</a>
           <a href="#accuracy">Accuracy</a>
           <a href="#missing">Missing values and annotations</a>
@@ -21,6 +22,14 @@ export default function Protocol() {
           <a href="#reproduction">Reproduction</a>
         </aside>
         <article className="prose">
+          <div className="callout">
+            <strong>Learn the evaluation workflow</strong>
+            <p>
+              Start with the <Link href="/evaluation/">Evaluation guide</Link> for
+              frames, synchronization, alignment, ATE, RPE, and EPICA. The notes
+              below document the specific published Results snapshot.
+            </p>
+          </div>
           <section id="source">
             <h2>Source and publication version</h2>
             <p>
