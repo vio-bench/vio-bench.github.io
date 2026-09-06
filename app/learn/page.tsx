@@ -16,7 +16,7 @@ export default function Learn() {
           <p>
             New to VIO? Take these lessons in order. Already working with a
             system? Jump to the concept you need. Reading times are estimates;
-            pause for the exercises.
+            use the worked examples to check your understanding.
           </p>
         </Callout>
         <div className="curriculum">
@@ -48,14 +48,14 @@ export default function Learn() {
           style={{ marginTop: 40, marginBottom: 0 }}
         >
           <div>
-            <h2>Make the concepts move.</h2>
+            <h2>Continue with a real implementation.</h2>
             <p>
-              Change a time offset, add bias, and shorten a trajectory in the
-              browser lab.
+              Follow the OpenVINS guide from environment setup and EuRoC
+              configuration to saved trajectories and evaluation.
             </p>
           </div>
-          <Link className="button primary" href="/run/lab/">
-            Try the trajectory lab <ArrowRight size={17} />
+          <Link className="button primary" href="/run/openvins/">
+            Run OpenVINS on EuRoC <ArrowRight size={17} />
           </Link>
         </div>
       </div>

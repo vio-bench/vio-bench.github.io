@@ -47,7 +47,7 @@ export default function RootLayout({
               <strong className="wordmark">
                 VIOVERSE<span> / </span>
               </strong>
-              <p>A shared place to understand motion.</p>
+              <p>Tutorials and resources for visual–inertial odometry.</p>
               <p className="small">
                 Learn the foundations. Inspect the assumptions. Run the code.
               </p>

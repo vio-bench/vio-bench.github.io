@@ -9,11 +9,8 @@ import {
   Workflow,
 } from "lucide-react";
 import { ButtonLink } from "@/components/ui";
-import { TrajectoryPlot } from "@/components/trajectory-plot";
-import { simulate } from "@/lib/trajectory";
 import lessons from "@/data/tutorials.json";
 export default function Home() {
-  const demo = simulate({ bias: 0.006, offset: 0.12 });
   return (
     <>
       <section className="hero container">
@@ -23,19 +20,19 @@ export default function Home() {
             LEARNING HUB
           </span>
           <h1>
-            Understand motion.
+            Learn and run
             <br />
-            <span>Build your intuition.</span>
+            <span>visual–inertial odometry.</span>
           </h1>
           <p className="hero-description">
-            Learn how cameras and IMUs work together. Go from the first
-            principles of VIO to running systems and interpreting real
-            experiments.
+            Study the estimation methods, follow implementation guides, and
+            understand benchmark results in the context of their data and
+            settings.
           </p>
           <div className="button-row">
             <ButtonLink href="/learn/">Start learning</ButtonLink>
-            <ButtonLink href="/run/" secondary>
-              Run your first experiment
+            <ButtonLink href="/run/openvins/" secondary>
+              Run OpenVINS
             </ButtonLink>
           </div>
           <div className="hero-note">
@@ -43,37 +40,65 @@ export default function Home() {
             <i /> <span>From fundamentals to research</span>
           </div>
         </div>
-        <div className="hero-lab">
+        <aside
+          className="system-overview"
+          aria-label="Conceptual VIO system overview"
+        >
           <div className="panel-heading">
-            <span>
-              <span className="status-dot" /> THE MOTION LAB
-            </span>
-            <span className="small">01 / TRAJECTORIES</span>
+            <span>THE VIO SYSTEM</span>
+            <span className="small">A TECHNICAL OVERVIEW</span>
           </div>
-          <div className="panel-copy">
-            <h2>Small errors. Different paths.</h2>
-            <p>See how timing and bias change a trajectory.</p>
-          </div>
-          <TrajectoryPlot reference={demo.ref} estimate={demo.estimate} />
-          <div className="lab-summary">
-            <div>
-              <span>Position RMSE</span>
-              <strong>
-                {demo.rmse.toFixed(2)} <small>m</small>
-              </strong>
+          <div className="overview-body">
+            <span className="overview-stage">01 / MEASUREMENTS</span>
+            <div className="sensor-pair">
+              <div>
+                <strong>Camera</strong>
+                <span>Image sequence</span>
+              </div>
+              <div>
+                <strong>IMU</strong>
+                <span>Angular velocity · specific force</span>
+              </div>
             </div>
-            <Link href="/run/lab/">
-              Try the interactive lab <ArrowRight size={17} />
+            <Link
+              href="/learn/calibration-and-time/"
+              className="calibration-note"
+            >
+              Camera models · sensor extrinsics · timestamps{" "}
+              <ArrowRight size={14} />
+            </Link>
+            <div className="flow-arrow" aria-hidden="true">
+              ↓
+            </div>
+            <Link
+              href="/learn/filtering-and-optimization/"
+              className="estimation-block"
+            >
+              <span className="overview-stage">02 / STATE ESTIMATION</span>
+              <strong>Visual constraints + inertial propagation</strong>
+              <span>Filtering or window optimization</span>
+            </Link>
+            <div className="flow-arrow" aria-hidden="true">
+              ↓
+            </div>
+            <Link href="/learn/trajectory-evaluation/" className="output-block">
+              <span className="overview-stage">03 / OUTPUT & EVALUATION</span>
+              <strong>Pose · velocity · sensor biases</strong>
+              <span>
+                Inspect trajectory error, output coverage, and runtime{" "}
+                <ArrowRight size={14} />
+              </span>
             </Link>
           </div>
-          <p className="plot-footnote">
-            Synthetic teaching example · no estimator is running
+          <p className="overview-caption">
+            A conceptual view. Implementations differ in their state, frontend,
+            and estimation architecture.
           </p>
-        </div>
+        </aside>
       </section>
       <div className="scope-strip">
         <div className="container scope-inner">
-          <span>A complete path through VIO</span>
+          <span>Tutorials, implementations, and evaluation</span>
           <span>
             <b>08</b> foundational lessons
           </span>
@@ -88,8 +113,10 @@ export default function Home() {
       <section className="section container">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">CHOOSE YOUR STARTING POINT</span>
-            <h2>One field. Many ways in.</h2>
+            <span className="eyebrow">
+              TUTORIALS · IMPLEMENTATION · EVALUATION
+            </span>
+            <h2>Learn VIO systematically.</h2>
           </div>
           <p>
             Follow a guided path, get a system running, or examine the evidence
@@ -101,7 +128,7 @@ export default function Home() {
             {
               icon: BookOpen,
               n: "01",
-              title: "I want to understand VIO",
+              title: "Learn the foundations",
               body: "Build a connected understanding of sensors, geometry, calibration, and estimation.",
               href: "/learn/",
               cta: "Follow the learning path",
@@ -109,15 +136,15 @@ export default function Home() {
             {
               icon: Terminal,
               n: "02",
-              title: "I want to run a system",
-              body: "Start with a browser experiment, then run OpenVINS on a real visual–inertial sequence.",
-              href: "/run/",
-              cta: "Open the run guides",
+              title: "Run an implementation",
+              body: "Build OpenVINS, configure a real dataset, save a trajectory, and evaluate the output.",
+              href: "/run/openvins/",
+              cta: "Run OpenVINS on EuRoC",
             },
             {
               icon: ChartNoAxesCombined,
               n: "03",
-              title: "I want to compare results",
+              title: "Understand the results",
               body: "Explore a measured runtime snapshot and learn what makes a comparison meaningful.",
               href: "/benchmark/",
               cta: "Explore VIOBench",
@@ -149,8 +176,8 @@ export default function Home() {
             </h2>
             <p className="section-description">
               Each lesson connects a concept to a practical decision, with a
-              worked explanation, a small exercise, and links to the original
-              sources.
+              worked explanation, explicit assumptions, and links to original
+              documentation and papers.
             </p>
             <ButtonLink href="/learn/" secondary>
               Explore all 8 lessons
@@ -221,8 +248,8 @@ export default function Home() {
             <span className="eyebrow">BUILT TO GROW TOGETHER</span>
             <h2>Make VIO easier to learn.</h2>
             <p>
-              Found an unclear explanation, a missing resource, or a useful
-              experiment? Help improve the next person’s starting point.
+              Suggest a technical correction, contribute a documented workflow,
+              or add a useful reference for the VIO community.
             </p>
           </div>
           <ButtonLink

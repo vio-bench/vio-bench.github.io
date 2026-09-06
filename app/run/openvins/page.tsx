@@ -20,7 +20,7 @@ export default function OpenVINS() {
             </a>
           ))}
           <a href="#troubleshooting">Troubleshooting</a>
-          <Link href="/run/lab/">Try the browser lab</Link>
+          <Link href="/systems/">Browse other implementations</Link>
         </aside>
         <article className="prose">
           <Callout title={guide.environment}>

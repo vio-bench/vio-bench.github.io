@@ -1,52 +1,101 @@
+import Link from "next/link";
 import { PageIntro, ButtonLink, Callout } from "@/components/ui";
-import { SlidersHorizontal, Terminal } from "lucide-react";
-export const metadata = { title: "Run and experiment" };
+import { Terminal, BookOpen, FolderOpen, ArrowRight } from "lucide-react";
+export const metadata = { title: "Run VIO systems" };
 export default function Run() {
   return (
     <>
       <PageIntro
-        eyebrow="RUN / LEARN BY DOING"
-        title="Turn a concept into an experiment."
-        description="Build intuition with a small browser lab, then follow a documented route to running a real estimator on your machine."
+        eyebrow="RUN / IMPLEMENTATION GUIDES"
+        title="Run VIO on real sensor data."
+        description="Follow installation, dataset configuration, trajectory recording, and evaluation steps for a public implementation."
       />
       <div className="container page-content">
-        <div className="feature-grid">
-          <article className="feature-panel">
-            <SlidersHorizontal size={29} />
-            <span className="eyebrow">IN YOUR BROWSER · NO SETUP</span>
-            <h2>Trajectory intuition lab</h2>
+        <div className="run-guide-feature">
+          <div>
+            <span className="eyebrow">
+              DOCUMENTED WORKFLOW / OPENVINS + EUROC
+            </span>
+            <h2>From source code to an evaluated trajectory.</h2>
             <p>
-              Change a time offset, add acceleration bias, and shorten the
-              available output. Watch the path and position error update.
-            </p>
-            <p className="small">
-              A deterministic teaching simulation. No image processing or VIO
-              estimator runs in this lab.
-            </p>
-            <ButtonLink href="/run/lab/">Launch the lab</ButtonLink>
-          </article>
-          <article className="feature-panel">
-            <Terminal size={29} />
-            <span className="eyebrow">ON YOUR MACHINE · REAL SENSOR DATA</span>
-            <h2>OpenVINS on EuRoC</h2>
-            <p>
-              Prepare the environment, inspect the calibration, launch the
-              estimator, save its trajectory, and evaluate the result.
+              Build OpenVINS, select the supplied EuRoC calibration, process
+              stereo images and IMU measurements, then save and evaluate the
+              estimated trajectory.
             </p>
             <p className="small">
               Ubuntu 20.04 · ROS 1 Noetic · upstream documented environment.
-              Commands reviewed against source; not executed here.
+              Commands reviewed against source; not executed as part of this
+              website release.
             </p>
             <ButtonLink href="/run/openvins/">
-              Follow the local run guide
+              Read the OpenVINS run guide
             </ButtonLink>
-          </article>
+          </div>
+          <ol className="workflow-list">
+            <li>
+              <span>01</span>Install dependencies and build
+            </li>
+            <li>
+              <span>02</span>Inspect the dataset and calibration
+            </li>
+            <li>
+              <span>03</span>Run the estimator and record output
+            </li>
+            <li>
+              <span>04</span>Check overlap, alignment, and error
+            </li>
+          </ol>
         </div>
-        <Callout title="A useful experiment keeps its context">
+        <section className="section">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">PREPARE YOUR OWN WORKFLOW</span>
+              <h2>Keep the inputs and settings traceable.</h2>
+            </div>
+          </div>
+          <div className="path-grid">
+            {[
+              {
+                icon: FolderOpen,
+                title: "Prepare the data",
+                body: "Choose a sequence and read its sensor streams, calibration, timestamps, and ground-truth definitions.",
+                href: "/resources/",
+                cta: "Dataset resources",
+              },
+              {
+                icon: Terminal,
+                title: "Choose an implementation",
+                body: "Compare estimator approaches and documented input modes, then follow the public upstream instructions.",
+                href: "/systems/",
+                cta: "Explore the systems",
+              },
+              {
+                icon: BookOpen,
+                title: "Evaluate the output",
+                body: "Identify the pose frame, alignment, timestamp overlap, and missing output before interpreting trajectory error.",
+                href: "/learn/trajectory-evaluation/",
+                cta: "Trajectory evaluation tutorial",
+              },
+            ].map((c) => (
+              <Link className="path-card" key={c.href} href={c.href}>
+                <div className="card-top">
+                  <c.icon size={26} />
+                </div>
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+                <span className="text-link">
+                  {c.cta}
+                  <ArrowRight size={15} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+        <Callout title="Record enough information to reproduce the run">
           <p>
-            Keep the data sequence, sensor mode, calibration, software revision,
-            machine, and evaluation settings with every result. A trajectory
-            plot alone cannot tell you whether two runs are comparable.
+            Keep the data sequence, sensor mode, calibration, source revision,
+            build settings, machine, launch command, and evaluation settings
+            with each result. Preserve repeated runs in separate output files.
           </p>
         </Callout>
       </div>

@@ -7,7 +7,7 @@
   "status": "Upstream-documented guide; not executed or benchmarked here",
   "sourceChecked": "2026-09-06",
   "sourceRevision": "69488123ed9362dd44b6f28e7f4680abbff1442b",
-  "summary": "This guide follows the official OpenVINS EuRoC tutorial. Commands run on your Linux machine. The website\u2019s interactive lessons are teaching simulations and do not execute OpenVINS.",
+  "summary": "This guide follows the official OpenVINS EuRoC tutorial, from installing the estimator to saving and evaluating a trajectory. Run these commands in the documented Linux environment.",
   "prerequisites": [
     "Ubuntu 20.04 with ROS 1 Noetic desktop-full installed using the upstream ROS1 installation instructions. Desktop-full supplies ROS tools and RViz; use Bash terminals. This is the upstream tutorial environment, not a native macOS workflow.",
     "Git, a C++ build toolchain, CMake, catkin_tools, Eigen, Boost, Ceres, OpenCV with contrib modules, and the ROS dependencies listed below. Include the Python 3 packages for the evaluation plots used in step 6.",
@@ -173,5 +173,5 @@
     "Repeat with a single camera only after the stereo route works; use max_cameras:=1 and preserve the changed settings with the result.",
     "Follow the calibration tutorial before using your own sensor."
   ],
-  "localRunBoundary": "The browser lesson demonstrates concepts with synthetic data. This guide launches the actual estimator on your local machine; it has not been executed in this website build."
+  "localRunBoundary": "This guide launches OpenVINS on your local machine. The commands were reviewed against upstream source; they have not been executed in this website build."
 }

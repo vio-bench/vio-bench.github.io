@@ -78,7 +78,7 @@ export default async function Lesson({
             </section>
           ))}
           <section className="exercise">
-            <span className="eyebrow">CHECK YOUR UNDERSTANDING</span>
+            <span className="eyebrow">WORKED EXAMPLE</span>
             <p>{l.exercise.question}</p>
             <details>
               <summary>Reveal the explanation</summary>

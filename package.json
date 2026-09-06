@@ -7,7 +7,6 @@
     "build": "next build",
     "check": "tsc --noEmit",
     "validate": "node scripts/validate-export.mjs",
-    "test": "node --test tests/*.test.mjs",
     "data:csv": "node scripts/export-csv.mjs",
     "deploy": "node scripts/deploy.mjs"
   },

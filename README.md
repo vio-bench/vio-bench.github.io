@@ -6,16 +6,15 @@ An open learning home for visual–inertial odometry: https://vio-bench.github.i
 
 - Eight connected lessons with exercises and primary sources.
 - Eleven public upstream system profiles with configuration caveats.
-- A deterministic, interactive trajectory teaching lab with downloadable CSV.
 - An OpenVINS / EuRoC local run guide, reviewed against upstream documentation and source.
 - A 20-record LaMAria R_02_easy monocular runtime snapshot across three platform labels.
 - Five dataset reference cards and links to calibration/evaluation resources.
 
-The browser lab computes synthetic 2D trajectories. It does not execute a VIO estimator. The OpenVINS guide has not been executed as part of this site release. The runtime snapshot has explicit limitations; its original per-run artifacts are not part of this public repository. See `/benchmark/protocol/` and `public/data/runtime.json`.
+The OpenVINS guide has not been executed as part of this site release. The runtime snapshot has explicit limitations; its original per-run artifacts are not part of this public repository. See `/benchmark/protocol/` and `public/data/runtime.json`.
 
 ## Develop
 
-Node.js 22.18+ and npm (the tests use native TypeScript support). Use a current supported Node LTS for maintenance.
+Node.js 22.18+ and npm. Use a current supported Node LTS for maintenance.
 
 ```sh
 npm ci
@@ -25,7 +24,6 @@ npm run dev
 The development server uses http://127.0.0.1:3106.
 
 ```sh
-npm run test
 npm run build
 npm run check
 npm run validate
