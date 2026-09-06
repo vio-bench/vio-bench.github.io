@@ -1,0 +1,503 @@
+[
+  {
+    "slug": "camera-and-imu",
+    "title": "Why a camera and an IMU work together",
+    "level": "Beginner",
+    "duration": "12 min",
+    "summary": "Understand what each sensor measures and how their information supports six-degree-of-freedom motion estimation.",
+    "prerequisites": [],
+    "objectives": [
+      "Distinguish image observations from inertial measurements",
+      "Explain why an accelerometer does not directly measure position",
+      "Separate local odometry from globally corrected SLAM"
+    ],
+    "sections": [
+      {
+        "title": "Start with the measurements",
+        "body": [
+          "Visual-inertial odometry (VIO) estimates six-degree-of-freedom (6-DoF) motion: three components of position and three of orientation. A camera observes the scene; it does not output the camera's motion directly. A gyroscope measures angular velocity, while an accelerometer measures specific force. An estimator must relate these measurements through a motion model and a camera model.",
+          "Tracking the same visible point across images constrains how the camera moved relative to the scene. In a pinhole model, projection divides a point's horizontal and vertical coordinates by its depth. This division explains why a single image gives a viewing direction rather than an independent distance measurement."
+        ]
+      },
+      {
+        "title": "Gravity is part of the model",
+        "body": [
+          "Let R_IW rotate world-frame vectors into the IMU frame. The idealized accelerometer equation below uses world acceleration a_W, world gravity g_W, accelerometer bias b_a, and noise n_a. Acceleration and specific force have units of m/s². Angular velocity uses rad/s.",
+          "A stationary accelerometer normally has a nonzero reading because its specific force balances gravity. Subtracting a fixed number from one sensor axis is insufficient when the sensor rotates. Gravity must be expressed in the correct frame."
+        ],
+        "equation": "f_m = R_IW (a_W − g_W) + b_a + n_a"
+      },
+      {
+        "title": "Prediction and correction",
+        "body": [
+          "IMU integration predicts orientation, velocity, and position between image updates. Bias and noise accumulate during integration. Visual observations constrain that prediction when enough informative image structure remains visible. With appropriate calibration and sufficiently informative motion, the combination can recover metric scale even when only one camera is used.",
+          "Neither sensor eliminates the other's limitations. Blur or poor texture can weaken image constraints; incorrect biases, timing, or calibration can corrupt the prediction. The estimated trajectory is the result of reconciling imperfect measurements."
+        ]
+      },
+      {
+        "title": "VIO and SLAM outputs",
+        "body": [
+          "VIO produces local motion estimates that can drift. A larger SLAM system may additionally recognize revisited places and correct a global map or pose graph. When comparing outputs, identify whether loop closure or relocalization was enabled and whether the trajectory contains those corrections."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "A stationary, level IMU reports approximately 9.81 m/s² on its upward axis. Does this imply upward motion?",
+      "answer": "No. Ignoring bias and noise, a stationary sensor measures the specific force opposing gravity. World acceleration is recovered by rotating specific force into the world and adding the world gravity vector."
+    },
+    "sources": [
+      {
+        "title": "OpenVINS: IMU propagation and measurement models",
+        "url": "https://docs.openvins.com/propagation.html"
+      },
+      {
+        "title": "OpenVINS: camera measurement model",
+        "url": "https://docs.openvins.com/update-feat.html"
+      },
+      {
+        "title": "VINS-Mono: odometry and pose graph components",
+        "url": "https://github.com/HKUST-Aerial-Robotics/VINS-Mono"
+      }
+    ]
+  },
+  {
+    "slug": "coordinate-frames",
+    "title": "Read coordinate frames without guessing",
+    "level": "Beginner",
+    "duration": "15 min",
+    "summary": "Follow a point from the camera to the IMU and world, with explicit transform directions and units.",
+    "prerequisites": ["camera-and-imu"],
+    "objectives": [
+      "Read the source and destination of a rigid transform",
+      "Invert a transform correctly",
+      "Identify the sensor frame represented by a trajectory"
+    ],
+    "sections": [
+      {
+        "title": "A vector needs a frame",
+        "body": [
+          "The numbers [1, 0, 0] describe a direction only after its coordinate frame is known. A point one meter in front of a camera is different from a point one meter along an IMU's x-axis. In these lessons, W is a local world frame, I an IMU frame, and C a camera frame. These letters name coordinate systems; they do not imply an axis convention.",
+          "ROS commonly uses x forward, y left, and z up for a body frame, while a camera optical frame uses x right, y down, and z forward. A dataset or estimator can use different conventions. Read its definitions before copying a transformation."
+        ]
+      },
+      {
+        "title": "Define the direction once",
+        "body": [
+          "We write T_AB for the rigid transform taking coordinates from frame B into frame A. R_AB is its rotation; t_AB is the location of B's origin expressed in A. All point coordinates and translations below are in meters. A transform stored as T_cam_imu in Kalibr maps IMU coordinates into camera coordinates.",
+          "Composition follows the intermediate frame: T_WC = T_WI T_IC. The rightmost operation acts first. To use Kalibr's T_CI in this expression, first invert it to obtain T_IC."
+        ],
+        "equation": "p_A = R_AB p_B + t_AB; T_BA = [R_ABᵀ, −R_ABᵀ t_AB; 0, 1]"
+      },
+      {
+        "title": "Check rotation and position separately",
+        "body": [
+          "An inverse transform requires both transposing the rotation and rotating the negative translation. Negating translation alone is generally wrong. Verify a conversion with a simple point: map the source origin into the destination frame, then map it back. The round trip should recover the original point within numerical precision.",
+          "Quaternions also require a convention. Record component order, the direction of the represented rotation, and the multiplication convention. A four-number array is not a complete orientation specification."
+        ]
+      },
+      {
+        "title": "Know what a trajectory tracks",
+        "body": [
+          "A trajectory may describe the IMU, a camera, or a ground-truth marker. Rigidly attached sensors still follow different position paths while rotating because their origins are separated. Convert estimates and references to the same physical frame before evaluation. Also distinguish a locally continuous odometry frame from a globally corrected map frame."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "If T_WI maps IMU coordinates into world coordinates and T_IC maps camera coordinates into IMU coordinates, how do you map a camera point into the world?",
+      "answer": "Apply T_IC first, then T_WI: T_WC = T_WI T_IC. The intermediate IMU frame matches, so the composition is valid."
+    },
+    "sources": [
+      {
+        "title": "ROS REP 103: units and coordinate conventions",
+        "url": "https://github.com/ros-infrastructure/rep/blob/master/rep-0103.rst"
+      },
+      {
+        "title": "ROS REP 105: odom and map frame semantics",
+        "url": "https://github.com/ros-infrastructure/rep/blob/master/rep-0105.rst"
+      },
+      {
+        "title": "Kalibr: YAML transform definitions",
+        "url": "https://github.com/ethz-asl/kalibr/wiki/yaml-formats"
+      }
+    ]
+  },
+  {
+    "slug": "calibration-and-time",
+    "title": "Calibrate geometry, noise, and time",
+    "level": "Beginner",
+    "duration": "18 min",
+    "summary": "Understand the calibration quantities a VIO estimator needs and why a plausible trajectory does not validate them.",
+    "prerequisites": ["coordinate-frames"],
+    "objectives": [
+      "Separate camera intrinsics, sensor extrinsics, and IMU noise",
+      "Interpret a time-offset sign explicitly",
+      "Inspect calibration evidence before running an estimator"
+    ],
+    "sections": [
+      {
+        "title": "Calibrate distinct quantities",
+        "body": [
+          "Camera intrinsics define projection and lens distortion for a particular image geometry. Camera–IMU extrinsics define the rigid rotation and translation between sensors. IMU noise parameters describe uncertainty in the inertial readings and bias evolution. Temporal calibration connects the clocks. Each quantity changes a different part of the measurement model.",
+          "Use calibration for the images actually supplied to the estimator. Cropping, resizing, rectification, or changing the camera mode can change how pixels relate to rays. Keep the original sensor settings and the processing steps with the calibration files."
+        ]
+      },
+      {
+        "title": "A time offset has a direction",
+        "body": [
+          "Kalibr defines timeshift_cam_imu in seconds through the equation below. Other software may use the opposite sign or shift the other stream. Translate the definition, rather than transferring an unexplained number. Measurement timestamps should represent acquisition timing consistently; message arrival time can include buffering and transport delays.",
+          "Inspect timestamp differences for missing samples, duplicated values, jumps, and bursts. A constant offset cannot repair arbitrary jitter or an incorrect time unit."
+        ],
+        "equation": "t_imu = t_cam + timeshift_cam_imu"
+      },
+      {
+        "title": "Collect motion that informs the calibration",
+        "body": [
+          "For camera–IMU calibration, Kalibr uses a stationary target while the rigid sensor assembly moves. Vary rotation and translation so the measurements constrain multiple axes. Keep the target visible, use even illumination, and reduce motion blur. Purely repetitive motion can leave parameters weakly constrained even if optimization finishes.",
+          "Review the calibration report, including image residuals, IMU residuals, timing intervals, and the plausibility of the recovered sensor transform. Repeat with another recording. Large variation between sessions is a reason to inspect the data and model, not to choose the nicer number."
+        ]
+      },
+      {
+        "title": "Noise is not a per-sample tuning constant",
+        "body": [
+          "A continuous-time noise density and a discrete measurement standard deviation have different units. In Kalibr, gyroscope and accelerometer noise densities use (rad/s)/√Hz and (m/s²)/√Hz; the corresponding bias random-walk parameters use (rad/s²)/√Hz and (m/s³)/√Hz. Kalibr separates rapidly varying measurement noise from slowly changing bias. Its conversion to discrete noise assumes an appropriate sampling and filtering model. Copying a per-sample standard deviation into a noise-density field changes how strongly the estimator trusts the IMU.",
+          "Retain the noise characterization, calibration recording, target dimensions, software revision, and generated report together. Online calibration can refine supported parameters, but it still depends on an appropriate model and informative data."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "Under Kalibr's convention, a camera timestamp is 10.000 s and the offset is +0.004 s. Which IMU-clock time represents that image?",
+      "answer": "10.004 s. The offset is added to the camera timestamp. Check the destination estimator's definition before reusing that value."
+    },
+    "sources": [
+      {
+        "title": "Kalibr: camera–IMU calibration procedure",
+        "url": "https://github.com/ethz-asl/kalibr/wiki/camera-imu-calibration"
+      },
+      {
+        "title": "Kalibr: timestamp and configuration definitions",
+        "url": "https://github.com/ethz-asl/kalibr/wiki/yaml-formats"
+      },
+      {
+        "title": "Kalibr: continuous and discrete IMU noise",
+        "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
+      },
+      {
+        "title": "OpenVINS: sensor calibration and report inspection",
+        "url": "https://docs.openvins.com/gs-calibration.html"
+      }
+    ]
+  },
+  {
+    "slug": "initialization",
+    "title": "Understand what initialization must recover",
+    "level": "Intermediate",
+    "duration": "15 min",
+    "summary": "Explain why starting a VIO estimator requires more than the first image and how to diagnose an initialization failure.",
+    "prerequisites": ["camera-and-imu", "calibration-and-time"],
+    "objectives": [
+      "Name the initial quantities needed for inertial propagation",
+      "Distinguish stationary and dynamic initialization assumptions",
+      "Separate a startup failure from later tracking loss"
+    ],
+    "sections": [
+      {
+        "title": "The state must start somewhere",
+        "body": [
+          "Inertial propagation needs an initial orientation, velocity, position, and bias estimate. Monocular visual reconstruction may also need its scale connected to inertial measurements. In ordinary VIO without external global references, global translation and rotation about gravity remain unobservable. Choosing a starting position and yaw fixes a local coordinate convention; gravity direction, velocity, biases, and scale depend on measurements and assumptions.",
+          "The initial uncertainty matters as well. If an uncertain quantity is initialized with excessive confidence, later observations may be unable to correct it appropriately. An initializer therefore supplies both an estimate and, in many formulations, uncertainty information for the estimator that follows."
+        ]
+      },
+      {
+        "title": "A stationary start is an assumption",
+        "body": [
+          "A stationary interval can support gravity alignment and gyroscope bias estimation. A single static orientation cannot independently identify arbitrary accelerometer bias and tilt; the initializer needs assumptions about them. OpenVINS uses a previous stationary measurement window and can wait for a subsequent acceleration change before starting. The sensor must actually satisfy the assumed stationary condition.",
+          "Low variation alone is not proof of zero motion: constant acceleration can also produce nearly constant accelerometer readings. Gravity constrains roll and pitch under the stationary assumption; it does not independently determine heading about the gravity direction."
+        ]
+      },
+      {
+        "title": "Dynamic initialization uses joint constraints",
+        "body": [
+          "A dynamic initializer combines image tracks and inertial measurements over a time window. OpenVINS documents a process using inertial preintegration, a constrained initial solve, and subsequent maximum-likelihood refinement with uncertainty recovery. The purpose is to obtain mutually consistent initial motion and sensor states.",
+          "Motion is useful only when it contributes information. An image sequence with little usable parallax, interrupted tracks, or inconsistent timestamps can prevent a well-conditioned start. Moving faster is not a universal remedy because it can also produce blur and lost tracks."
+        ]
+      },
+      {
+        "title": "Diagnose the stage that failed",
+        "body": [
+          "First verify that both sensor streams reach the estimator with the intended timestamps and calibration. Then inspect the startup window, feature tracks, initializer status, and first published state. Record the time at which initialization succeeds. An estimator that never starts and one that loses tracking halfway through a sequence have different failure modes.",
+          "Keep the original recording intact when testing a new startup interval. Record the selected start time and configuration, and change one assumption at a time so the next result has an interpretable cause."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "Why can a gravity-aligned stationary IMU still have an arbitrary initial yaw?",
+      "answer": "Rotating the heading around the gravity direction does not change the gravity vector observed by that stationary IMU. A heading reference or an arbitrary local convention is needed; gravity alone does not fix yaw."
+    },
+    "sources": [
+      {
+        "title": "OpenVINS: static initializer assumptions",
+        "url": "https://docs.openvins.com/classov__init_1_1StaticInitializer.html"
+      },
+      {
+        "title": "OpenVINS: dynamic initialization procedure",
+        "url": "https://docs.openvins.com/classov__init_1_1DynamicInitializer.html"
+      },
+      {
+        "title": "OpenVINS: observability and estimator consistency",
+        "url": "https://docs.openvins.com/fej.html"
+      },
+      {
+        "title": "OpenVINS: static initialization implementation",
+        "url": "https://github.com/rpng/open_vins/blob/master/ov_init/src/static/StaticInitializer.cpp"
+      }
+    ]
+  },
+  {
+    "slug": "filtering-and-optimization",
+    "title": "Compare filtering and optimization",
+    "level": "Intermediate",
+    "duration": "18 min",
+    "summary": "Follow how two estimator families use the same camera and IMU information while managing state history differently.",
+    "prerequisites": ["initialization"],
+    "objectives": [
+      "Explain a residual and its uncertainty weighting",
+      "Describe an MSCKF update without assuming a permanent map",
+      "Identify the implementation choices that affect accuracy and cost"
+    ],
+    "sections": [
+      {
+        "title": "Both approaches reconcile measurements",
+        "body": [
+          "Suppose an estimated state predicts where a tracked feature should appear. The difference between the observed and predicted pixel location is a residual. Inertial measurements produce motion constraints as well. Filtering and optimization both use these constraints and their uncertainty; their names alone do not determine which observations are used.",
+          "The equation below is a schematic weighted least-squares objective. Here x collects estimated variables, r_i is a measurement residual, and Σ_i is its covariance. The weighting matters: a residual in pixels and one in meters cannot be compared by adding their raw squared magnitudes."
+        ],
+        "equation": "x* = arg min_x ∑_i r_i(x)ᵀ Σ_i⁻¹ r_i(x)"
+      },
+      {
+        "title": "Filtering carries an estimate and covariance",
+        "body": [
+          "An extended Kalman filter propagates an estimate and covariance, then updates them with new measurement constraints. An MSCKF also retains selected past poses so a feature observed across several images can constrain relative motion. It does not have to retain every observed landmark as a permanent state variable.",
+          "OpenVINS explains how projecting a linearized feature residual into the left nullspace of its feature Jacobian removes explicit sensitivity to that feature's position error. The remaining constraint can update the retained navigation states. This is a concrete mechanism behind the MSCKF formulation."
+        ]
+      },
+      {
+        "title": "A sliding window revisits retained states",
+        "body": [
+          "A sliding-window optimizer jointly adjusts states within an active time window. VINS-Mono combines visual constraints with preintegrated inertial constraints in such a formulation. Older variables are removed as the window advances, while their influence is summarized through marginalization.",
+          "The window size, number of tracked features, solver iterations, linearization choices, and marginalization policy affect both computation and the estimate. Optimization is not automatically more accurate, and filtering is not automatically faster under different input or implementation conditions."
+        ]
+      },
+      {
+        "title": "Compare the actual system configuration",
+        "body": [
+          "Record camera mode, image resolution, input rate, feature settings, calibration options, and enabled mapping components before comparing two systems. Loop closure belongs to an additional global correction process and should be identified separately from the local VIO estimator. Investigate residuals and timing components before attributing an observed difference to the broad estimator family."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "Two systems use the same estimator family but different image resolutions and feature counts. Can a timing difference isolate the effect of the estimator formulation?",
+      "answer": "No. The input and configuration differences also change computational work. First compare a documented common condition, then vary one setting to study its effect."
+    },
+    "sources": [
+      {
+        "title": "OpenVINS: MSCKF nullspace projection",
+        "url": "https://docs.openvins.com/update-null.html"
+      },
+      {
+        "title": "VINS-Mono: primary paper",
+        "url": "https://arxiv.org/abs/1708.03852"
+      },
+      {
+        "title": "VINS-Mono: implemented estimator and mapping components",
+        "url": "https://github.com/HKUST-Aerial-Robotics/VINS-Mono"
+      }
+    ]
+  },
+  {
+    "slug": "trajectory-evaluation",
+    "title": "Read trajectory error together with coverage",
+    "level": "Intermediate",
+    "duration": "18 min",
+    "summary": "Understand ATE, RPE, alignment, and why an error number needs an explicit evaluation interval and denominator.",
+    "prerequisites": ["coordinate-frames"],
+    "objectives": [
+      "Distinguish absolute and relative trajectory errors",
+      "Explain what SE(3) and Sim(3) alignment remove",
+      "Report missing outputs separately from measured error"
+    ],
+    "sections": [
+      {
+        "title": "Establish corresponding poses first",
+        "body": [
+          "Before computing an error, put estimated and reference poses in the same physical sensor frame and use consistent units. Associate timestamps under a stated tolerance or interpolation policy. Record the interval that has valid reference data. Matching the wrong timestamps or comparing camera poses with IMU poses can create errors unrelated to the estimator's motion accuracy."
+        ]
+      },
+      {
+        "title": "Absolute error depends on alignment",
+        "body": [
+          "Absolute trajectory error compares corresponding poses after a specified alignment. For position RMSE, p̂_i is the aligned estimated position, p_i the reference position, and N the number of evaluated correspondences. Positions are in meters, so this RMSE is also in meters.",
+          "SE(3) alignment estimates rotation and translation; Sim(3) also adjusts scale. For gravity-aligned VIO, yaw-plus-translation alignment preserves gravity alignment while removing the usual unobservable global freedoms. Full SE(3) additionally fits roll and pitch, and Sim(3) removes a scale discrepancy. State which transform is allowed and which poses fit it: these choices change what the score measures."
+        ],
+        "equation": "position RMSE = sqrt((1/N) ∑_i ‖p̂_i − p_i‖²)"
+      },
+      {
+        "title": "Relative error compares motion segments",
+        "body": [
+          "Relative pose error (RPE) compares estimated and reference motion between pose pairs. Specify whether pairs are separated by time, distance, or frame count, the segment length, and the pair-selection rule. Report translation and rotation units explicitly. Segment error in meters is different from distance-normalized drift in percent; angular error in degrees differs from degrees per meter. State any normalization.",
+          "evo provides absolute and relative pose error tools with selectable pose relations and alignment options. Save the evaluation command and settings with the result so another reader can reconstruct what the number measures."
+        ]
+      },
+      {
+        "title": "Missing output is not zero error",
+        "body": [
+          "A low error over a short surviving interval does not establish good performance over a whole recording. For a transparent report, record initialization time, output gaps, final output time, reference availability, and the number of attempted runs. Label incomplete runs and evaluation failures explicitly.",
+          "Choose the denominator before computing coverage. For example, matched reference samples divided by eligible reference samples measures sample coverage under a particular association policy. It is different from time coverage or completed-run rate. This is a reporting choice for the exercise, not an adopted VIOBench protocol. Publish the definition alongside the value."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "An estimate matches 800 of 1,000 eligible reference samples and has 0.05 m position RMSE on those matches. What can you report?",
+      "answer": "Under this sample-based definition, matched-sample coverage is 80%, and position RMSE is 0.05 m over the 800 matches. This does not establish the error over the missing 200 samples or imply 80% time coverage."
+    },
+    "sources": [
+      {
+        "title": "evo: absolute error, relative error, and alignment",
+        "url": "https://github.com/MichaelGrupp/evo/wiki/Metrics"
+      },
+      {
+        "title": "OpenVINS: trajectory evaluation metrics",
+        "url": "https://docs.openvins.com/eval-metrics.html"
+      },
+      {
+        "title": "evo: pose formats and sensor-frame cautions",
+        "url": "https://github.com/MichaelGrupp/evo/wiki/Formats"
+      },
+      {
+        "title": "Zhang and Scaramuzza: trajectory alignment for visual-inertial systems",
+        "url": "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf"
+      }
+    ]
+  },
+  {
+    "slug": "runtime-and-platform",
+    "title": "Measure runtime on the platform you use",
+    "level": "Intermediate",
+    "duration": "14 min",
+    "summary": "Separate processing time, latency, throughput, and utilization when judging whether an estimator keeps up with its input.",
+    "prerequisites": ["filtering-and-optimization", "trajectory-evaluation"],
+    "objectives": [
+      "Define the boundaries of a timing measurement",
+      "Compare a timing distribution with input cadence",
+      "Record enough platform information to interpret a result"
+    ],
+    "sections": [
+      {
+        "title": "Define what the clock measures",
+        "body": [
+          "Processing time measures an explicitly bounded operation, such as feature tracking plus an estimator update. End-to-end latency measures the delay from a stated input event to a usable output. Throughput measures completed work per unit time. CPU utilization describes processor activity. These quantities answer different questions, so a timing table should name its measurement boundary.",
+          "OpenVINS records internal component timings and total timings separately from process resource usage. An internal timer may exclude data decoding, transport, visualization, or another process. Determine what it covers before treating it as the cost of the entire application."
+        ]
+      },
+      {
+        "title": "Look beyond the mean",
+        "body": [
+          "For a stream at f images per second, the nominal image interval is 1/f seconds. At an illustrative 20 Hz, this is 50 ms. In a simple serial pipeline, sustained processing slower than the arrival interval produces a backlog or requires dropping work. Concurrent pipelines need measurements of the complete scheduling behavior.",
+          "Record a distribution: median, a high percentile, and maximum alongside the mean. Also inspect queue growth, output delay, dropped inputs, and gaps. A small mean cannot show whether occasional stalls violate an application's latency needs."
+        ],
+        "equation": "nominal image interval [ms] = 1000 / image rate [Hz]"
+      },
+      {
+        "title": "Preserve the comparison conditions",
+        "body": [
+          "Record the device model, operating system, CPU and GPU, power mode, thread settings, compiler, build options, and software revision. Keep image resolution, sequence interval, camera mode, and estimator settings with the result. Temperature and competing workloads can also change the observed runtime.",
+          "CPU percentages from unlike devices do not measure equal computational capacity. Compare systems on a common device when studying relative resource use, and use measured time and latency on each target device when studying deployment."
+        ]
+      },
+      {
+        "title": "Profile a question, then measure the result",
+        "body": [
+          "Component timing can reveal whether tracking, updates, or another stage dominates. A call-stack profiler can then locate costly functions. Profiling tools add overhead, so use their output to diagnose work and measure the changed application under the normal timing setup afterward. Keep accuracy and coverage checks with speed measurements: processing less useful input can make a system faster while changing its result."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "A 20 Hz serial input has a 30 ms mean processing time and a 90 ms high-percentile processing time. Is the mean enough to establish low-latency operation?",
+      "answer": "No. The nominal interval is 50 ms, and some updates exceed it. Inspect queue behavior, output latency, and dropped inputs to determine whether the system catches up and meets the application's requirements."
+    },
+    "sources": [
+      {
+        "title": "OpenVINS: timing distributions and resource measurement",
+        "url": "https://docs.openvins.com/eval-timing.html"
+      },
+      {
+        "title": "OpenVINS: profiling processing time",
+        "url": "https://docs.openvins.com/dev-profiling.html"
+      }
+    ]
+  },
+  {
+    "slug": "your-own-data",
+    "title": "Bring your own camera–IMU recording",
+    "level": "Intermediate",
+    "duration": "20 min",
+    "summary": "Prepare an inspectable sensor recording, run a known configuration, and keep the evidence needed to diagnose and reproduce the result.",
+    "prerequisites": [
+      "calibration-and-time",
+      "initialization",
+      "trajectory-evaluation"
+    ],
+    "objectives": [
+      "Check sensor content before tuning an estimator",
+      "Separate raw data, configuration, and generated outputs",
+      "Distinguish successful execution from demonstrated accuracy"
+    ],
+    "sections": [
+      {
+        "title": "Start from an understandable recording",
+        "body": [
+          "Keep an unchanged copy of the raw recording. Inspect images and IMU samples before connecting them to VIO. Confirm image encoding, dimensions, exposure behavior, and camera ordering. Check timestamp units, monotonicity, stream overlap, missing samples, and actual sample intervals. Plot all gyroscope and accelerometer axes; verify their physical units and frame definitions.",
+          "Choose an initial recording whose environment and motion you can explain. Include a usable startup interval for the chosen initializer, textured views, and moderate movement. This makes it easier to distinguish integration problems from genuinely difficult sensing conditions."
+        ]
+      },
+      {
+        "title": "Bind the recording to its calibration",
+        "body": [
+          "Use camera projection and distortion models supported by the selected estimator. Supply intrinsics, camera–IMU transforms, temporal calibration, and IMU noise in that estimator's expected convention. Check any image preprocessing against its calibration. A configuration copied from a public dataset describes that dataset's sensors, not your own hardware.",
+          "The OpenVINS tutorial separates estimator settings, IMU properties, and camera–IMU calibration into configuration files. Follow the upstream guide for the exact release and interface you use, and retain the resolved configuration after launch-time overrides."
+        ]
+      },
+      {
+        "title": "Run a baseline and preserve outputs",
+        "body": [
+          "First reproduce a supported upstream example to check the installation. Then change the data and sensor configuration deliberately. Record the command, software revision, environment, input interval, and initialization status. Save logs and the estimated trajectory even when the run is incomplete; a missing output is evidence to diagnose.",
+          "For a portable trajectory, evo documents the TUM text layout: timestamp in seconds, position, then quaternion components q_x q_y q_z q_w. Record position units and the pose frame separately. Format conversion does not by itself convert a camera trajectory into an IMU trajectory."
+        ]
+      },
+      {
+        "title": "State what the experiment establishes",
+        "body": [
+          "With a suitable reference, evaluate common-frame trajectories under an explicit association and alignment policy. Without ground truth, a visually plausible path establishes neither absolute accuracy nor a drift rate. You can still inspect continuity, tracking, startup, timing, and whether repeated tests behave consistently.",
+          "Package a short README with the sensor model, calibration provenance, input description, commands, outputs, and known gaps. A second person should be able to identify what was measured and reproduce the same experiment without guessing which files belong together."
+        ]
+      }
+    ],
+    "exercise": {
+      "question": "Your own recording produces a smooth trajectory but has no ground truth. What is a defensible first conclusion?",
+      "answer": "The estimator initialized and produced the observed output under the recorded configuration. You can report observed continuity and timing, but cannot claim a measured position accuracy or drift rate without a suitable reference."
+    },
+    "sources": [
+      {
+        "title": "OpenVINS: running an example and organizing configuration",
+        "url": "https://docs.openvins.com/gs-tutorial.html"
+      },
+      {
+        "title": "OpenVINS: calibrating a camera–IMU sensor",
+        "url": "https://docs.openvins.com/gs-calibration.html"
+      },
+      {
+        "title": "evo: trajectory file formats",
+        "url": "https://github.com/MichaelGrupp/evo/wiki/Formats"
+      }
+    ]
+  }
+]

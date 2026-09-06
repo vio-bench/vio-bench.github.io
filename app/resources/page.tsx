@@ -1,0 +1,105 @@
+import { PageIntro, SourceList, Callout } from "@/components/ui";
+import datasets from "@/data/datasets.json";
+export const metadata = { title: "Datasets and resources" };
+export default function Resources() {
+  return (
+    <>
+      <PageIntro
+        eyebrow="RESOURCES / KEEP EXPLORING"
+        title="Find the right starting material."
+        description="Official datasets, calibration tools, evaluation software, and technical references—organized around what you want to learn."
+      />
+      <div className="container page-content">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">DATASETS</span>
+            <h2>Different motion. Different challenges.</h2>
+          </div>
+          <p>{datasets.intro}</p>
+        </div>
+        <div className="resource-grid">
+          {datasets.datasets.map((d) => (
+            <article className="resource-card" key={d.id}>
+              <span className="tag">{d.domain}</span>
+              <h3>{d.name}</h3>
+              <p>{d.description}</p>
+              <p className="small">
+                <strong>Sensors:</strong> {d.sensors}
+              </p>
+              <p>
+                <strong>Learning focus.</strong> {d.learnFocus}
+              </p>
+              <p className="small">{d.referenceNote}</p>
+              <SourceList
+                sources={[
+                  { title: "Official dataset & downloads", url: d.url },
+                  { title: "Dataset paper", url: d.paperUrl },
+                ]}
+              />
+            </article>
+          ))}
+        </div>
+        <section className="section">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">TOOLS & TECHNICAL REFERENCES</span>
+              <h2>Look inside the method.</h2>
+            </div>
+          </div>
+          <div className="tool-list">
+            {[
+              {
+                title: "OpenVINS documentation",
+                body: "Estimator derivations, state representations, calibration, simulation, and evaluation.",
+                url: "https://docs.openvins.com/",
+              },
+              {
+                title: "Kalibr",
+                body: "Camera and camera–IMU calibration, time offset conventions, and IMU noise models.",
+                url: "https://github.com/ethz-asl/kalibr/wiki",
+              },
+              {
+                title: "evo",
+                body: "Trajectory conversion, association, alignment, and error analysis. Record the options you use.",
+                url: "https://github.com/MichaelGrupp/evo",
+              },
+              {
+                title: "ROS coordinate conventions",
+                body: "Start with units and axes in REP 103; inspect the actual dataset and estimator convention.",
+                url: "https://www.ros.org/reps/rep-0103.html",
+              },
+              {
+                title: "Trajectory evaluation tutorial",
+                body: "Zhang and Scaramuzza’s tutorial connects alignment choices to odometry evaluation.",
+                url: "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf",
+              },
+              {
+                title: "VIOVERSE on GitHub",
+                body: "Read the website source, propose a lesson, or report a broken example.",
+                url: "https://github.com/vio-bench/vio-bench.github.io",
+              },
+            ].map((t) => (
+              <a key={t.title} href={t.url}>
+                <strong>{t.title} ↗</strong>
+                <p>{t.body}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+        <Callout title="Choose the streams your experiment actually uses">
+          <p>
+            A multimodal dataset may include LiDAR, pressure, events, GNSS, or
+            other measurements. Their presence does not mean a camera–IMU
+            estimator uses them. Read sequence-specific calibration and
+            ground-truth notes before evaluation.
+          </p>
+        </Callout>
+        <p className="small">
+          Dataset sources checked {datasets.checkedAt}. Learning-focus
+          descriptions are editorial guidance. Each dataset and upstream project
+          retains its own license and usage terms.
+        </p>
+      </div>
+    </>
+  );
+}

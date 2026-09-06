@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-06",
+  "intro": "Five complementary domains for learning how visual–inertial systems behave. Dataset descriptions refer to the official releases, not to a claim that every stream or sequence is included in VIOBench.",
+  "contentType": "Curated dataset reference cards; learning-focus text is editorial guidance.",
+  "datasets": [
+    {
+      "id": "euroc",
+      "name": "EuRoC MAV",
+      "domain": "Indoor flight",
+      "platform": "Micro aerial vehicle",
+      "sensors": "Stereo monochrome cameras and synchronized IMU",
+      "description": "Machine-hall and motion-capture flights with camera–IMU calibration and motion ground truth.",
+      "learnFocus": "Start with calibrated visual–inertial data and inspect how lighting and motion affect tracking.",
+      "url": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+      "documentationUrl": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+      "paperUrl": "https://doi.org/10.1177/0278364915620033",
+      "referenceNote": "Vicon provides pose ground truth in the motion-capture sequences; Leica supplies position and structure measurements. Read sequence-specific ground-truth details.",
+      "sources": [
+        {
+          "title": "EuRoC MAV Dataset — ETH ASL",
+          "url": "https://projects.asl.ethz.ch/datasets/euroc-mav/"
+        }
+      ]
+    },
+    {
+      "id": "uzh-fpv",
+      "name": "UZH-FPV",
+      "domain": "Aggressive flight",
+      "platform": "Racing quadrotor",
+      "sensors": "Camera and IMU streams; additional event-camera and FPV image data",
+      "description": "Fast racing laps and free-form indoor and outdoor flights with large rotations and accelerations.",
+      "learnFocus": "Explore the effect of rapid image motion and inertial excitation on visual–inertial estimation.",
+      "url": "https://fpv.ifi.uzh.ch/",
+      "documentationUrl": "https://fpv.ifi.uzh.ch/datasets/",
+      "paperUrl": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
+      "referenceNote": "Sensor availability and ground-truth files vary by sequence release; use the official sequence documentation.",
+      "sources": [
+        {
+          "title": "The UZH-FPV Drone Racing Dataset",
+          "url": "https://fpv.ifi.uzh.ch/"
+        },
+        {
+          "title": "UZH-FPV dataset files",
+          "url": "https://fpv.ifi.uzh.ch/datasets/"
+        }
+      ]
+    },
+    {
+      "id": "aqualoc",
+      "name": "AQUALOC",
+      "domain": "Underwater",
+      "platform": "Remotely operated vehicle",
+      "sensors": "Monocular monochrome camera, MEMS IMU, and pressure sensor",
+      "description": "Near-seabed harbor and archaeological-site recordings from underwater vehicles.",
+      "learnFocus": "Study visual tracking when texture and illumination are limited, and identify which sensors an estimator actually uses.",
+      "url": "https://www.lirmm.fr/aqualoc/",
+      "documentationUrl": "https://www.lirmm.fr/aqualoc/",
+      "paperUrl": "https://arxiv.org/abs/1910.14532",
+      "referenceNote": "A pressure stream is part of the dataset; its availability does not imply that a VIO configuration uses it.",
+      "sources": [
+        {
+          "title": "The AQUALOC Dataset — LIRMM / ONERA",
+          "url": "https://www.lirmm.fr/aqualoc/"
+        }
+      ]
+    },
+    {
+      "id": "lamaria",
+      "name": "LaMAria",
+      "domain": "Egocentric motion",
+      "platform": "Aria glasses",
+      "sensors": "Two grayscale cameras and an IMU for SLAM; additional sensors in raw VRS recordings",
+      "description": "Wearable recordings spanning controlled motion and long city-scale trajectories, with surveyed control points and dense pseudo ground truth.",
+      "learnFocus": "Connect head motion, image conversion, sensor calibration, and the choice of evaluation reference.",
+      "url": "https://lamaria.ethz.ch/",
+      "documentationUrl": "https://lamaria.ethz.ch/slam_documentation",
+      "paperUrl": "https://arxiv.org/abs/2509.26639",
+      "referenceNote": "Original VRS and converted ASL/ROS1 images use different camera models. Dense pseudo ground truth and surveyed sparse control points have different evaluation roles.",
+      "sources": [
+        {
+          "title": "The LaMAria Dataset and Benchmark",
+          "url": "https://lamaria.ethz.ch/"
+        },
+        {
+          "title": "LaMAria documentation",
+          "url": "https://lamaria.ethz.ch/slam_documentation"
+        }
+      ]
+    },
+    {
+      "id": "grandtour",
+      "name": "GrandTour",
+      "domain": "Legged robotics",
+      "platform": "ANYmal D with Boxi sensor payload",
+      "sensors": "Cameras, IMUs, LiDAR, depth, proprioception, and GNSS",
+      "description": "Quadruped recordings across indoor and outdoor environments, including varied terrain, illumination, and weather.",
+      "learnFocus": "Explore calibration, synchronization, and sensor selection in a multimodal robot dataset.",
+      "url": "https://grand-tour.leggedrobotics.com/",
+      "documentationUrl": "https://grand-tour.leggedrobotics.com/dataset",
+      "paperUrl": "https://arxiv.org/abs/2602.18164",
+      "referenceNote": "The full dataset is multimodal. A camera–IMU experiment uses only a declared subset of the available streams; exact ground-truth availability is mission-specific.",
+      "sources": [
+        {
+          "title": "GrandTour Dataset — ETH Robotic Systems Lab",
+          "url": "https://grand-tour.leggedrobotics.com/"
+        },
+        {
+          "title": "GrandTour dataset paper",
+          "url": "https://arxiv.org/abs/2602.18164"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "id": "openvins-euroc",
+  "title": "Run OpenVINS on EuRoC",
+  "subtitle": "From a stereo image sequence and IMU measurements to a saved trajectory.",
+  "level": "First local run",
+  "environment": "Ubuntu 20.04 \u00b7 ROS 1 Noetic \u00b7 Bash",
+  "status": "Upstream-documented guide; not executed or benchmarked here",
+  "sourceChecked": "2026-09-06",
+  "sourceRevision": "69488123ed9362dd44b6f28e7f4680abbff1442b",
+  "summary": "This guide follows the official OpenVINS EuRoC tutorial. Commands run on your Linux machine. The website\u2019s interactive lessons are teaching simulations and do not execute OpenVINS.",
+  "prerequisites": [
+    "Ubuntu 20.04 with ROS 1 Noetic desktop-full installed using the upstream ROS1 installation instructions. Desktop-full supplies ROS tools and RViz; use Bash terminals. This is the upstream tutorial environment, not a native macOS workflow.",
+    "Git, a C++ build toolchain, CMake, catkin_tools, Eigen, Boost, Ceres, OpenCV with contrib modules, and the ROS dependencies listed below. Include the Python 3 packages for the evaluation plots used in step 6.",
+    "The EuRoC V1_01_easy ROS1 bag, downloaded from the official dataset source and saved as ~/datasets/euroc/V1_01_easy.bag."
+  ],
+  "installationUrl": "https://docs.openvins.com/gs-installing.html",
+  "datasetUrl": "https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets",
+  "datasetDownloadUrl": "http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_01_easy/V1_01_easy.bag",
+  "upstreamTutorialUrl": "https://docs.openvins.com/gs-tutorial.html",
+  "steps": [
+    {
+      "id": "install",
+      "title": "1. Prepare the environment",
+      "body": "First install ROS 1 Noetic desktop-full on Ubuntu 20.04 using the linked upstream ROS1 instructions. After that, the commands below install the build and plotting dependencies used by this guide. OpenVINS package manifests also require cv_bridge, image_transport, and cmake_modules; they are included explicitly. Do not continue until installation succeeds.",
+      "links": [
+        {
+          "label": "OpenVINS installation",
+          "url": "https://docs.openvins.com/gs-installing.html"
+        },
+        {
+          "label": "Evaluation dependencies",
+          "url": "https://docs.openvins.com/gs-installing.html"
+        }
+      ],
+      "code": "sudo apt-get update\nsudo apt-get install git build-essential cmake \\\n  python3-catkin-tools python3-osrf-pycommon \\\n  libeigen3-dev libboost-all-dev libceres-dev \\\n  libopencv-dev libopencv-contrib-dev \\\n  ros-noetic-cv-bridge ros-noetic-image-transport ros-noetic-cmake-modules \\\n  python3-dev python3-matplotlib python3-numpy python3-psutil python3-tk\nsource /opt/ros/noetic/setup.bash",
+      "sourceUrls": [
+        "https://docs.openvins.com/gs-installing.html",
+        "https://github.com/rpng/open_vins/blob/master/ov_core/package.xml",
+        "https://github.com/rpng/open_vins/blob/master/ov_msckf/package.xml",
+        "https://github.com/rpng/open_vins/blob/master/ov_init/package.xml",
+        "https://github.com/rpng/open_vins/blob/master/ov_eval/CMakeLists.txt"
+      ]
+    },
+    {
+      "id": "build",
+      "title": "2. Build the public upstream project",
+      "body": "Start in a Bash terminal with ROS sourced. Use a new workspace, then build all OpenVINS packages, including ov_eval. Continue only after catkin reports a successful build. Record the actual cloned commit with the experiment; the source revision shown on this page records the version reviewed for this guide.",
+      "code": "source /opt/ros/noetic/setup.bash\nmkdir -p \"$HOME/workspace/catkin_ws_ov/src\"\ncd \"$HOME/workspace/catkin_ws_ov/src\"\ngit clone https://github.com/rpng/open_vins/\ncd ..\ncatkin build\nsource devel/setup.bash\ngit -C src/open_vins rev-parse HEAD",
+      "sourceUrls": ["https://docs.openvins.com/gs-installing.html"]
+    },
+    {
+      "id": "data",
+      "title": "3. Download and inspect the dataset",
+      "body": "Create ~/datasets/euroc if necessary, then download the V1_01_easy ROS1 bag through the official links and save it as ~/datasets/euroc/V1_01_easy.bag. Run the inspection command after the download completes. This remains an explicit manual download step; the commands below do not fetch the large dataset. The bag contains stereo images and IMU measurements.",
+      "code": "source /opt/ros/noetic/setup.bash\nrosbag info \"$HOME/datasets/euroc/V1_01_easy.bag\"",
+      "links": [
+        {
+          "label": "Official EuRoC dataset",
+          "url": "https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets"
+        },
+        {
+          "label": "OpenVINS download links",
+          "url": "https://docs.openvins.com/gs-tutorial.html"
+        }
+      ],
+      "sourceUrls": [
+        "https://docs.openvins.com/gs-tutorial.html",
+        "https://docs.openvins.com/gs-datasets.html"
+      ],
+      "expected": "Image topics /cam0/image_raw and /cam1/image_raw, plus /imu0, should be present.",
+      "preparationCode": "mkdir -p \"$HOME/datasets/euroc\""
+    },
+    {
+      "id": "config",
+      "title": "4. Select the EuRoC calibration",
+      "body": "config:=euroc_mav selects the supplied estimator settings, IMU noise/topic file, and camera\u2013IMU calibration. This run explicitly uses two cameras with stereo tracking. For your own sensor, these files must be replaced with its calibration and topic names.",
+      "files": [
+        "config/euroc_mav/estimator_config.yaml",
+        "config/euroc_mav/kalibr_imu_chain.yaml",
+        "config/euroc_mav/kalibr_imucam_chain.yaml"
+      ],
+      "links": [
+        {
+          "label": "EuRoC configuration",
+          "url": "https://github.com/rpng/open_vins/tree/master/config/euroc_mav"
+        }
+      ],
+      "sourceUrls": [
+        "https://docs.openvins.com/gs-tutorial.html",
+        "https://github.com/rpng/open_vins/blob/master/ov_msckf/launch/subscribe.launch"
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "5. Launch, visualize, and play",
+      "body": "Use four separate Bash terminals; each block sources its own environment and does not inherit variables or a working directory from another terminal. Start the estimator and RViz before playing the bag. Trajectory saving is enabled. The upstream recorder replaces an existing estimate.txt at launch, so choose a new filename when preserving repeated runs.",
+      "terminals": [
+        {
+          "label": "Terminal 1 \u00b7 ROS master",
+          "code": "source /opt/ros/noetic/setup.bash\nroscore"
+        },
+        {
+          "label": "Terminal 2 \u00b7 Estimator + trajectory recorder",
+          "code": "source /opt/ros/noetic/setup.bash\nsource \"$HOME/workspace/catkin_ws_ov/devel/setup.bash\"\nmkdir -p \"$HOME/vioverse-runs/openvins-euroc\"\nroslaunch ov_msckf subscribe.launch config:=euroc_mav max_cameras:=2 use_stereo:=true dosave:=true path_est:=\"$HOME/vioverse-runs/openvins-euroc/estimate.txt\""
+        },
+        {
+          "label": "Terminal 3 \u00b7 RViz",
+          "code": "source /opt/ros/noetic/setup.bash\nsource \"$HOME/workspace/catkin_ws_ov/devel/setup.bash\"\nrviz -d \"$(rospack find ov_msckf)/launch/display.rviz\""
+        },
+        {
+          "label": "Terminal 4 \u00b7 Dataset playback",
+          "code": "source /opt/ros/noetic/setup.bash\nrosbag play \"$HOME/datasets/euroc/V1_01_easy.bag\""
+        }
+      ],
+      "expected": "After initialization, RViz should show feature tracks and an estimated trajectory. estimate.txt records the current IMU pose estimates. A saved file alone does not establish a successful full run.",
+      "sourceUrls": [
+        "https://docs.openvins.com/gs-tutorial.html",
+        "https://github.com/rpng/open_vins/blob/master/ov_msckf/launch/subscribe.launch",
+        "https://docs.openvins.com/eval-error.html",
+        "https://github.com/rpng/open_vins/blob/master/ov_eval/src/utils/Recorder.h"
+      ]
+    },
+    {
+      "id": "evaluate",
+      "title": "6. Inspect and evaluate the trajectory",
+      "body": "After playback finishes and the estimator completes processing, press Ctrl+C in Terminal 2 to close the estimator and recorder. Open a Bash terminal and run the block below. The ground-truth file is included in the public OpenVINS checkout, so no separate GT download or format conversion is needed. For V1_01_easy, upstream documents its recomputed IMU ground truth because of orientation errors in the original release.",
+      "code": "source /opt/ros/noetic/setup.bash\nsource \"$HOME/workspace/catkin_ws_ov/devel/setup.bash\"\nrosrun ov_eval error_singlerun posyaw \"$HOME/workspace/catkin_ws_ov/src/open_vins/ov_data/euroc_mav/V1_01_easy.txt\" \"$HOME/vioverse-runs/openvins-euroc/estimate.txt\"",
+      "expected": "The evaluator reports trajectory error statistics and matched samples. Check the timestamp span and evaluated overlap before interpreting an average.",
+      "format": "Trajectory text begins with time(s), px, py, pz, qx, qy, qz, qw.",
+      "alignment": "posyaw aligns translation and yaw; record this choice with the result. Do not mix alignment modes when comparing systems.",
+      "links": [
+        {
+          "label": "Evaluation methods",
+          "url": "https://docs.openvins.com/eval-error.html"
+        },
+        {
+          "label": "V1_01_easy ground-truth note",
+          "url": "https://docs.openvins.com/gs-datasets.html"
+        },
+        {
+          "label": "Ground-truth files",
+          "url": "https://github.com/rpng/open_vins/tree/master/ov_data/euroc_mav"
+        }
+      ],
+      "sourceUrls": [
+        "https://docs.openvins.com/eval-error.html",
+        "https://docs.openvins.com/gs-datasets.html",
+        "https://github.com/rpng/open_vins/blob/master/ov_eval/src/error_singlerun.cpp",
+        "https://github.com/rpng/open_vins/blob/master/ov_data/euroc_mav/V1_01_easy.txt"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "symptom": "The package is not found.",
+      "action": "Confirm catkin build succeeded and source the workspace devel/setup.bash in that terminal."
+    },
+    {
+      "symptom": "No trajectory appears.",
+      "action": "Check the bag path, image and IMU topics, selected calibration, and initialization messages. Start the estimator before replaying the bag."
+    },
+    {
+      "symptom": "No saved trajectory file.",
+      "action": "Confirm dosave:=true and that the output directory exists; the default launch does not save a trajectory."
+    },
+    {
+      "symptom": "Evaluation gives no useful overlap.",
+      "action": "Check seconds versus nanoseconds, quaternion order, pose frame, and ground-truth source. Use the supplied OpenVINS ground truth for this exercise."
+    }
+  ],
+  "nextSteps": [
+    "Record the source commit, configuration, bag identity, camera mode, machine, launch command, output span, and alignment setting with the run.",
+    "Repeat with a single camera only after the stereo route works; use max_cameras:=1 and preserve the changed settings with the result.",
+    "Follow the calibration tutorial before using your own sensor."
+  ],
+  "localRunBoundary": "The browser lesson demonstrates concepts with synthetic data. This guide launches the actual estimator on your local machine; it has not been executed in this website build."
+}
