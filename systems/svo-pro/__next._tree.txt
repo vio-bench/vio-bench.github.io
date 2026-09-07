@@ -1,4 +1,4 @@
-:HL["/_next/static/chunks/2u69v1nsp0hj6.css","style"]
+:HL["/_next/static/chunks/13i1lyv72x7ap.css","style"]
 :HC["/",""]
 :HL["/brand/vioverse-logo.jpg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"systems","param":null,"prefetchHints":4192,"slots":{"children":{"name":"slug","param":{"type":"d","key":"svo-pro","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"5kVFCO0GJNylE_3206RZz"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"systems","param":null,"prefetchHints":4192,"slots":{"children":{"name":"slug","param":{"type":"d","key":"svo-pro","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"anuu6rPQvoJVgGgFDD0sM"}
