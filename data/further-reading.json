@@ -62,13 +62,6 @@
   },
   {
     "topic": "Learning methods in VIO",
-    "sources": [
-      {
-        "title": "Adaptive VIO: Deep Visual-Inertial Odometry with Online Continual Learning",
-        "url": "https://arxiv.org/pdf/2405.16754v1",
-        "locator": "§§3.1–3.3, PDF pp. 3–6; §4.1 Implementation details, PDF p. 6.",
-        "scope": "Monocular VIO. Read the learning and optimization method together with the stated adaptation protocol."
-      }
-    ]
+    "sources": []
   }
 ]

@@ -53,7 +53,7 @@ export default function Learn() {
           <p>
             The guides above provide an initial reading sequence. The sources
             below address VIO formulation, visual geometry,
-            preintegration, and learning methods. Each entry points to the
+            preintegration, and estimator design. Each reading points to the
             original material; the current guides are not a complete course.
           </p>
           <table>

@@ -21,8 +21,12 @@ attribution, section locators, prerequisites, and related material:
 
 These guides do not establish complete coverage of VIO. The learning overview
 also links original material for VIO formulation, visual geometry,
-preintegration, observability, learning methods, and the relationship between
+preintegration, observability, and the relationship between
 odometry and SLAM.
+
+The "Learning methods in VIO" reading row is intentionally empty at the user's
+request. Retain the topic and leave its sources blank until the user asks to add
+readings; do not fill this gap automatically.
 
 ## Areas for further source organization
 
