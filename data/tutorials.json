@@ -2,7 +2,7 @@
   {
     "slug": "camera-and-imu",
     "title": "Camera and IMU measurement models",
-    "summary": "Readings on the visual–inertial state, sensor measurements, and the distinction between odometry and SLAM.",
+    "summary": "The visual–inertial state, camera and IMU measurements, and the relationship between odometry and SLAM.",
     "prerequisites": [],
     "readings": [
       {
@@ -39,12 +39,13 @@
         "title": "OpenVINS: IMU state reference",
         "url": "https://docs.openvins.com/classov__type_1_1IMU.html"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "coordinate-frames",
     "title": "Coordinate frames and pose conventions",
-    "summary": "OpenVINS references for coordinate frames, camera–IMU geometry, quaternion conventions, and orientation errors.",
+    "summary": "Coordinate frames, camera–IMU geometry, pose representations, and orientation errors.",
     "prerequisites": [
       "camera-and-imu"
     ],
@@ -83,12 +84,13 @@
         "title": "Geneva and Huang: initialization report, Section 3.3, Discussion on Frame Transformation",
         "url": "https://pgeneva.com/downloads/reports/tr_init.pdf"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "calibration-and-time",
     "title": "Camera–IMU calibration and synchronization",
-    "summary": "Calibration procedures, parameter definitions, and the motion assumptions examined in the original documentation and calibration analysis.",
+    "summary": "Camera and IMU calibration parameters, sensor synchronization, and calibration procedures.",
     "prerequisites": [
       "coordinate-frames"
     ],
@@ -138,12 +140,13 @@
         "title": "OpenVINS: Video Walkthrough Guide to Calibration",
         "url": "https://docs.openvins.com/gs-calibration.html#gs-calib-video"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "initialization",
     "title": "VIO initialization",
-    "summary": "Primary references on the initialization problem, stationary startup, dynamic initialization, and subsequent state refinement.",
+    "summary": "The initialization problem, stationary and dynamic startup, and state refinement.",
     "prerequisites": [
       "camera-and-imu",
       "calibration-and-time"
@@ -194,12 +197,13 @@
         "title": "OpenVINS: First-Estimate Jacobians",
         "url": "https://docs.openvins.com/fej.html"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "filtering-and-optimization",
     "title": "Filtering and optimization",
-    "summary": "Read the original treatments of feature elimination, observability, marginalization, and measurement relinearization.",
+    "summary": "Filtering, optimization, feature elimination, marginalization, observability, and consistency.",
     "prerequisites": [
       "initialization"
     ],
@@ -253,12 +257,13 @@
         "title": "Results",
         "url": "/results/"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "trajectory-evaluation",
     "title": "Trajectory evaluation",
-    "summary": "Read the documented trajectory conventions, error definitions, and EPICA evaluation workflow before comparing estimates.",
+    "summary": "Trajectory conventions, association, alignment, error metrics, and evaluation with EPICA.",
     "prerequisites": [
       "coordinate-frames"
     ],
@@ -312,12 +317,13 @@
         "title": "Results",
         "url": "/results/"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "runtime-and-platform",
     "title": "Runtime and platform measurements",
-    "summary": "Read how OpenVINS records timing and process resources, then inspect the measurement scope stated in the original experiments.",
+    "summary": "Processing time, computational resources, profiling procedures, and platform-dependent measurements.",
     "prerequisites": [
       "filtering-and-optimization",
       "trajectory-evaluation"
@@ -365,12 +371,13 @@
         "title": "Run",
         "url": "/run/"
       }
-    ]
+    ],
+    "sections": []
   },
   {
     "slug": "your-own-data",
     "title": "Working with your own sensor data",
-    "summary": "Follow the OpenVINS calibration and configuration documentation, then read its trajectory export and file-format conversion guidance.",
+    "summary": "Sensor preparation, calibration, configuration, data recording, and trajectory export.",
     "prerequisites": [
       "calibration-and-time",
       "initialization",
@@ -426,6 +433,7 @@
         "title": "Evaluation with EPICA",
         "url": "/evaluation/"
       }
-    ]
+    ],
+    "sections": []
   }
 ]

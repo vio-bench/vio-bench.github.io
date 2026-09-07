@@ -1,38 +1,39 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import tutorialData from "@/data/tutorials.json";
-import type { StudyGuide } from "@/lib/tutorial-types";
+import type { TutorialChapter } from "@/lib/tutorial-types";
 import { PageIntro, SourceList } from "@/components/ui";
+import { MathBlock } from "@/components/math-block";
 
-const guides: StudyGuide[] = tutorialData;
+const chapters: TutorialChapter[] = tutorialData;
 
 export function generateStaticParams() {
-  return guides.map((guide) => ({ slug: guide.slug }));
+  return chapters.map((chapter) => ({ slug: chapter.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const guide = guides.find((entry) => entry.slug === slug);
-  return { title: guide?.title, description: guide?.summary };
+  const chapter = chapters.find((entry) => entry.slug === slug);
+  return { title: chapter?.title, description: chapter?.summary };
 }
 
-export default async function ReadingGuide({ params }: { params: Promise<{ slug: string }> }) {
+export default async function Tutorial({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const index = guides.findIndex((entry) => entry.slug === slug);
+  const index = chapters.findIndex((entry) => entry.slug === slug);
   if (index < 0) notFound();
-  const guide = guides[index];
+  const chapter = chapters[index];
 
   return (
     <>
       <PageIntro
-        eyebrow={`TUTORIALS / READING GUIDE ${String(index + 1).padStart(2, "0")}`}
-        title={guide.title}
-        description={guide.summary}
+        eyebrow={`TUTORIALS / CHAPTER ${String(index + 1).padStart(2, "0")}`}
+        title={chapter.title}
+        description={chapter.summary}
       />
       <div className="container page-content article-layout">
         <aside className="sidebar">
-          <strong>Study topics</strong>
-          {guides.map((entry, i) => (
+          <strong>Tutorial chapters</strong>
+          {chapters.map((entry, i) => (
             <Link
               className={entry.slug === slug ? "active" : ""}
               aria-current={entry.slug === slug ? "page" : undefined}
@@ -45,42 +46,49 @@ export default async function ReadingGuide({ params }: { params: Promise<{ slug:
           <Link href="/references/">Notation and primary references</Link>
         </aside>
         <article className="prose">
-          <p className="reading-introduction">
-            Follow the original material in the order below. Each entry identifies
-            its source, the relevant section, and the topic to study.
-          </p>
-          {guide.prerequisites.length > 0 && (
+          <div className="tutorial-body">
+            {chapter.sections.length === 0 ? (
+              <p className="tutorial-status">Chapter text is in preparation.</p>
+            ) : chapter.sections.map((section) => (
+              <section id={section.id} key={section.id}>
+                <h2>{section.title}</h2>
+                {section.paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+                {section.equationLatex && <MathBlock latex={section.equationLatex} />}
+                {section.references.length > 0 && <SourceList sources={section.references} />}
+              </section>
+            ))}
+          </div>
+          {chapter.prerequisites.length > 0 && (
             <p className="small">
-              Suggested prior reading:{" "}
-              {guide.prerequisites.map((prerequisite, i) => (
+              Related chapters:{" "}
+              {chapter.prerequisites.map((prerequisite, i) => (
                 <span key={prerequisite}>
                   {i > 0 ? " · " : ""}
                   <Link href={`/learn/${prerequisite}/`}>
-                    {guides.find((entry) => entry.slug === prerequisite)?.title}
+                    {chapters.find((entry) => entry.slug === prerequisite)?.title}
                   </Link>
                 </span>
               ))}
             </p>
           )}
-          <ol className="reading-sequence">
-            {guide.readings.map((reading, i) => (
-              <li key={reading.url + reading.locator} id={`reading-${i + 1}`}>
-                <h2><a href={reading.url}>{reading.title}</a></h2>
-                <p className="reading-source">{reading.source} · {reading.locator}</p>
-                <p>{reading.focus}</p>
-              </li>
-            ))}
-          </ol>
-          <section>
-            <h2>Related material</h2>
-            <SourceList sources={guide.related} />
-          </section>
-          <nav className="lesson-nav" aria-label="Reading guide navigation">
-            <Link href={index > 0 ? `/learn/${guides[index - 1].slug}/` : "/learn/"}>
-              ← {index > 0 ? "Previous topic" : "Study overview"}
+          <details className="chapter-references">
+            <summary>References and supplementary reading</summary>
+            <ol className="reference-list">
+              {chapter.readings.map((reading, i) => (
+                <li key={reading.url + reading.locator} id={`reading-${i + 1}`}>
+                  <p>{reading.source}. <a href={reading.url}>{reading.title}</a>.</p>
+                  <p className="small">{reading.locator}</p>
+                </li>
+              ))}
+            </ol>
+            {chapter.related.length > 0 && <SourceList sources={chapter.related} />}
+          </details>
+          <nav className="lesson-nav" aria-label="Chapter navigation">
+            <Link href={index > 0 ? `/learn/${chapters[index - 1].slug}/` : "/learn/"}>
+              ← {index > 0 ? "Previous chapter" : "Tutorial contents"}
             </Link>
-            <Link href={index < guides.length - 1 ? `/learn/${guides[index + 1].slug}/` : "/run/"}>
-              {index < guides.length - 1 ? "Next topic" : "Implementation guides"} →
+            <Link href={index < chapters.length - 1 ? `/learn/${chapters[index + 1].slug}/` : "/run/"}>
+              {index < chapters.length - 1 ? "Next chapter" : "Implementation guides"} →
             </Link>
           </nav>
         </article>

@@ -1,84 +1,41 @@
 import Link from "next/link";
-import lessons from "@/data/tutorials.json";
-import furtherReading from "@/data/further-reading.json";
-import { PageIntro, Callout } from "@/components/ui";
-export const metadata = { title: "Learn VIO" };
+import chapters from "@/data/tutorials.json";
+import { PageIntro } from "@/components/ui";
+
+export const metadata = { title: "VIO tutorials" };
+
 export default function Learn() {
   return (
     <>
       <PageIntro
-        eyebrow="TUTORIALS / STUDY GUIDE"
-        title="Studying visual–inertial odometry"
-        description="A reading sequence through original papers, official derivations, and implementation documentation."
+        eyebrow="TUTORIALS / CONTENTS"
+        title="Visual–inertial odometry tutorials"
+        description="A tutorial series by the VIOVERSE authors on measurement models, estimation, implementation, and evaluation."
       />
       <div className="container page-content">
-        <Callout title="Sources and study sequence">
-          <p>
-            The study guides organize the original OpenVINS tutorials and
-            derivations, together with papers by Guoquan Huang, Patrick Geneva,
-            Chuchu Chen, Yulin Yang, and their coauthors. Each guide identifies
-            specific source sections and a suggested reading order.
-          </p>
-          <p>
-            Follow each source’s notation and assumptions; the{" "}
-            <Link href="/references/">notation references</Link> identify the
-            relevant definitions in OpenVINS.
-          </p>
-        </Callout>
-        <p className="tutorial-resources">
-          For implementation, see the <Link href="/run/">implementation guides</Link>{" "}
-          and <Link href="/systems/">system documentation</Link>. Dataset
-          downloads, calibration tools, and further reading are collected in{" "}
-          <Link href="/resources/">Resources</Link>.
-        </p>
+        <p className="tutorial-status">Chapter text is in preparation.</p>
         <div className="curriculum">
-          {lessons.map((l, i) => (
+          {chapters.map((chapter, i) => (
             <Link
               className="lesson-card"
-              href={"/learn/" + l.slug + "/"}
-              key={l.slug}
+              href={`/learn/${chapter.slug}/`}
+              key={chapter.slug}
             >
-              <span className="lesson-number">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <span className="lesson-number">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h2>{l.title}</h2>
-                <p>{l.summary}</p>
+                <h2>{chapter.title}</h2>
+                <p>{chapter.summary}</p>
               </div>
             </Link>
           ))}
         </div>
-        <section className="further-reading" aria-labelledby="further-reading-heading">
-          <h2 id="further-reading-heading">Further reading by topic</h2>
-          <p>
-            The guides above provide an initial reading sequence. The sources
-            below address VIO formulation, visual geometry,
-            preintegration, and estimator design. Each reading points to the
-            original material; the current guides are not a complete course.
-          </p>
-          <table>
-            <caption>Selected original readings and their locations.</caption>
-            <thead>
-              <tr><th scope="col">Topic</th><th scope="col">Original material</th></tr>
-            </thead>
-            <tbody>
-              {furtherReading.map((topic) => (
-                <tr key={topic.topic}>
-                  <th scope="row">{topic.topic}</th>
-                  <td>
-                    {topic.sources.map((source) => (
-                      <div className="further-reading-source" key={source.url + source.locator}>
-                        <a href={source.url}>{source.title}</a>
-                        <p>{source.locator}</p>
-                        {"scope" in source && <p>{source.scope}</p>}
-                      </div>
-                    ))}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+        <p className="tutorial-resources">
+          <Link href="/references/">Notation and references</Link> accompany
+          the tutorial topics. Practical material is available in the{" "}
+          <Link href="/run/">implementation guides</Link>,{" "}
+          <Link href="/systems/">system documentation</Link>, and{" "}
+          <Link href="/resources/">dataset and software resources</Link>.
+        </p>
       </div>
     </>
   );

@@ -17,6 +17,8 @@ Patrick Geneva, Chuchu Chen, Yulin Yang, and OpenVINS primary material. Preserve
 the original sources and conventions of other systems and datasets. Put citations
 beside the supported explanation, and state the assumptions behind each claim.
 Do not change historical benchmark data or metric semantics as part of prose edits.
-Learning pages must organize original teaching sources and verified reading
-locations. Do not invent tutorial prose, derivations, exercises, or completion
-times; follow the Learning material section of the technical conventions.
+Tutorials are original chapters written by the project authors. References
+support the chapter text and belong alongside relevant claims or at the end;
+do not replace tutorials with reading lists. Leave missing author text empty.
+Do not invent teaching content without a user request; follow the Learning
+material section of the technical conventions.

@@ -6,7 +6,7 @@ The site uses a document-oriented layout: project overview, tutorial contents, m
 
 ## What is included
 
-- Eight reading guides with primary sources, reading sequences, and verified section locations.
+- Eight planned tutorial chapters by the project authors; chapter text is awaiting the authors' manuscript, with supplementary references available separately.
 - Eleven public upstream system profiles with configuration caveats.
 - An OpenVINS / EuRoC local run guide, reviewed against upstream documentation and source.
 - A dedicated Evaluation guide covering frames, synchronization, alignment, ATE/RPE, evaluated extent, and EPICA commands, with direct links to the public EPICA documentation.
@@ -39,7 +39,7 @@ The static export is generated into `out/`. GitHub Pages serves the `gh-pages` b
 
 ## Update content
 
-- `data/tutorials.json`: reading guides, prerequisites, source links, and verified reading locations.
+- `data/tutorials.json`: chapter titles, summaries, related chapters, author-provided `sections`, and supplementary `readings`. Sections contain a heading, paragraphs, optional LaTeX equation, and references supporting that section. Leave sections empty until the authors provide text.
 - `data/further-reading.json`: additional original readings organized by subject.
 - `data/systems.json`: upstream profiles. Capability statements require a primary source.
 - `data/run-guide.json`: reviewed commands and their expected outputs; distinguish a documented route from an executed test.
@@ -62,7 +62,7 @@ Commit and push reviewed source to `main`, then run `npm run deploy`. The script
 
 `public/brand/vioverse-logo.jpg` is the supplied official VIOVERSE logo, preserved unchanged. The original remains 1280 × 720. The header frames the wordmark with CSS; no generated approximation is used. The logo is a project brand asset and is not granted a separate reuse license by this repository.
 
-Learning pages organize original papers and official documentation with source attribution and reading locations. Do not invent teaching text, derivations, or exercises; follow `docs/technical-conventions.md`. Public upstream code, documentation, datasets, and names retain their respective licenses. This site links to them; it does not redistribute the algorithm repositories or datasets. No third-party dataset photographs are republished.
+Tutorials are original chapters written by the project authors. References support the text; they do not replace its explanations, derivations, figures, or examples. Do not invent teaching content on the authors' behalf without a user request; follow `docs/technical-conventions.md`. Public upstream code, documentation, datasets, and names retain their respective licenses. This site links to them; it does not redistribute the algorithm repositories or datasets. No third-party dataset photographs are republished.
 
 ## Contribute
 

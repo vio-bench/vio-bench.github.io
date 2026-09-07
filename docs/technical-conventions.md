@@ -2,30 +2,34 @@
 
 ## Learning material
 
-VIOVERSE aims to organize the knowledge needed to understand, implement, and
-evaluate VIO. Use the long project manuscript to identify the subject coverage,
-and link each study topic to original papers, official tutorials, course notes,
-or implementation documentation. Do not present a short topic list as a complete
-course or claim that the current site covers everything.
+VIOVERSE's tutorials are original chapters written by the project authors,
+intended to teach the knowledge needed to understand, implement, and evaluate
+VIO. The chapter text is the main content. References support definitions,
+assumptions, and technical claims; supplementary reading belongs at the end.
+Do not replace the tutorials with a sequence of links to other people's work.
 
-The user explicitly requires that tutorials not be invented. Maintain the
-learning pages as source-led study guides: give the source, verified chapter or
-section, reading sequence, and a short source-grounded description. Do not add
-independently generated lessons, derivations, exercises, answer keys, or estimated
-completion times. A reference list appended to generated teaching prose does not
-establish that the prose was supplied or reviewed by the cited authors.
+The user's instruction not to invent tutorials means the assistant must not
+write teaching text, derivations, examples, or exercises on the authors' behalf
+without being asked. It does not prohibit original teaching content by the
+project authors. Structure and typeset the supplied manuscript, preserving its
+meaning, notation, authorship, and provenance. A reference list appended to
+generated prose does not establish that the authors supplied or reviewed it.
 
-When the project authors supply teaching text, retain its technical meaning,
-notation, authorship, and provenance when adapting it for the website. Missing
-source material stays a documented coverage gap. Third-party course material is
-linked at its original location; the website does not republish recordings or
-notes. Prioritize original papers and official technical documentation in the
-learning sequence. RiSE is an optional Resources entry, not a featured source,
-required prerequisite, or organizing framework for the website.
+Store author-provided chapter sections in `data/tutorials.json`. Until chapter
+text is supplied, leave `sections` empty and show the preparation notice.
+Existing `readings` are supplementary references, not the chapter body or
+evidence that a chapter has been written. Do not assign the paper's complete
+author list to individual chapters without chapter-specific attribution.
+Use the long project manuscript to inform subject coverage, and do not present
+the current outline as a completed course.
+
+Third-party course material is linked at its original location; the website
+does not republish recordings or notes. RiSE is an optional Resources entry,
+not a featured source, required prerequisite, or organizing framework.
 
 ## Primary references
 
-The study guides prioritize the original work of Guoquan Huang, Patrick
+Technical terminology and notation follow the original work of Guoquan Huang, Patrick
 Geneva, Chuchu Chen, and Yulin Yang, together with the OpenVINS paper and official
 derivations. The public bibliography is maintained in
 `data/technical-references.json` and rendered at `/references/`. Cite the particular
@@ -98,9 +102,10 @@ does not imply that every external implementation uses the same convention.
 
 ## Maintenance
 
-Each reading-guide entry must have a primary source and a verified section
-locator. Any retained technical equation elsewhere on the site must follow its
-identified source. Successful math rendering does not validate a derivation.
+Supplementary references must identify their source and verified reading
+location. Cite sources beside the authored explanation they support. Technical
+equations must follow the supplied manuscript and its stated conventions;
+successful math rendering does not validate a derivation.
 When editing, check reference identity and locality, formula conventions,
 cross-page consistency, and the source/version behind implementation claims.
 The website does not imply review or endorsement by the cited authors.

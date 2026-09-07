@@ -51,7 +51,7 @@ export default function Resources() {
             {[
               {
                 title: "VIO notation and primary references",
-                body: "Original frame, quaternion, and IMU state definitions, with the papers used in the study guides.",
+                body: "Original frame, quaternion, and IMU state definitions, with references for the tutorial topics.",
                 url: "/references/",
               },
               {

@@ -11,10 +11,10 @@ export default function Home() {
         <p className="project-subtitle">Visual–Inertial Odometry: Methods, Tutorials, and Benchmark Evaluation</p>
         <ProjectAuthors />
         <p className="project-abstract">
-          VIOVERSE organizes the material needed to study, implement, and
-          evaluate visual–inertial odometry (VIO). Its study guides connect
-          original papers and implementation documentation with VIO systems
-          and experimental practice. Trajectory evaluation is presented
+          VIOVERSE is a project for studying, implementing, and evaluating
+          visual–inertial odometry (VIO). The site includes a tutorial series
+          in preparation, implementation documentation, and experimental
+          results. Trajectory evaluation is presented
           with EPICA, while VIOBench organizes reported accuracy and resource
           measurements across five datasets and three computing platforms.
         </p>
@@ -31,10 +31,9 @@ export default function Home() {
           <Link href="/learn/">Tutorial overview</Link>
         </div>
         <p>
-          Study topics link to original tutorials, derivations, papers, and
-          implementation documentation. Each reading guide identifies the
-          relevant source sections and a suggested sequence, from sensor models
-          and calibration to estimation and evaluation.
+          A tutorial series by the VIOVERSE authors, from sensor models and
+          calibration to estimation and evaluation. Chapter text is in
+          preparation; references are collected separately for each topic.
         </p>
         <ol className="research-contents">
           {lessons.map((lesson) => (

@@ -78,6 +78,12 @@ a.button, a.button:hover {
 .reading-sequence h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .prose .reading-source { font-size: 13px; color: var(--muted); margin-block: 8px; }
 .prose .reading-introduction { font-size: 15px; }
+.tutorial-body { margin-block: 8px 32px; }
+.tutorial-status, .prose .tutorial-status { font-size: 15px; color: var(--muted); margin-bottom: 28px; }
+.chapter-references { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 16px; }
+.chapter-references summary { cursor: pointer; font-size: 14px; color: var(--blue); }
+.chapter-references .reference-list p { font-size: 14px; }
+.chapter-references .reference-list .small { font-size: 12px; color: var(--muted); }
 .further-reading { max-width: 880px; margin-top: 42px; }
 .further-reading > p { font-size: 15px; line-height: 1.8; }
 .further-reading table { white-space: normal; table-layout: fixed; }

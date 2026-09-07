@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageIntro } from "@/components/ui";
 import references from "@/data/technical-references.json";
+import { SupplementaryReading } from "@/components/supplementary-reading";
 
 export const metadata = {
   title: "Notation and primary references",
@@ -13,7 +14,7 @@ export default function References() {
       <PageIntro
         eyebrow="TUTORIALS / NOTATION AND REFERENCES"
         title="Notation and primary references"
-        description="Read notation and assumptions in the original source. These links locate the OpenVINS definitions and the papers used in the study guides."
+        description="Notation sources and primary literature for the tutorial topics, with links to definitions and supplementary reading."
       />
       <div className="container page-content article-layout">
         <aside className="sidebar">
@@ -23,7 +24,8 @@ export default function References() {
           <a href="#measurements">Measurement conventions</a>
           <a href="#assumptions">Estimation and evaluation</a>
           <a href="#papers">Primary references</a>
-          <Link href="/learn/">Study overview</Link>
+          <a href="#further-reading-heading">Supplementary reading</a>
+          <Link href="/learn/">Tutorial contents</Link>
         </aside>
         <article className="prose">
           <section id="frames">
@@ -35,7 +37,7 @@ export default function References() {
               frames and camera–IMU geometry used in those derivations.
             </p>
             <p>
-              Reading order: <Link href="/learn/coordinate-frames/">Coordinate frames and pose conventions</Link>.
+              Corresponding chapter: <Link href="/learn/coordinate-frames/">Coordinate frames and pose conventions</Link>.
             </p>
           </section>
           <section id="quaternions">
@@ -59,7 +61,7 @@ export default function References() {
               the camera–IMU offset sign.
             </p>
             <p>
-              Reading order: <Link href="/learn/calibration-and-time/">Camera–IMU calibration and synchronization</Link>.
+              Corresponding chapter: <Link href="/learn/calibration-and-time/">Camera–IMU calibration and synchronization</Link>.
             </p>
           </section>
           <section id="assumptions">
@@ -68,7 +70,7 @@ export default function References() {
               For observability and linearization, read the three sections of
               <a href="https://docs.openvins.com/fej.html"> First-Estimate Jacobian Estimators</a> in
               order. Continue with Sections II–IV of <a href="https://pgeneva.com/downloads/papers/Chen2023IROS.pdf">Optimization-based VINS: Consistency, Marginalization, and FEJ</a>.
-              Further readings are organized in <Link href="/learn/filtering-and-optimization/">Filtering and optimization</Link>.
+              Corresponding chapter: <Link href="/learn/filtering-and-optimization/">Filtering and optimization</Link>.
             </p>
             <p>
               The <Link href="/evaluation/">Evaluation guide</Link> documents the
@@ -89,9 +91,10 @@ export default function References() {
             </ol>
             <p className="small">
               Additional implementation and dataset sources are linked in the
-              relevant study guides.
+              relevant chapters.
             </p>
           </section>
+          <SupplementaryReading />
         </article>
       </div>
     </>
