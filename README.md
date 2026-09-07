@@ -41,7 +41,7 @@ The static export is generated into `out/`. GitHub Pages serves the `gh-pages` b
 
 - `data/tutorials.json`: chapter titles, summaries, related chapters, author-provided `sections`, and supplementary `readings`. Sections contain a heading, paragraphs, optional LaTeX equation, and references supporting that section. Leave sections empty until the authors provide text.
 - `data/further-reading.json`: additional original readings organized by subject.
-- `data/project-citation.json`: the manuscript citation shown immediately below the author byline. Keep author order and title aligned with the manuscript. Add publication year, arXiv identifier, DOI, and venue only when verified; the current BibTeX omits these unconfirmed fields.
+- `data/project-citation.json`: the manuscript citation shown directly below the VIOVERSE introduction on the homepage. Keep author order and title aligned with the manuscript. Add publication year, arXiv identifier, DOI, and venue only when verified; the current BibTeX omits these unconfirmed fields.
 - `data/systems.json`: upstream profiles. Capability statements require a primary source.
 - `data/run-guide.json`: reviewed commands and their expected outputs; distinguish a documented route from an executed test.
 - `data/epica.json`: verified public EPICA documentation and package links. The Evaluation guide describes the workflow; `/benchmark/protocol/` retains release-specific Results definitions.

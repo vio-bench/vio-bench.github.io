@@ -18,7 +18,6 @@ export default function Home() {
           />
         </h1>
         <ProjectAuthors />
-        <ProjectCitation />
         <p className="project-abstract">
           VIOVERSE is a project for studying, implementing, and evaluating
           visual–inertial odometry (VIO). The site includes a tutorial series
@@ -27,6 +26,7 @@ export default function Home() {
           with EPICA, while VIOBench organizes reported accuracy and resource
           measurements across five datasets and three computing platforms.
         </p>
+        <ProjectCitation />
         <nav className="project-links" aria-label="Project resources">
           <Link href="/learn/">Tutorials</Link>
           <Link href="/evaluation/">Evaluation</Link>
