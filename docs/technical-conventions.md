@@ -1,8 +1,28 @@
 # VIOVERSE technical conventions
 
+## Learning material
+
+VIOVERSE aims to organize the knowledge needed to understand, implement, and
+evaluate VIO. Use the long project manuscript to identify the subject coverage,
+and link each study topic to original papers, official tutorials, course notes,
+or implementation documentation. Do not present a short topic list as a complete
+course or claim that the current site covers everything.
+
+The user explicitly requires that tutorials not be invented. Maintain the
+learning pages as source-led study guides: give the source, verified chapter or
+section, reading sequence, and a short source-grounded description. Do not add
+independently generated lessons, derivations, exercises, answer keys, or estimated
+completion times. A reference list appended to generated teaching prose does not
+establish that the prose was supplied or reviewed by the cited authors.
+
+When the project authors supply teaching text, retain its technical meaning,
+notation, authorship, and provenance when adapting it for the website. Missing
+source material stays a documented coverage gap. RiSE material is linked at its
+original location; the website does not republish its recordings or notes.
+
 ## Primary references
 
-The tutorial formulation follows the original work of Guoquan Huang, Patrick
+The study guides prioritize the original work of Guoquan Huang, Patrick
 Geneva, Chuchu Chen, and Yulin Yang, together with the OpenVINS paper and official
 derivations. The public bibliography is maintained in
 `data/technical-references.json` and rendered at `/references/`. Cite the particular
@@ -75,9 +95,9 @@ does not imply that every external implementation uses the same convention.
 
 ## Maintenance
 
-Each tutorial section has local primary references. Use `equationLatex` for
-typeset equations; KaTeX renders them during the static build and rejects invalid
-syntax. Review the model and assumptions independently of successful rendering.
+Each reading-guide entry must have a primary source and a verified section
+locator. Any retained technical equation elsewhere on the site must follow its
+identified source. Successful math rendering does not validate a derivation.
 When editing, check reference identity and locality, formula conventions,
-cross-lesson consistency, and the source/version behind implementation claims.
+cross-page consistency, and the source/version behind implementation claims.
 The website does not imply review or endorsement by the cited authors.

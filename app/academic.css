@@ -70,6 +70,23 @@ a.button, a.button:hover {
 .exercise { margin-top: 28px; padding: 20px; }
 .curriculum { display: block; max-width: 880px; }
 .tutorial-resources { max-width: 880px; font-size: 15px; line-height: 1.8; margin-block: 24px; }
+.reading-sequence { list-style: decimal; padding-left: 24px; margin-block: 28px; }
+.reading-sequence > li { padding: 0 0 20px 7px; border-bottom: 1px solid var(--line); margin-bottom: 26px; scroll-margin-top: 105px; }
+.reading-sequence > li::marker { color: var(--muted); }
+.reading-sequence h2 { margin-top: 0; font-size: 22px; }
+.reading-sequence h2 a { color: var(--blue); text-decoration: none; }
+.reading-sequence h2 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.prose .reading-source { font-size: 13px; color: var(--muted); margin-block: 8px; }
+.prose .reading-introduction { font-size: 15px; }
+.further-reading { max-width: 880px; margin-top: 42px; }
+.further-reading > p { font-size: 15px; line-height: 1.8; }
+.further-reading table { white-space: normal; table-layout: fixed; }
+.further-reading th, .further-reading td { vertical-align: top; padding: 15px 12px; }
+.further-reading th:first-child { width: 29%; overflow-wrap: anywhere; hyphens: auto; }
+.further-reading tbody th { background: none; font-size: 13px; color: var(--ink); }
+.further-reading a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.further-reading-source + .further-reading-source { margin-top: 17px; }
+.further-reading-source p { font-size: 12px; line-height: 1.7; color: var(--muted); margin-block: 5px 0; }
 .lesson-card {
   border: 0;
   border-bottom: 1px solid var(--line);

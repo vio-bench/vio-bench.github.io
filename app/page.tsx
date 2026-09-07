@@ -11,11 +11,10 @@ export default function Home() {
         <p className="project-subtitle">Visual–Inertial Odometry: Methods, Tutorials, and Benchmark Evaluation</p>
         <ProjectAuthors />
         <p className="project-abstract">
-          VIOVERSE brings together educational material, implementation guides,
-          and experimental results for visual–inertial odometry (VIO). The
-          tutorials cover sensor models, coordinate frames, calibration, and
-          state estimation. Implementation notes describe open-source systems
-          and an OpenVINS workflow on EuRoC. Trajectory evaluation is presented
+          VIOVERSE organizes the material needed to study, implement, and
+          evaluate visual–inertial odometry (VIO). Its study guides connect
+          original papers, OpenVINS documentation, and the RiSE course with
+          system implementations and experimental practice. Trajectory evaluation is presented
           with EPICA, while VIOBench organizes reported accuracy and resource
           measurements across five datasets and three computing platforms.
         </p>
@@ -32,9 +31,10 @@ export default function Home() {
           <Link href="/learn/">Tutorial overview</Link>
         </div>
         <p>
-          Eight chapters introduce the formulation and implementation of VIO.
-          Each chapter includes prerequisites, technical explanations, a worked
-          example, and references to papers or technical documentation.
+          Study topics link to original tutorials, derivations, papers, and
+          implementation documentation. Each reading guide identifies the
+          relevant source sections and a suggested sequence, from sensor models
+          and calibration to estimation and evaluation.
         </p>
         <ol className="research-contents">
           {lessons.map((lesson) => (

@@ -60,7 +60,7 @@ export default async function System({
               <Link href="/run/openvins/">OpenVINS implementation guide →</Link>
             ) : (
               <Link href="/learn/filtering-and-optimization/">
-                Estimation methods tutorial →
+                Estimation methods reading guide →
               </Link>
             )}
           </div>

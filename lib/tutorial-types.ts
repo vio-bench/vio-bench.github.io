@@ -1,20 +1,16 @@
 export type TechnicalSource = { title: string; url: string };
 
-export interface Tutorial {
+export interface StudyGuide {
   slug: string;
   title: string;
-  level: string;
-  duration: string;
   summary: string;
   prerequisites: string[];
-  objectives: string[];
-  sections: {
+  readings: {
     title: string;
-    body: string[];
-    equation?: string;
-    equationLatex?: string;
-    sources?: TechnicalSource[];
+    url: string;
+    source: string;
+    locator: string;
+    focus: string;
   }[];
-  exercise: { question: string; answer: string };
-  sources: TechnicalSource[];
+  related: TechnicalSource[];
 }
