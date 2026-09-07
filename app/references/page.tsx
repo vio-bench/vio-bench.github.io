@@ -4,7 +4,7 @@ import references from "@/data/technical-references.json";
 import { SupplementaryReading } from "@/components/supplementary-reading";
 
 export const metadata = {
-  title: "Notation and primary references",
+  title: "References and further reading",
   description: "Original definitions of VIO frames, states, measurements, and estimation conventions, with primary references.",
 };
 
@@ -12,13 +12,14 @@ export default function References() {
   return (
     <>
       <PageIntro
-        eyebrow="TUTORIALS / NOTATION AND REFERENCES"
-        title="Notation and primary references"
+        eyebrow="TUTORIALS / REFERENCES"
+        title="References and further reading"
         description="Notation sources and primary literature for the tutorial topics, with links to definitions and supplementary reading."
       />
       <div className="container page-content article-layout">
         <aside className="sidebar">
           <strong>Contents</strong>
+          <Link href="/learn/notation/">Notation chapter</Link>
           <a href="#frames">Frames and transforms</a>
           <a href="#quaternions">Quaternions and state</a>
           <a href="#measurements">Measurement conventions</a>

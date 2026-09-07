@@ -31,8 +31,8 @@ export default function Home() {
           <Link href="/learn/">Tutorial overview</Link>
         </div>
         <p>
-          A tutorial series by the VIOVERSE authors, from sensor models and
-          calibration to estimation and evaluation. Chapter text is in
+          A tutorial series by the VIOVERSE authors, from notation and sensor
+          models to calibration, estimation, and evaluation. Chapter text is in
           preparation; references are collected separately for each topic.
         </p>
         <ol className="research-contents">

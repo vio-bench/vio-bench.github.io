@@ -1,9 +1,42 @@
 [
   {
+    "slug": "notation",
+    "title": "Notation",
+    "summary": "Symbols, coordinate frames, rotation and pose conventions, and state definitions.",
+    "prerequisites": [],
+    "sections": [],
+    "readings": [
+      {
+        "title": "Inertial State Vector",
+        "url": "https://docs.openvins.com/propagation.html#ins_state",
+        "source": "OpenVINS documentation",
+        "locator": "Inertial State Vector",
+        "focus": "Identify the direction represented by the IMU quaternion and the frames in which position and velocity are expressed."
+      },
+      {
+        "title": "JPL Quaternion Definition",
+        "url": "https://docs.openvins.com/classov__type_1_1JPLQuat.html#jplquat_define",
+        "source": "OpenVINS documentation",
+        "locator": "JPL Quaternion Definition",
+        "focus": "Read the quaternion algebra, scalar/vector component convention, and unit constraint together."
+      },
+      {
+        "title": "Error State Definition",
+        "url": "https://docs.openvins.com/classov__type_1_1JPLQuat.html#jplquat_errorstate",
+        "source": "OpenVINS documentation",
+        "locator": "Error State Definition; update() function documentation",
+        "focus": "Read how OpenVINS defines the orientation perturbation and applies its quaternion update."
+      }
+    ],
+    "related": []
+  },
+  {
     "slug": "camera-and-imu",
     "title": "Camera and IMU measurement models",
     "summary": "The visual–inertial state, camera and IMU measurements, and the relationship between odometry and SLAM.",
-    "prerequisites": [],
+    "prerequisites": [
+      "notation"
+    ],
     "readings": [
       {
         "title": "Visual-Inertial Navigation: A Concise Review",

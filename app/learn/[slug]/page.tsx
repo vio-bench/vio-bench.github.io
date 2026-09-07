@@ -43,7 +43,7 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
               {i + 1}. {entry.title}
             </Link>
           ))}
-          <Link href="/references/">Notation and primary references</Link>
+          <Link href="/references/">References and further reading</Link>
         </aside>
         <article className="prose">
           <div className="tutorial-body">

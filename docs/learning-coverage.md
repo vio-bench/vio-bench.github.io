@@ -7,18 +7,19 @@ of external readings, is the main content.
 
 ## Chapter outline and writing status
 
-`data/tutorials.json` contains eight planned chapter outlines. Their `sections`
+`data/tutorials.json` contains nine planned chapter outlines. Their `sections`
 arrays are currently empty, awaiting author-provided text. Existing `readings`
 are retained as collapsed supplementary references after the body:
 
-1. Camera and IMU measurement models
-2. Coordinate frames and pose conventions
-3. Camera–IMU calibration and synchronization
-4. VIO initialization
-5. Filtering and optimization
-6. Trajectory evaluation
-7. Runtime and platform measurements
-8. Working with your own sensor data
+1. Notation
+2. Camera and IMU measurement models
+3. Coordinate frames and pose conventions
+4. Camera–IMU calibration and synchronization
+5. VIO initialization
+6. Filtering and optimization
+7. Trajectory evaluation
+8. Runtime and platform measurements
+9. Working with your own sensor data
 
 The outline does not establish that the chapters have been written or that VIO
 is fully covered. The separate References page collects further reading on VIO

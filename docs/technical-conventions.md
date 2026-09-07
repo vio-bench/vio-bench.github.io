@@ -22,6 +22,9 @@ evidence that a chapter has been written. Do not assign the paper's complete
 author list to individual chapters without chapter-specific attribution.
 Use the long project manuscript to inform subject coverage, and do not present
 the current outline as a completed course.
+Keep Notation first in the chapter sequence, before sensor models and the other
+technical chapters. The homepage, tutorial index, and chapter navigation share
+the order in `data/tutorials.json`.
 
 Third-party course material is linked at its original location; the website
 does not republish recordings or notes. RiSE is an optional Resources entry,

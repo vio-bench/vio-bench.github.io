@@ -38,7 +38,7 @@ export default function Evaluation() {
           <a href="#coverage">Full and drift-valid results</a>
           <a href="#run-epica">Run EPICA</a>
           <a href="#compare">Connect to VIOBench results</a>
-          <Link href="/references/">Notation and primary references</Link>
+          <Link href="/references/">Primary references</Link>
           <a href={epica.docs}>EPICA documentation ↗</a>
         </aside>
         <article className="prose">

@@ -6,7 +6,7 @@ The site uses a document-oriented layout: project overview, tutorial contents, m
 
 ## What is included
 
-- Eight planned tutorial chapters by the project authors; chapter text is awaiting the authors' manuscript, with supplementary references available separately.
+- Nine planned tutorial chapters by the project authors, beginning with Notation; chapter text is awaiting the authors' manuscript, with supplementary references available separately.
 - Eleven public upstream system profiles with configuration caveats.
 - An OpenVINS / EuRoC local run guide, reviewed against upstream documentation and source.
 - A dedicated Evaluation guide covering frames, synchronization, alignment, ATE/RPE, evaluated extent, and EPICA commands, with direct links to the public EPICA documentation.

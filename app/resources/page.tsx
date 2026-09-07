@@ -50,7 +50,7 @@ export default function Resources() {
           <div className="tool-list">
             {[
               {
-                title: "VIO notation and primary references",
+                title: "VIO references and further reading",
                 body: "Original frame, quaternion, and IMU state definitions, with references for the tutorial topics.",
                 url: "/references/",
               },

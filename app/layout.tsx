@@ -53,7 +53,7 @@ export default function RootLayout({
               <Link href="/learn/">Tutorials</Link>
               <Link href="/results/">Results and leaderboards</Link>
               <Link href="/evaluation/">Evaluation with EPICA</Link>
-              <Link href="/references/">Notation and references</Link>
+              <Link href="/references/">References and further reading</Link>
               <a href="https://github.com/vio-bench/vio-bench.github.io">
                 Website source ↗
               </a>
