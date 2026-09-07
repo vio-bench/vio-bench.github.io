@@ -69,6 +69,7 @@ a.button, a.button:hover {
 .reference-list p { margin-block: 6px; }
 .exercise { margin-top: 28px; padding: 20px; }
 .curriculum { display: block; max-width: 880px; }
+.tutorial-resources { max-width: 880px; font-size: 15px; line-height: 1.8; margin-block: 24px; }
 .lesson-card {
   border: 0;
   border-bottom: 1px solid var(--line);

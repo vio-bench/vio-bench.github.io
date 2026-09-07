@@ -3,8 +3,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+
+const sections = [
+  {
+    label: "Tutorials",
+    href: "/learn/",
+    routes: ["/learn", "/run", "/systems", "/resources", "/references"],
+  },
+  {
+    label: "Benchmark",
+    href: "/benchmark/",
+    routes: ["/benchmark", "/results"],
+  },
+  { label: "Evaluation", href: "/evaluation/", routes: ["/evaluation"] },
+];
+
 export function Navigation() {
-  const path = usePathname();
+  const path = usePathname().replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -22,31 +37,24 @@ export function Navigation() {
         className={open ? "nav is-open" : "nav"}
         aria-label="Main navigation"
       >
-        {[
-          ["Tutorials", "/learn/"],
-          ["Systems", "/systems/"],
-          ["Run", "/run/"],
-          ["Evaluation", "/evaluation/"],
-          ["Benchmark", "/benchmark/"],
-          ["Results", "/results/"],
-          ["Resources", "/resources/"],
-        ].map(
-          ([label, href]) => (
+        {sections.map(({ label, href, routes }) => {
+          const active = routes.some(
+            (route) => path === route || path.startsWith(route + "/"),
+          );
+          return (
             <Link
               key={label}
               onClick={() => setOpen(false)}
-              className={
-                path.startsWith(href) ? "active" : ""
-              }
+              className={active ? "active" : ""}
               aria-current={
-                path.startsWith(href) ? "page" : undefined
+                active ? (path === href.slice(0, -1) ? "page" : "location") : undefined
               }
               href={href}
             >
               {label}
             </Link>
-          ),
-        )}
+          );
+        })}
         <a className="github-link" href="https://github.com/vio-bench">
           GitHub <ArrowUpRight size={15} />
         </a>

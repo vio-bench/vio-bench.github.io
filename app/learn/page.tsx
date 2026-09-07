@@ -24,6 +24,12 @@ export default function Learn() {
             used throughout the tutorials.
           </p>
         </Callout>
+        <p className="tutorial-resources">
+          For implementation, see the <Link href="/run/">running guides</Link>{" "}
+          and <Link href="/systems/">system documentation</Link>. Dataset
+          downloads, calibration tools, and further reading are collected in{" "}
+          <Link href="/resources/">Resources</Link>.
+        </p>
         <div className="curriculum">
           {lessons.map((l, i) => (
             <Link
@@ -47,21 +53,6 @@ export default function Learn() {
               </div>
             </Link>
           ))}
-        </div>
-        <div
-          className="community-banner"
-          style={{ marginTop: 40, marginBottom: 0 }}
-        >
-          <div>
-            <h2>OpenVINS implementation guide</h2>
-            <p>
-              The OpenVINS guide covers environment setup, EuRoC configuration,
-              trajectory recording, and evaluation.
-            </p>
-          </div>
-          <Link className="button primary" href="/run/openvins/">
-            Run OpenVINS on EuRoC <ArrowRight size={17} />
-          </Link>
         </div>
       </div>
     </>
