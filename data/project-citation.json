@@ -1,6 +1,6 @@
 {
   "title": "Visual-Inertial Odometry: A Survey, Evaluation, and Benchmark",
-  "bibtex": "@misc{peng_vio_survey,\n  author = {Peng, Yuxiang and\n            Du, Yuze and\n            Katragadda, Saimouli and\n            Kulkarni, Abhijeet and\n            Chatzispyrou, Michalis and\n            Guo, Jinyuan and\n            Hwang, Hyunkil and\n            Tian, Yifu and\n            Rekleitis, Ioannis and\n            Huang, Guoquan and\n            Chen, Chuchu},\n  title  = {Visual-Inertial Odometry: A Survey, Evaluation, and Benchmark},\n  url    = {https://vio-bench.github.io/}\n}",
+  "bibtex": "@misc{peng_vio_survey,\n  author = {Peng, Yuxiang and Du, Yuze and Katragadda, Saimouli and Kulkarni, Abhijeet and Chatzispyrou, Michalis and Guo, Jinyuan and Hwang, Hyunkil and Tian, Yifu and Rekleitis, Ioannis and Huang, Guoquan and Chen, Chuchu},\n  title  = {Visual-Inertial Odometry: A Survey, Evaluation, and Benchmark},\n  url    = {https://vio-bench.github.io/}\n}",
   "source": {
     "revision": "403aafbf2104da26568dced565e847be303db059",
     "checkedOn": "2026-09-07",

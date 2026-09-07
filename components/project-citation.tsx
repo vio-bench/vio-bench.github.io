@@ -5,18 +5,13 @@ export function ProjectCitation() {
   return (
     <section className="project-citation" aria-label="Cite VIOVERSE">
       <p>
-        If you use VIOVERSE, its tutorials, or benchmark results in your
-        research, please cite our accompanying manuscript:
+        If you use VIOVERSE in your research, <strong>please cite:</strong>
       </p>
-      <p className="citation-title">{citation.title}</p>
-      <details>
-        <summary>BibTeX</summary>
-        <CodeBlock
-          label="BIBTEX"
-          code={citation.bibtex}
-          copyLabel="Copy BibTeX citation"
-        />
-      </details>
+      <CodeBlock
+        label="BibTeX"
+        code={citation.bibtex}
+        copyLabel="Copy BibTeX citation"
+      />
     </section>
   );
 }

@@ -185,8 +185,6 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .project-affiliations { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px 24px; font-size: 15px; line-height: 1.6; margin: 13px 0 0; color: var(--muted); }
 .project-citation { max-width: 850px; margin: 0 auto 32px; padding: 18px 0; border-block: 1px solid var(--line); text-align: center; }
 .project-citation p { font-size: 16px; line-height: 1.7; margin: 0; }
-.project-citation .citation-title { font-family: Georgia, "Times New Roman", serif; font-size: 18px; margin-top: 7px; }
-.project-citation summary { color: var(--blue); font-size: 15px; cursor: pointer; margin-top: 12px; }
 .project-citation .code-block { text-align: left; margin-top: 15px; }
 .project-citation pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .project-abstract { max-width: 850px; margin-inline: auto; font-size: 18px; line-height: 1.8; }
