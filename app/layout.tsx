@@ -46,19 +46,19 @@ export default function RootLayout({
         <footer className="footer">
           <div className="container footer-grid">
             <div>
-              <strong className="wordmark">VIOVERSE</strong>
-              <p>Visual–inertial odometry: tutorials, evaluation, and results.</p>
+              <Link href="/" className="footer-brand" aria-label="VIOVERSE home">
+                <img
+                  src="/brand/vioverse-logo.jpg"
+                  alt="VIOVERSE"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                />
+              </Link>
             </div>
             <div className="footer-links">
-              <Link href="/learn/">Tutorials</Link>
-              <Link href="/results/">Results and leaderboards</Link>
-              <Link href="/evaluation/">Evaluation with EPICA</Link>
-              <Link href="/references/">References and further reading</Link>
               <a href="https://github.com/vio-bench/vio-bench.github.io">
-                Website source ↗
-              </a>
-              <a href="https://github.com/vio-bench/vio-bench.github.io/issues">
-                Technical corrections ↗
+                GitHub
               </a>
             </div>
           </div>

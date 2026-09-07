@@ -2,14 +2,23 @@ import Link from "next/link";
 import lessons from "@/data/tutorials.json";
 import accuracy from "@/public/data/accuracy.json";
 import { ProjectAuthors } from "@/components/project-authors";
+import { ProjectCitation } from "@/components/project-citation";
 
 export default function Home() {
   return (
     <div className="container research-home">
       <header className="project-heading">
-        <h1>VIOVERSE</h1>
-        <p className="project-subtitle">Visual–Inertial Odometry: Methods, Tutorials, and Benchmark Evaluation</p>
+        <h1 className="project-logo">
+          <img
+            src="/brand/vioverse-logo.jpg"
+            alt="VIOVERSE"
+            width="1280"
+            height="720"
+            fetchPriority="high"
+          />
+        </h1>
         <ProjectAuthors />
+        <ProjectCitation />
         <p className="project-abstract">
           VIOVERSE is a project for studying, implementing, and evaluating
           visual–inertial odometry (VIO). The site includes a tutorial series
