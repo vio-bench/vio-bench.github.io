@@ -187,6 +187,7 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .project-citation p { font-size: 16px; line-height: 1.7; margin: 0; }
 .project-citation .code-block { text-align: left; margin-top: 15px; }
 .project-citation pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.project-citation .epica-citation { margin-top: 24px; }
 .project-abstract { max-width: 850px; margin-inline: auto; font-size: 18px; line-height: 1.8; }
 .project-links { display: flex; flex-wrap: wrap; gap: 8px 25px; font-size: 16px; }
 .project-heading .project-links { justify-content: center; margin-top: 24px; }

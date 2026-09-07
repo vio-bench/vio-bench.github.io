@@ -10,5 +10,21 @@
       "DOI",
       "venue"
     ]
+  },
+  "epica": {
+    "title": "EPICA: Epic Trajectory Alignment and Evaluation Toolkit",
+    "bibtex": "@misc{tian_epica,\n  author = {Tian, Yifu and Peng, Yuxiang and Huang, Guoquan and Chen, Chuchu},\n  title  = {{EPICA}: Epic Trajectory Alignment and Evaluation Toolkit},\n  url    = {https://epic-lab-gwu.github.io/EPIC-Alignment/}\n}",
+    "source": {
+      "titleSource": "https://pypi.org/project/epica/",
+      "projectUrl": "https://epic-lab-gwu.github.io/EPIC-Alignment/",
+      "authors": "Author order confirmed by the project owner.",
+      "checkedOn": "2026-09-07",
+      "unverifiedFields": [
+        "year",
+        "arXiv identifier",
+        "DOI",
+        "venue"
+      ]
+    }
   }
 }
