@@ -7,7 +7,10 @@
       "name": "ROVIO",
       "family": "Filter",
       "summary": "Fuses image-patch measurements and inertial readings in an extended Kalman filter. Its configuration exposes photometric or reprojection updates and online camera–IMU extrinsic estimation.",
-      "inputModes": ["Mono + IMU", "Multi-camera + IMU (build configuration)"],
+      "inputModes": [
+        "Mono + IMU",
+        "Multi-camera + IMU (build configuration)"
+      ],
       "upstreamUrl": "https://github.com/ethz-asl/rovio",
       "docsUrl": "https://github.com/ethz-asl/rovio/wiki",
       "learnFocus": "Follow how an image residual updates a filter state.",
@@ -68,7 +71,11 @@
       "name": "VINS-Fusion",
       "family": "Optimization",
       "summary": "Estimates motion by optimizing visual and inertial constraints. The project also includes online camera–IMU calibration, visual loop closure, and an example GPS fusion pipeline.",
-      "inputModes": ["Mono + IMU", "Stereo + IMU", "Stereo visual odometry"],
+      "inputModes": [
+        "Mono + IMU",
+        "Stereo + IMU",
+        "Stereo visual odometry"
+      ],
       "upstreamUrl": "https://github.com/HKUST-Aerial-Robotics/VINS-Fusion",
       "docsUrl": "https://github.com/HKUST-Aerial-Robotics/VINS-Fusion#readme",
       "learnFocus": "Inspect configuration changes across mono, stereo, and inertial inputs.",
@@ -127,7 +134,7 @@
       "id": "openvins",
       "name": "OpenVINS",
       "family": "Filter",
-      "summary": "Uses an MSCKF formulation to update an inertial state from sparse feature tracks. Modular state types, calibration options, a simulator, and evaluation tools support algorithm development.",
+      "summary": "Uses an error-state MSCKF with the current IMU state and correlated IMU pose clones. Sparse feature tracks constrain these states after feature elimination; optional SLAM landmarks and calibration states extend the filter.",
       "inputModes": [
         "Mono + IMU",
         "Synchronized stereo + IMU",
@@ -147,6 +154,16 @@
           "label": "Official tutorial",
           "url": "https://docs.openvins.com/gs-tutorial.html",
           "supports": "Stereo EuRoC launch and configuration files"
+        },
+        {
+          "label": "OpenVINS original paper (ICRA 2020)",
+          "url": "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+          "supports": "MSCKF formulation, state and feature representations, and calibration"
+        },
+        {
+          "label": "Retained filter state",
+          "url": "https://docs.openvins.com/classov__msckf_1_1State.html",
+          "supports": "Current IMU state, pose clones, SLAM landmarks, and calibration states"
         }
       ],
       "sourceChecked": "2026-09-06",
@@ -158,7 +175,10 @@
       "name": "Kimera-VIO",
       "family": "Optimization",
       "summary": "Processes visual and inertial measurements for state estimation, with optional loop closure and mesh generation. Its EuRoC examples expose frontend and backend parameters separately.",
-      "inputModes": ["Stereo + IMU", "Mono + IMU"],
+      "inputModes": [
+        "Stereo + IMU",
+        "Mono + IMU"
+      ],
       "upstreamUrl": "https://github.com/MIT-SPARK/Kimera-VIO",
       "docsUrl": "https://github.com/MIT-SPARK/Kimera-VIO#2-usage",
       "learnFocus": "Inspect frontend/backend settings and compare optional loop closure.",
@@ -209,7 +229,10 @@
       "name": "DM-VIO",
       "family": "Optimization",
       "summary": "Extends direct sparse odometry with inertial estimation and delayed marginalization. Image timestamps, camera calibration, and synchronized IMU measurements are explicit parts of the dataset interface.",
-      "inputModes": ["Mono + IMU", "Mono visual odometry (useimu=0)"],
+      "inputModes": [
+        "Mono + IMU",
+        "Mono visual odometry (useimu=0)"
+      ],
       "upstreamUrl": "https://github.com/lukasvst/dm-vio",
       "docsUrl": "https://github.com/lukasvst/dm-vio#3-running",
       "learnFocus": "Explore direct image residuals and the role of initialization and marginalization.",
@@ -255,7 +278,10 @@
       "name": "OKVIS2-X",
       "family": "Optimization",
       "summary": "Extends keyframe visual-inertial SLAM with a factor graph that can incorporate dense depth, LiDAR, and GNSS. Dense observations support volumetric submaps for mapping and navigation.",
-      "inputModes": ["Multi-camera + IMU", "Optional depth / LiDAR / GNSS"],
+      "inputModes": [
+        "Multi-camera + IMU",
+        "Optional depth / LiDAR / GNSS"
+      ],
       "upstreamUrl": "https://github.com/ethz-mrl/OKVIS2-X",
       "docsUrl": "https://github.com/ethz-mrl/OKVIS2-X#running-the-synchronous-applications-for-dataset-processing",
       "learnFocus": "Separate the visual-inertial estimator from added sensor and mapping factors.",
@@ -275,13 +301,21 @@
       "id": "sqrtvins",
       "name": "sqrtVINS",
       "family": "Filter",
-      "summary": "Extends OpenVINS with an LLT-based square-root filter update and dynamic initialization. The update preserves covariance-factor structure while estimating visual-inertial motion.",
-      "inputModes": ["Mono + IMU", "Stereo + IMU"],
+      "summary": "Uses a square-root covariance filter with an LLT-based measurement update and dynamic initialization. Its upper-triangular factor U satisfies P = UᵀU, where P is the state-error covariance.",
+      "inputModes": [
+        "Mono + IMU",
+        "Stereo + IMU"
+      ],
       "upstreamUrl": "https://github.com/rpng/sqrtVINS",
       "docsUrl": "https://github.com/rpng/sqrtVINS#getting-started",
-      "learnFocus": "Compare a covariance filter with a square-root update and initialization procedure.",
+      "learnFocus": "Study covariance square-root propagation, the measurement update, and dynamic initialization.",
       "scopeNote": "The public EuRoC configuration documents one-camera and two-camera modes; the supplied serial launch defaults to stereo. Performance claims require the paper conditions or a recorded run.",
       "sources": [
+        {
+          "label": "Peng, Chen, Wu, and Huang: original sqrtVINS paper (T-RO 2025)",
+          "url": "https://chuchuchen.net/pdf/Peng2025TRO.pdf",
+          "supports": "Section III, equation (1): covariance factor P = UᵀU; LLT measurement update and dynamic initialization"
+        },
         {
           "label": "Upstream README",
           "url": "https://github.com/rpng/sqrtVINS",

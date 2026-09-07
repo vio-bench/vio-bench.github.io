@@ -18,6 +18,11 @@ export default function Learn() {
             estimation and evaluation. Each lesson lists its prerequisites and
             includes a worked example. Reading times are estimates.
           </p>
+          <p>
+            The <Link href="/references/">notation and primary references</Link>{" "}
+            define the frame, quaternion, state, and measurement conventions
+            used throughout the tutorials.
+          </p>
         </Callout>
         <div className="curriculum">
           {lessons.map((l, i) => (

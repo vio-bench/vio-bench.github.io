@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageIntro, Callout, SourceList } from "@/components/ui";
 import { CodeBlock } from "@/components/code-block";
+import { MathBlock } from "@/components/math-block";
 import epica from "@/data/epica.json";
 
 export const metadata = {
@@ -37,6 +38,7 @@ export default function Evaluation() {
           <a href="#coverage">Full and drift-valid results</a>
           <a href="#run-epica">Run EPICA</a>
           <a href="#compare">Connect to VIOBench results</a>
+          <Link href="/references/">Notation and primary references</Link>
           <a href={epica.docs}>EPICA documentation ↗</a>
         </aside>
         <article className="prose">
@@ -60,11 +62,7 @@ export default function Evaluation() {
           <section id="prepare">
             <h2>Frames, timestamps, and reference data</h2>
             <p>
-              Estimated camera poses and reference IMU or marker poses describe
-              different physical frames. Establish the pose direction, axes,
-              position units, quaternion ordering, and sensor-to-reference
-              relationship before reading an error number. An offset between
-              frames can otherwise look like estimator error.
+              Estimated camera poses and reference IMU or marker poses describe different physical frames. Establish the pose direction, axes, position units, quaternion ordering and rotation convention, and sensor-to-reference transform before computing an error. Also identify whether the saved poses were produced online, retrospectively smoothed, or corrected by loop closure. A common text format does not make these outputs equivalent.
             </p>
             <p>
               Check timestamp units, valid reference intervals, and output gaps.
@@ -74,6 +72,10 @@ export default function Evaluation() {
               diagnostics, especially when the recording has little rotation.
             </p>
             <p><Link href="/learn/coordinate-frames/">Review coordinate frames</Link> · <Link href="/learn/calibration-and-time/">Review calibration and timing</Link></p>
+            <SourceList sources={[
+              { title: "OpenVINS: recording and evaluating estimator outputs", url: "https://docs.openvins.com/eval-error.html" },
+              { title: "Zhang and Scaramuzza: quantitative trajectory evaluation", url: "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf" },
+            ]} />
           </section>
           <section id="alignment">
             <h2>Alignment transformations</h2>
@@ -82,17 +84,13 @@ export default function Evaluation() {
                 <thead><tr><th scope="col">MODE</th><th scope="col">PERMITTED TRANSFORM</th><th scope="col">WHEN TO USE IT</th></tr></thead>
                 <tbody>
                   <tr><th scope="row"><code>se3</code></th><td>Rotation and translation; fixed scale.</td><td>Metric-scale VIO or odometry under a stated rigid alignment policy.</td></tr>
-                  <tr><th scope="row"><code>posyaw</code></th><td>Yaw and translation; fixed scale.</td><td>Gravity-aligned VIO when roll and pitch should remain constrained.</td></tr>
+                  <tr><th scope="row"><code>posyaw</code></th><td>Yaw and translation; fixed scale.</td><td>Metric-scale VIO in a common gravity frame; leaves roll, pitch, and scale errors visible.</td></tr>
                   <tr><th scope="row"><code>sim3</code></th><td>Rotation, translation, and scale.</td><td>Scale-ambiguous visual odometry or SLAM; report the fitted scale.</td></tr>
                 </tbody>
               </table>
             </div>
             <p>
-              These mode names describe the allowed world alignment. EPICA’s
-              full pipeline also uses reference trajectories to estimate timing
-              and sensor-frame calibration. Record those fitted quantities and
-              their fit intervals. This is a ground-truth-assisted evaluation
-              procedure; its score depends on more than the final rigid transform.
+              These mode names describe the permitted world-alignment model, not the complete evaluation procedure. EPICA uses reference trajectories to fit temporal offset and sensor-frame calibration. The reviewed public release also uses reference-dependent scores to select alignment candidates and fitting subsets. Record the fitted quantities, selection settings, and fitting intervals. This ground-truth-assisted procedure should be identified separately from a conventional evaluation using fixed calibration and a prescribed alignment fit.
             </p>
             <p>
               For a comparison, choose the same policy before evaluating methods.
@@ -101,21 +99,31 @@ export default function Evaluation() {
               interval for each method simply because it gives a lower error.
             </p>
             <p><a href={epica.cli + "#epa-alignment-modes"}>EPICA alignment modes and options ↗</a></p>
+            <SourceList sources={[
+              { title: "EPICA: alignment pipeline", url: epica.architecture },
+              { title: "EPICA 0.1.17: reviewed public release", url: "https://pypi.org/project/epica/0.1.17/" },
+              { title: "Zhang and Scaramuzza: alignment assumptions", url: "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf" },
+            ]} />
           </section>
           <section id="metrics">
             <h2>Absolute and relative trajectory error</h2>
             <h3>Absolute trajectory error (ATE)</h3>
             <p>
-              Compare each aligned estimated pose with its associated reference
-              pose. Position RMSE summarizes the Euclidean position errors;
-              orientation RMSE summarizes the relative rotation angles. Keep the
-              two quantities separate, with meters and degrees stated explicitly.
+              For one run, compare each aligned estimated pose with its associated reference pose. Position RMSE is the square root of the mean squared Euclidean position error. Orientation RMSE can be formed from relative-rotation angles under a declared rotation convention. Report position and orientation separately, with meters and the chosen angular unit; state the statistic instead of using ATE to imply a universal aggregation.
             </p>
-            <div className="equation">Position RMSE = √[(1/N) Σᵢ ‖p̂ᵢ − pᵢ‖²]</div>
+            <MathBlock latex={String.raw`e_{\mathrm{pos}}=\sqrt{\frac{1}{N}\sum_{i=1}^{N}\left\|\hat{\mathbf p}_i-\mathbf p_i\right\|_2^2}`} />
             <p className="small">
               Here p̂ᵢ is an aligned estimate, pᵢ its reference, and N the number
               of evaluated pose correspondences. This N is different from the
               sequence counts in the leaderboard.
+            </p>
+            <p>
+              Keep the levels of averaging separate. A mean of repeated-run
+              trajectory RMSEs differs from a time-indexed RMSE across runs and
+              from pooling every squared pose error before taking a square root.
+              A mean of sequence RMSEs is another aggregation. State its weights,
+              contributing counts, and missing-value rule; do not use one count
+              for poses, pose pairs, runs, and sequences.
             </p>
             <h3>Relative pose error (RPE)</h3>
             <p>
@@ -152,12 +160,7 @@ export default function Evaluation() {
               in for performance over the complete run.
             </p>
             <p>
-              EPICA’s documentation defines drift-valid success rate using valid
-              reference path length divided by total reference path length. This
-              differs from time coverage, matched-sample coverage, and the
-              fraction of attempted runs that finish. Preserve the evaluator
-              version, local thresholds, global-failure status, and valid mask
-              when interpreting this quantity.
+              EPICA reports a drift-valid path fraction: retained reference path length divided by the reference path length supplied to that evaluation stage after its association and preprocessing. This differs from recording-wide time coverage, matched-sample coverage, and the fraction of attempted runs that finish. Preserve the evaluator version, local rules and thresholds, global-failure status, and the information needed to identify retained segments. Public release 0.1.17 and the live documentation differ in global-gate behavior, so check the installed implementation before interpreting that status.
             </p>
             <Callout title="Missing data and execution outcomes">
               <p>
@@ -167,6 +170,10 @@ export default function Evaluation() {
                 an error of zero means a measured zero.
               </p>
             </Callout>
+            <SourceList sources={[
+              { title: "EPICA: metric definitions", url: epica.metrics },
+              { title: "EPICA 0.1.17: reviewed public release", url: "https://pypi.org/project/epica/0.1.17/" },
+            ]} />
           </section>
           <section id="run-epica">
             <h2>EPICA installation and command-line evaluation</h2>

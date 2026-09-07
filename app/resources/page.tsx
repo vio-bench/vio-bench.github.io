@@ -50,6 +50,11 @@ export default function Resources() {
           <div className="tool-list">
             {[
               {
+                title: "VIO notation and primary references",
+                body: "Frame and quaternion conventions, IMU state definitions, and the papers supporting these tutorials.",
+                url: "/references/",
+              },
+              {
                 title: "EPICA trajectory evaluation toolkit",
                 body: "Public documentation for trajectory synchronization, alignment, error metrics, and batch evaluation.",
                 url: epica.docs,
@@ -58,6 +63,11 @@ export default function Resources() {
                 title: "OpenVINS documentation",
                 body: "Estimator derivations, state representations, calibration, simulation, and evaluation.",
                 url: "https://docs.openvins.com/",
+              },
+              {
+                title: "Robotics & State Estimation (RiSE) tutorials",
+                body: "Yulin Yang, Chuchu Chen, and Xingxing Zuo’s course materials on state estimation. See the repository for available lectures and notes.",
+                url: "https://github.com/yangyulin/rise-tutorial",
               },
               {
                 title: "Kalibr",

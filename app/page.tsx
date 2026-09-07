@@ -1,7 +1,6 @@
 import Link from "next/link";
 import lessons from "@/data/tutorials.json";
 import accuracy from "@/public/data/accuracy.json";
-import epica from "@/data/epica.json";
 
 export default function Home() {
   return (
@@ -22,7 +21,6 @@ export default function Home() {
           <Link href="/learn/">Tutorials</Link>
           <Link href="/evaluation/">Evaluation</Link>
           <Link href="/results/">Benchmark results</Link>
-          <a href={epica.docs}>EPICA documentation</a>
           <a href="https://github.com/vio-bench">GitHub</a>
         </nav>
       </header>
@@ -62,7 +60,7 @@ export default function Home() {
           alignment model, and evaluated interval. The <Link href="/evaluation/">Evaluation
           guide</Link> explains ATE, RPE, and the distinction between full-trajectory
           and drift-valid measurements. It also documents a trajectory-pair
-          workflow using <a href={epica.docs}>EPICA</a>, our trajectory alignment
+          workflow using EPICA, our trajectory alignment
           and evaluation toolkit.
         </p>
         <p>

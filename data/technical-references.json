@@ -1,0 +1,74 @@
+[
+  {
+    "id": "huang2019review",
+    "title": "Visual-Inertial Navigation: A Concise Review",
+    "authors": "Guoquan Huang",
+    "year": 2019,
+    "venue": "arXiv:1906.02650",
+    "url": "https://arxiv.org/abs/1906.02650",
+    "scope": "Visual–inertial estimation models, algorithm families, observability, and open research problems."
+  },
+  {
+    "id": "geneva2020openvins",
+    "title": "OpenVINS: A Research Platform for Visual-Inertial Estimation",
+    "authors": "Patrick Geneva, Kevin Eckenhoff, Woosik Lee, Yulin Yang, and Guoquan Huang",
+    "year": 2020,
+    "venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+    "url": "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+    "scope": "MSCKF state representation, feature representations, calibration, consistency, and the OpenVINS implementation."
+  },
+  {
+    "id": "geneva2023initialization",
+    "title": "OpenVINS State Initialization: Details and Derivations",
+    "authors": "Patrick Geneva and Guoquan Huang",
+    "year": 2023,
+    "venue": "Technical report RPNG-2022-INIT, February revision",
+    "url": "https://pgeneva.com/downloads/reports/tr_init.pdf",
+    "scope": "Dynamic initialization, inertial preintegration, gravity-constrained initial estimation, nonlinear refinement, and covariance recovery."
+  },
+  {
+    "id": "chen2023marginalization",
+    "title": "Optimization-based VINS: Consistency, Marginalization, and FEJ",
+    "authors": "Chuchu Chen, Patrick Geneva, Yuxiang Peng, Woosik Lee, and Guoquan Huang",
+    "year": 2023,
+    "venue": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
+    "url": "https://pgeneva.com/downloads/papers/Chen2023IROS.pdf",
+    "scope": "Observability, Schur-complement marginalization, and correct first-estimate Jacobian use in optimization-based VINS."
+  },
+  {
+    "id": "chen2025iteration",
+    "title": "Is Iteration Worth It? Revisit Its Impact in Sliding-Window VIO",
+    "authors": "Chuchu Chen, Yuxiang Peng, and Guoquan Huang",
+    "year": 2025,
+    "venue": "IEEE International Conference on Robotics and Automation (ICRA)",
+    "url": "https://chuchuchen.net/pdf/2025_icra_iterative-1.pdf",
+    "scope": "Controlled study of camera/IMU relinearization and FEJ in fixed-size sliding-window VIO, without long-term loop closure or global mapping."
+  },
+  {
+    "id": "yang2017nullspace",
+    "title": "Null-Space-based Marginalization: Analysis and Algorithm",
+    "authors": "Yulin Yang, James Maley, and Guoquan Huang",
+    "year": 2017,
+    "venue": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)",
+    "url": "https://yangyulin.net/papers/2017_iros_null.pdf",
+    "scope": "Equivalence of nullspace projection and Schur-complement elimination under matched linearizations and the stated Gaussian-noise assumptions."
+  },
+  {
+    "id": "yang2023calibration",
+    "title": "Online Self-Calibration for Visual-Inertial Navigation: Models, Analysis, and Degeneracy",
+    "authors": "Yulin Yang, Patrick Geneva, Xingxing Zuo, and Guoquan Huang",
+    "year": 2023,
+    "venue": "IEEE Transactions on Robotics",
+    "url": "https://yangyulin.net/papers/2023_tro_full_calib.pdf",
+    "scope": "IMU/camera intrinsic and spatial-temporal calibration, rolling-shutter readout, observability under excitation, and degenerate motions."
+  },
+  {
+    "id": "peng2025sqrtvins",
+    "title": "√VINS: Robust and Ultrafast Square-Root Filter-Based 3D Motion Tracking",
+    "authors": "Yuxiang Peng, Chuchu Chen, Kejian Wu, and Guoquan Huang",
+    "year": 2025,
+    "venue": "IEEE Transactions on Robotics",
+    "url": "https://chuchuchen.net/pdf/Peng2025TRO.pdf",
+    "scope": "Square-root covariance filtering with an LLT-based update that preserves the triangular factor, plus dynamic initialization."
+  }
+]

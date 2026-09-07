@@ -60,6 +60,13 @@ a.button, a.button:hover {
 .sidebar a { padding: 8px 12px; border-left-width: 1px; }
 .sidebar a.active { background: #f3f4f5; }
 .equation, .exercise { border-radius: 0; background: #fafafa; border-color: var(--line); }
+.math-block { overflow-x: auto; padding: 12px 8px; margin-block: 20px; border-block: 1px solid var(--line); }
+.math-block .katex-display { margin: .45em 0; }
+.math-block .katex { font-size: 1.08em; }
+.prose .sources { font-size: 13px; margin-bottom: 24px; }
+.reference-list { padding-left: 24px; }
+.reference-list > li { padding-left: 5px; margin-block: 22px; scroll-margin-top: 95px; }
+.reference-list p { margin-block: 6px; }
 .exercise { margin-top: 28px; padding: 20px; }
 .curriculum { display: block; max-width: 880px; }
 .lesson-card {

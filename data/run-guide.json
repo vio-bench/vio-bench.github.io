@@ -3,7 +3,7 @@
   "title": "Run OpenVINS on EuRoC",
   "subtitle": "From a stereo image sequence and IMU measurements to a saved trajectory.",
   "level": "First local run",
-  "environment": "Ubuntu 20.04 \u00b7 ROS 1 Noetic \u00b7 Bash",
+  "environment": "Ubuntu 20.04 · ROS 1 Noetic · Bash",
   "status": "Upstream-documented guide; not executed or benchmarked here",
   "sourceChecked": "2026-09-06",
   "sourceRevision": "69488123ed9362dd44b6f28e7f4680abbff1442b",
@@ -46,7 +46,9 @@
       "title": "2. Build the public upstream project",
       "body": "Start in a Bash terminal with ROS sourced. Use a new workspace, then build all OpenVINS packages, including ov_eval. Continue only after catkin reports a successful build. Record the actual cloned commit with the experiment; the source revision shown on this page records the version reviewed for this guide.",
       "code": "source /opt/ros/noetic/setup.bash\nmkdir -p \"$HOME/workspace/catkin_ws_ov/src\"\ncd \"$HOME/workspace/catkin_ws_ov/src\"\ngit clone https://github.com/rpng/open_vins/\ncd ..\ncatkin build\nsource devel/setup.bash\ngit -C src/open_vins rev-parse HEAD",
-      "sourceUrls": ["https://docs.openvins.com/gs-installing.html"]
+      "sourceUrls": [
+        "https://docs.openvins.com/gs-installing.html"
+      ]
     },
     {
       "id": "data",
@@ -73,7 +75,7 @@
     {
       "id": "config",
       "title": "4. Select the EuRoC calibration",
-      "body": "config:=euroc_mav selects the supplied estimator settings, IMU noise/topic file, and camera\u2013IMU calibration. This run explicitly uses two cameras with stereo tracking. For your own sensor, these files must be replaced with its calibration and topic names.",
+      "body": "config:=euroc_mav selects the supplied estimator settings, IMU noise/topic file, and camera–IMU calibration. This run explicitly uses two cameras with stereo tracking. For your own sensor, these files must be replaced with its calibration and topic names.",
       "files": [
         "config/euroc_mav/estimator_config.yaml",
         "config/euroc_mav/kalibr_imu_chain.yaml",
@@ -96,19 +98,19 @@
       "body": "Use four separate Bash terminals; each block sources its own environment and does not inherit variables or a working directory from another terminal. Start the estimator and RViz before playing the bag. Trajectory saving is enabled. The upstream recorder replaces an existing estimate.txt at launch, so choose a new filename when preserving repeated runs.",
       "terminals": [
         {
-          "label": "Terminal 1 \u00b7 ROS master",
+          "label": "Terminal 1 · ROS master",
           "code": "source /opt/ros/noetic/setup.bash\nroscore"
         },
         {
-          "label": "Terminal 2 \u00b7 Estimator + trajectory recorder",
+          "label": "Terminal 2 · Estimator + trajectory recorder",
           "code": "source /opt/ros/noetic/setup.bash\nsource \"$HOME/workspace/catkin_ws_ov/devel/setup.bash\"\nmkdir -p \"$HOME/vioverse-runs/openvins-euroc\"\nroslaunch ov_msckf subscribe.launch config:=euroc_mav max_cameras:=2 use_stereo:=true dosave:=true path_est:=\"$HOME/vioverse-runs/openvins-euroc/estimate.txt\""
         },
         {
-          "label": "Terminal 3 \u00b7 RViz",
+          "label": "Terminal 3 · RViz",
           "code": "source /opt/ros/noetic/setup.bash\nsource \"$HOME/workspace/catkin_ws_ov/devel/setup.bash\"\nrviz -d \"$(rospack find ov_msckf)/launch/display.rviz\""
         },
         {
-          "label": "Terminal 4 \u00b7 Dataset playback",
+          "label": "Terminal 4 · Dataset playback",
           "code": "source /opt/ros/noetic/setup.bash\nrosbag play \"$HOME/datasets/euroc/V1_01_easy.bag\""
         }
       ],
@@ -126,7 +128,7 @@
       "body": "After playback finishes and the estimator completes processing, press Ctrl+C in Terminal 2 to close the estimator and recorder. Open a Bash terminal and run the block below. The ground-truth file is included in the public OpenVINS checkout, so no separate GT download or format conversion is needed. For V1_01_easy, upstream documents its recomputed IMU ground truth because of orientation errors in the original release.",
       "code": "source /opt/ros/noetic/setup.bash\nsource \"$HOME/workspace/catkin_ws_ov/devel/setup.bash\"\nrosrun ov_eval error_singlerun posyaw \"$HOME/workspace/catkin_ws_ov/src/open_vins/ov_data/euroc_mav/V1_01_easy.txt\" \"$HOME/vioverse-runs/openvins-euroc/estimate.txt\"",
       "expected": "The evaluator reports trajectory error statistics and matched samples. Check the timestamp span and evaluated overlap before interpreting an average.",
-      "format": "Trajectory text begins with time(s), px, py, pz, qx, qy, qz, qw.",
+      "format": "Trajectory text begins with time(s), px, py, pz, qx, qy, qz, qw; covariance entries may follow. In the reviewed ROS recorder, position is the IMU origin expressed in the global frame, and xyzw represents the IMU-to-global Hamilton rotation. These coefficients numerically match the internal global-to-IMU JPL quaternion; do not conjugate the exported file again. Published pose timestamps already use the IMU clock; do not add the camera–IMU offset a second time.",
       "alignment": "posyaw aligns translation and yaw; record this choice with the result. Do not mix alignment modes when comparing systems.",
       "links": [
         {
@@ -140,6 +142,14 @@
         {
           "label": "Ground-truth files",
           "url": "https://github.com/rpng/open_vins/tree/master/ov_data/euroc_mav"
+        },
+        {
+          "label": "Reviewed ROS pose direction and timestamps",
+          "url": "https://github.com/rpng/open_vins/blob/69488123ed9362dd44b6f28e7f4680abbff1442b/ov_msckf/src/ros/ROS1Visualizer.cpp#L596"
+        },
+        {
+          "label": "Reviewed trajectory recorder",
+          "url": "https://github.com/rpng/open_vins/blob/69488123ed9362dd44b6f28e7f4680abbff1442b/ov_eval/src/utils/Recorder.h#L125"
         }
       ],
       "sourceUrls": [

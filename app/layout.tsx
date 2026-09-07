@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 import "./academic.css";
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ export default function RootLayout({
               <Link href="/learn/">Tutorials</Link>
               <Link href="/results/">Results and leaderboards</Link>
               <Link href="/evaluation/">Evaluation with EPICA</Link>
+              <Link href="/references/">Notation and references</Link>
               <a href="https://github.com/vio-bench/vio-bench.github.io">
                 Website source ↗
               </a>

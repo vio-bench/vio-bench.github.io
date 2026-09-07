@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import lessons from "@/data/tutorials.json";
+import tutorialData from "@/data/tutorials.json";
+import type { Tutorial } from "@/lib/tutorial-types";
+import { MathBlock } from "@/components/math-block";
 import { PageIntro, SourceList } from "@/components/ui";
+const lessons: Tutorial[] = tutorialData;
 export function generateStaticParams() {
   return lessons.map((l) => ({ slug: l.slug }));
 }
@@ -43,6 +46,7 @@ export default async function Lesson({
               {i + 1}. {s.title}
             </Link>
           ))}
+          <Link href="/references/">Notation and primary references</Link>
         </aside>
         <article className="prose">
           <div className="callout">
@@ -72,9 +76,12 @@ export default async function Lesson({
               {s.body.map((p) => (
                 <p key={p}>{p}</p>
               ))}
-              {"equation" in s && s.equation && (
+              {s.equationLatex ? (
+                <MathBlock latex={s.equationLatex} />
+              ) : s.equation && (
                 <div className="equation">{s.equation}</div>
               )}
+              {s.sources && <SourceList sources={s.sources} />}
             </section>
           ))}
           <section className="exercise">
