@@ -1,6 +1,7 @@
 import Link from "next/link";
 import lessons from "@/data/tutorials.json";
 import accuracy from "@/public/data/accuracy.json";
+import { ProjectAuthors } from "@/components/project-authors";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <header className="project-heading">
         <h1>VIOVERSE</h1>
         <p className="project-subtitle">Visual–Inertial Odometry: Methods, Tutorials, and Benchmark Evaluation</p>
+        <ProjectAuthors />
         <p className="project-abstract">
           VIOVERSE brings together educational material, implementation guides,
           and experimental results for visual–inertial odometry (VIO). The

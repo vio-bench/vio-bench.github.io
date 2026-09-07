@@ -150,6 +150,13 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 13px; color: var
 .project-heading { padding: 52px 0 36px; border-bottom: 1px solid var(--line); }
 .project-heading h1 { font-size: 40px; text-align: center; margin-bottom: 12px; letter-spacing: .01em; }
 .project-subtitle { font-family: Georgia, "Times New Roman", serif; font-size: 22px; line-height: 1.45; text-align: center; max-width: 860px; margin: 0 auto 27px; }
+.project-byline { max-width: 920px; margin: 0 auto 30px; text-align: center; }
+.project-authors { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px 22px; list-style: none; margin: 0; padding: 0; font: 17px/1.7 Georgia, "Times New Roman", serif; }
+.project-authors li { white-space: nowrap; }
+.project-authors a { color: var(--blue); text-decoration: none; }
+.project-authors a:hover, .project-authors a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.project-byline sup { font-size: .7em; margin-left: 2px; }
+.project-affiliations { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px 24px; font-size: 13px; line-height: 1.6; margin: 13px 0 0; color: var(--muted); }
 .project-abstract { max-width: 850px; margin-inline: auto; font-size: 16px; line-height: 1.8; }
 .project-links { display: flex; flex-wrap: wrap; gap: 8px 25px; font-size: 14px; }
 .project-heading .project-links { justify-content: center; margin-top: 24px; }
@@ -175,6 +182,8 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 13px; color: var
   .project-heading { padding-top: 32px; }
   .project-heading h1 { font-size: 34px; }
   .project-subtitle { font-size: 19px; }
+  .project-authors { font-size: 15px; gap: 5px 16px; }
+  .project-affiliations { font-size: 12px; gap: 4px 18px; }
   .project-abstract { font-size: 15px; }
   .research-contents { columns: 1; }
   .research-section-heading { display: block; }

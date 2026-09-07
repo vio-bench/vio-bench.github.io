@@ -1,0 +1,96 @@
+{
+  "source": {
+    "title": "Visual-Inertial Odometry: A Survey, Evaluation, and Benchmark",
+    "revision": "403aafbf2104da26568dced565e847be303db059",
+    "checkedOn": "2026-09-06"
+  },
+  "authors": [
+    {
+      "name": "Yuxiang Peng",
+      "affiliations": [
+        1
+      ],
+      "url": "https://www.yxpeng.com/"
+    },
+    {
+      "name": "Yuze Du",
+      "affiliations": [
+        1
+      ],
+      "url": null
+    },
+    {
+      "name": "Saimouli Katragadda",
+      "affiliations": [
+        1
+      ],
+      "url": "https://saimouli.github.io/"
+    },
+    {
+      "name": "Abhijeet Kulkarni",
+      "affiliations": [
+        1
+      ],
+      "url": null
+    },
+    {
+      "name": "Michalis Chatzispyrou",
+      "affiliations": [
+        1
+      ],
+      "url": null
+    },
+    {
+      "name": "Jinyuan Guo",
+      "affiliations": [
+        1
+      ],
+      "url": "https://alexander-guo.github.io/"
+    },
+    {
+      "name": "Hyunkil Hwang",
+      "affiliations": [
+        1
+      ],
+      "url": null
+    },
+    {
+      "name": "Yifu Tian",
+      "affiliations": [
+        2
+      ],
+      "url": "https://yifu3.com/"
+    },
+    {
+      "name": "Ioannis Rekleitis",
+      "affiliations": [
+        1
+      ],
+      "url": "https://sites.google.com/udel.edu/prof-ioannis-rekleitis/"
+    },
+    {
+      "name": "Guoquan Huang",
+      "affiliations": [
+        1
+      ],
+      "url": "https://udel.edu/~ghuang/"
+    },
+    {
+      "name": "Chuchu Chen",
+      "affiliations": [
+        2
+      ],
+      "url": "https://chuchuchen.net/"
+    }
+  ],
+  "affiliations": [
+    {
+      "id": 1,
+      "name": "University of Delaware"
+    },
+    {
+      "id": 2,
+      "name": "The George Washington University"
+    }
+  ]
+}
