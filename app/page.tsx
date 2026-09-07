@@ -13,8 +13,8 @@ export default function Home() {
         <p className="project-abstract">
           VIOVERSE organizes the material needed to study, implement, and
           evaluate visual–inertial odometry (VIO). Its study guides connect
-          original papers, OpenVINS documentation, and the RiSE course with
-          system implementations and experimental practice. Trajectory evaluation is presented
+          original papers and implementation documentation with VIO systems
+          and experimental practice. Trajectory evaluation is presented
           with EPICA, while VIOBench organizes reported accuracy and resource
           measurements across five datasets and three computing platforms.
         </p>

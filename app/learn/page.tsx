@@ -9,7 +9,7 @@ export default function Learn() {
       <PageIntro
         eyebrow="TUTORIALS / STUDY GUIDE"
         title="Studying visual–inertial odometry"
-        description="A reading sequence through original papers, official derivations, course material, and implementation documentation."
+        description="A reading sequence through original papers, official derivations, and implementation documentation."
       />
       <div className="container page-content">
         <Callout title="Sources and study sequence">
@@ -20,9 +20,7 @@ export default function Learn() {
             specific source sections and a suggested reading order.
           </p>
           <p>
-            For probability, linear algebra, and three-dimensional geometry,
-            begin with the <a href="https://github.com/yangyulin/rise-tutorial#outline">RiSE course</a>,
-            Lectures 1–2. Follow each source’s notation and assumptions; the{" "}
+            Follow each source’s notation and assumptions; the{" "}
             <Link href="/references/">notation references</Link> identify the
             relevant definitions in OpenVINS.
           </p>
@@ -54,7 +52,7 @@ export default function Learn() {
           <h2 id="further-reading-heading">Further reading by topic</h2>
           <p>
             The guides above provide an initial reading sequence. The sources
-            below extend it to mathematical foundations, visual geometry,
+            below address VIO formulation, visual geometry,
             preintegration, and learning methods. Each entry points to the
             original material; the current guides are not a complete course.
           </p>

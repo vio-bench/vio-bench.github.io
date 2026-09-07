@@ -17,8 +17,11 @@ establish that the prose was supplied or reviewed by the cited authors.
 
 When the project authors supply teaching text, retain its technical meaning,
 notation, authorship, and provenance when adapting it for the website. Missing
-source material stays a documented coverage gap. RiSE material is linked at its
-original location; the website does not republish its recordings or notes.
+source material stays a documented coverage gap. Third-party course material is
+linked at its original location; the website does not republish recordings or
+notes. Prioritize original papers and official technical documentation in the
+learning sequence. RiSE is an optional Resources entry, not a featured source,
+required prerequisite, or organizing framework for the website.
 
 ## Primary references
 

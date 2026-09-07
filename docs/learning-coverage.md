@@ -20,7 +20,7 @@ attribution, section locators, prerequisites, and related material:
 8. Working with your own sensor data
 
 These guides do not establish complete coverage of VIO. The learning overview
-also links original material for mathematical prerequisites, visual geometry,
+also links original material for VIO formulation, visual geometry,
 preintegration, observability, learning methods, and the relationship between
 odometry and SLAM.
 
@@ -28,6 +28,7 @@ odometry and SLAM.
 
 The manuscript identifies several areas that need deeper reading sequences:
 
+- Mathematical prerequisites: probability, linear algebra, and 3D geometry.
 - Observability and consistency, including error coordinates and consistency
   evaluation.
 - Inertial propagation and preintegration, including their model assumptions.
@@ -43,6 +44,7 @@ Original project teaching text must come from the project authors and retain
 its attribution and technical conventions. Follow
 [`technical-conventions.md`](technical-conventions.md) when editing.
 
-RiSE recordings and notes stay at their original locations. Only describe
-lectures as available when the current repository provides the material.
+Third-party recordings and notes stay at their original locations. Only describe
+lectures as available when the source provides the material. Optional courses
+are supplementary resources; they do not determine the site's learning sequence.
 Benchmark claims remain governed by the published result snapshot and protocol.

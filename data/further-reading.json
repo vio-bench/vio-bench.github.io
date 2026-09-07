@@ -1,11 +1,11 @@
 [
   {
-    "topic": "Mathematical prerequisites",
+    "topic": "VIO formulation",
     "sources": [
       {
-        "title": "RiSE consolidated lecture notes",
-        "url": "https://github.com/yangyulin/rise-tutorial/blob/989161b9efc4c7f8faf8597c3d1479e3fed6909d/lectures/lecture_latex/rise_notes.pdf",
-        "locator": "Lectures 1–3; printed pp. 1–31. Start with probability and linear systems, then rotations and camera geometry."
+        "title": "Huang: Visual-Inertial Navigation: A Concise Review",
+        "url": "https://arxiv.org/pdf/1906.02650",
+        "locator": "Section 2.1, IMU Kinematic Model; Section 2.2, Camera Measurement Model."
       }
     ]
   },
@@ -29,11 +29,6 @@
     "topic": "IMU integration and preintegration",
     "sources": [
       {
-        "title": "RiSE consolidated lecture notes",
-        "url": "https://github.com/yangyulin/rise-tutorial/blob/989161b9efc4c7f8faf8597c3d1479e3fed6909d/lectures/lecture_latex/rise_notes.pdf",
-        "locator": "Lecture 5, printed pp. 40–52; Lecture 7, §§7.2–7.4 and §7.6, printed pp. 65–70."
-      },
-      {
         "title": "Eckenhoff, Geneva, and Huang: Closed-form Preintegration Methods for Graph-based Visual-Inertial Navigation",
         "url": "https://arxiv.org/pdf/1805.02774v2",
         "locator": "§IV Closed-form Preintegration, PDF pp. 5–9; §V Visual-Inertial Navigation, beginning PDF p. 10."
@@ -44,9 +39,9 @@
     "topic": "Kalman filtering and observability",
     "sources": [
       {
-        "title": "RiSE consolidated lecture notes",
-        "url": "https://github.com/yangyulin/rise-tutorial/blob/989161b9efc4c7f8faf8597c3d1479e3fed6909d/lectures/lecture_latex/rise_notes.pdf",
-        "locator": "Lecture 6: Kalman Filter, Observability Analysis, and KF-Based VINS; especially §6.9 Observability analysis, printed pp. 63–64."
+        "title": "OpenVINS: First-Estimate Jacobian Estimators",
+        "url": "https://docs.openvins.com/fej.html",
+        "locator": "EKF Linearized Error-State System; Linearized System Observability; First Estimate Jacobians."
       }
     ]
   },
@@ -54,9 +49,9 @@
     "topic": "Information, marginalization, and estimator design",
     "sources": [
       {
-        "title": "RiSE consolidated lecture notes",
-        "url": "https://github.com/yangyulin/rise-tutorial/blob/989161b9efc4c7f8faf8597c3d1479e3fed6909d/lectures/lecture_latex/rise_notes.pdf",
-        "locator": "Lecture 4; §4.3 Covariance and information, §4.4 Marginalization, and §4.9 The relationship between Schur complement and nullspace projection; printed pp. 32–39."
+        "title": "Yang, Maley, and Huang: Null-Space-based Marginalization: Analysis and Algorithm",
+        "url": "https://yangyulin.net/papers/2017_iros_null.pdf",
+        "locator": "Sections II–III; especially III-C, Equivalence of Two Marginalizations, Lemma 1 (PDF page 3)."
       },
       {
         "title": "Eckenhoff, Geneva, and Huang: Closed-form Preintegration Methods for Graph-based Visual-Inertial Navigation",
@@ -66,19 +61,13 @@
     ]
   },
   {
-    "topic": "Learning methods in VIO and SLAM",
+    "topic": "Learning methods in VIO",
     "sources": [
       {
         "title": "Adaptive VIO: Deep Visual-Inertial Odometry with Online Continual Learning",
         "url": "https://arxiv.org/pdf/2405.16754v1",
         "locator": "§§3.1–3.3, PDF pp. 3–6; §4.1 Implementation details, PDF p. 6.",
         "scope": "Monocular VIO. Read the learning and optimization method together with the stated adaptation protocol."
-      },
-      {
-        "title": "Robotics & State Estimation (RiSE) Tutorials: Learning Based SLAM & Dense Mapping",
-        "url": "https://github.com/yangyulin/rise-tutorial/blob/989161b9efc4c7f8faf8597c3d1479e3fed6909d/lectures/10-learning-slam-dense-mapping/RiSE_DenseMapping_LearningSLAM202608.pdf",
-        "locator": "Lecture 10; slide 2 outline; slide 10 Learning-based Differentiable VO; slides 26–27 Case Study: SimpleMapping.",
-        "scope": "Related SLAM and dense-mapping material; not a dedicated learning-VIO tutorial."
       }
     ]
   }

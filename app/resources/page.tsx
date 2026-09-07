@@ -66,7 +66,7 @@ export default function Resources() {
               },
               {
                 title: "Robotics & State Estimation (RiSE) tutorials",
-                body: "Yulin Yang, Chuchu Chen, and Xingxing Zuo’s course materials on state estimation. See the repository for available lectures and notes.",
+                body: "Optional course material on robotics and state estimation. Available lectures and notes are listed in the repository.",
                 url: "https://github.com/yangyulin/rise-tutorial",
               },
               {
