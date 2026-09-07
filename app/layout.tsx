@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import "./globals.css";
+import "./academic.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://vio-bench.github.io"),
   title: {
-    default: "VIOVERSE — Learn, run, and understand VIO",
+    default: "VIOVERSE | Visual–Inertial Odometry",
     template: "%s · VIOVERSE",
   },
   description:
-    "An open learning home for visual–inertial odometry. Build foundations, explore systems, run an estimator, and understand the evidence.",
+    "Tutorials, system implementations, trajectory evaluation, and benchmark results for visual–inertial odometry.",
   openGraph: {
     title: "VIOVERSE",
-    description: "Learn, run, and understand visual–inertial odometry.",
+    description: "Visual–inertial odometry: methods, tutorials, and benchmark evaluation.",
     images: ["/brand/vioverse-logo.jpg"],
   },
 };
@@ -44,29 +45,20 @@ export default function RootLayout({
         <footer className="footer">
           <div className="container footer-grid">
             <div>
-              <strong className="wordmark">
-                VIOVERSE<span> / </span>
-              </strong>
-              <p>Tutorials and resources for visual–inertial odometry.</p>
-              <p className="small">
-                Learn the foundations. Inspect the assumptions. Run the code.
-              </p>
+              <strong className="wordmark">VIOVERSE</strong>
+              <p>Visual–inertial odometry: tutorials, evaluation, and results.</p>
             </div>
             <div className="footer-links">
-              <Link href="/learn/">Learning path</Link>
+              <Link href="/learn/">Tutorials</Link>
               <Link href="/results/">Results and leaderboards</Link>
               <Link href="/evaluation/">Evaluation with EPICA</Link>
               <a href="https://github.com/vio-bench/vio-bench.github.io">
                 Website source ↗
               </a>
               <a href="https://github.com/vio-bench/vio-bench.github.io/issues">
-                Suggest an improvement ↗
+                Technical corrections ↗
               </a>
             </div>
-          </div>
-          <div className="container footer-bottom">
-            <span>VIOVERSE · An open visual–inertial odometry resource</span>
-            <span>Built for learners, engineers, and researchers.</span>
           </div>
         </footer>
       </body>

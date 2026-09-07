@@ -1,7 +1,7 @@
 [
   {
     "slug": "camera-and-imu",
-    "title": "Why a camera and an IMU work together",
+    "title": "Camera and IMU measurement models",
     "level": "Beginner",
     "duration": "12 min",
     "summary": "Understand what each sensor measures and how their information supports six-degree-of-freedom motion estimation.",
@@ -62,7 +62,7 @@
   },
   {
     "slug": "coordinate-frames",
-    "title": "Read coordinate frames without guessing",
+    "title": "Coordinate frames and pose conventions",
     "level": "Beginner",
     "duration": "15 min",
     "summary": "Follow a point from the camera to the IMU and world, with explicit transform directions and units.",
@@ -123,7 +123,7 @@
   },
   {
     "slug": "calibration-and-time",
-    "title": "Calibrate geometry, noise, and time",
+    "title": "Camera–IMU calibration and synchronization",
     "level": "Beginner",
     "duration": "18 min",
     "summary": "Understand the calibration quantities a VIO estimator needs and why a plausible trajectory does not validate them.",
@@ -189,7 +189,7 @@
   },
   {
     "slug": "initialization",
-    "title": "Understand what initialization must recover",
+    "title": "VIO initialization",
     "level": "Intermediate",
     "duration": "15 min",
     "summary": "Explain why starting a VIO estimator requires more than the first image and how to diagnose an initialization failure.",
@@ -254,7 +254,7 @@
   },
   {
     "slug": "filtering-and-optimization",
-    "title": "Compare filtering and optimization",
+    "title": "Filtering and optimization",
     "level": "Intermediate",
     "duration": "18 min",
     "summary": "Follow how two estimator families use the same camera and IMU information while managing state history differently.",
@@ -315,7 +315,7 @@
   },
   {
     "slug": "trajectory-evaluation",
-    "title": "Read trajectory error together with coverage",
+    "title": "Trajectory error and evaluation coverage",
     "level": "Intermediate",
     "duration": "18 min",
     "summary": "Understand ATE, RPE, alignment, and why an error number needs an explicit evaluation interval and denominator.",
@@ -380,7 +380,7 @@
   },
   {
     "slug": "runtime-and-platform",
-    "title": "Measure runtime on the platform you use",
+    "title": "Runtime and resource measurement",
     "level": "Intermediate",
     "duration": "14 min",
     "summary": "Separate processing time, latency, throughput, and utilization when judging whether an estimator keeps up with its input.",
@@ -437,7 +437,7 @@
   },
   {
     "slug": "your-own-data",
-    "title": "Bring your own camera–IMU recording",
+    "title": "Data acquisition and experimental setup",
     "level": "Intermediate",
     "duration": "20 min",
     "summary": "Prepare an inspectable sensor recording, run a known configuration, and keep the evidence needed to diagnose and reproduce the result.",

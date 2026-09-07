@@ -7,8 +7,8 @@ export default function Tables() {
     <>
       <PageIntro
         eyebrow="RESULTS / COMPLETE SOURCE TABLES"
-        title="Read the full result tables."
-        description="All 157 dataset tables from the committed Results report, organized by dataset, sequence group, and original metric heading. Inspect and download the values as reported."
+        title="Complete result tables"
+        description="All 157 dataset tables from the committed Results report, organized by dataset, sequence group, and original metric heading. Values and annotations are transcribed as reported."
       />
       <div className="container page-content">
         <ResultsNavigation />

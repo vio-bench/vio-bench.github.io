@@ -8,7 +8,7 @@ export default function Accuracy() {
       <PageIntro
         eyebrow="RESULTS / ACCURACY"
         title="Accuracy leaderboard"
-        description="Compare reported position or orientation ATE within one dataset and camera mode. Open a result to inspect its contributing sequence values and source annotations."
+        description="Dataset- and sequence-level position and orientation ATE for individual camera configurations, with contributor counts and source annotations."
       />
       <div className="container page-content">
         <ResultsNavigation />

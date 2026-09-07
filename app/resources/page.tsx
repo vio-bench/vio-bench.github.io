@@ -6,15 +6,15 @@ export default function Resources() {
   return (
     <>
       <PageIntro
-        eyebrow="RESOURCES / KEEP EXPLORING"
-        title="Find the right starting material."
-        description="Official datasets, calibration tools, evaluation software, and technical references—organized around what you want to learn."
+        eyebrow="RESOURCES / DATASETS AND SOFTWARE"
+        title="Datasets, software, and references"
+        description="Dataset documentation, calibration software, trajectory evaluation tools, and technical references."
       />
       <div className="container page-content">
         <div className="section-heading">
           <div>
             <span className="eyebrow">DATASETS</span>
-            <h2>Different motion. Different challenges.</h2>
+            <h2>Dataset descriptions</h2>
           </div>
           <p>{datasets.intro}</p>
         </div>
@@ -28,7 +28,7 @@ export default function Resources() {
                 <strong>Sensors:</strong> {d.sensors}
               </p>
               <p>
-                <strong>Learning focus.</strong> {d.learnFocus}
+                <strong>Tutorial relevance.</strong> {d.learnFocus}
               </p>
               <p className="small">{d.referenceNote}</p>
               <SourceList
@@ -44,13 +44,13 @@ export default function Resources() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">TOOLS & TECHNICAL REFERENCES</span>
-              <h2>Look inside the method.</h2>
+              <h2>Software and technical references</h2>
             </div>
           </div>
           <div className="tool-list">
             {[
               {
-                title: "EPICA — our trajectory evaluation toolkit",
+                title: "EPICA trajectory evaluation toolkit",
                 body: "Public documentation for trajectory synchronization, alignment, error metrics, and batch evaluation.",
                 url: epica.docs,
               },
@@ -66,12 +66,12 @@ export default function Resources() {
               },
               {
                 title: "evo",
-                body: "Trajectory conversion, association, alignment, and error analysis. Record the options you use.",
+                body: "Trajectory conversion, temporal association, spatial alignment, and error analysis.",
                 url: "https://github.com/MichaelGrupp/evo",
               },
               {
                 title: "ROS coordinate conventions",
-                body: "Start with units and axes in REP 103; inspect the actual dataset and estimator convention.",
+                body: "Units and coordinate conventions in REP 103; dataset and estimator conventions require separate verification.",
                 url: "https://www.ros.org/reps/rep-0103.html",
               },
               {
@@ -81,7 +81,7 @@ export default function Resources() {
               },
               {
                 title: "VIOVERSE on GitHub",
-                body: "Read the website source, propose a lesson, or report a broken example.",
+                body: "Website source code, proposed additions, and technical issue reports.",
                 url: "https://github.com/vio-bench/vio-bench.github.io",
               },
             ].map((t) => (
@@ -92,7 +92,7 @@ export default function Resources() {
             ))}
           </div>
         </section>
-        <Callout title="Choose the streams your experiment actually uses">
+        <Callout title="Sensor selection and evaluation scope">
           <p>
             A multimodal dataset may include LiDAR, pressure, events, GNSS, or
             other measurements. Their presence does not mean a camera–IMU

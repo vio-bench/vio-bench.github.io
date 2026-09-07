@@ -1,6 +1,8 @@
 # VIOVERSE
 
-An open learning home for visual–inertial odometry: https://vio-bench.github.io/
+Tutorials, system implementations, trajectory evaluation, and benchmark results for visual–inertial odometry: https://vio-bench.github.io/
+
+The site uses a document-oriented layout: project overview, tutorial contents, methods, and result tables. Titles state the subject directly. Keep navigation as ordinary links, reserve color for links and scientific figures, and preserve metric definitions and source qualifications when editing prose. The original VIOVERSE logo remains the project mark.
 
 ## What is included
 

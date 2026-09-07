@@ -7,16 +7,16 @@ export default function Learn() {
   return (
     <>
       <PageIntro
-        eyebrow="LEARN / THE FOUNDATIONS"
-        title="A connected path through VIO."
-        description="Start with what the sensors measure. Build toward estimation, evaluation, and your own camera–IMU recording."
+        eyebrow="TUTORIALS / FOUNDATIONS"
+        title="Visual–inertial odometry tutorials"
+        description="Tutorials on camera and IMU measurements, coordinate frames, calibration, initialization, state estimation, trajectory evaluation, and experimental practice."
       />
       <div className="container page-content">
-        <Callout title="Start where you are">
+        <Callout title="Tutorial sequence and prerequisites">
           <p>
-            New to VIO? Take these lessons in order. Already working with a
-            system? Jump to the concept you need. Reading times are estimates;
-            use the worked examples to check your understanding.
+            The lessons follow a suggested sequence from sensor models to
+            estimation and evaluation. Each lesson lists its prerequisites and
+            includes a worked example. Reading times are estimates.
           </p>
         </Callout>
         <div className="curriculum">
@@ -48,10 +48,10 @@ export default function Learn() {
           style={{ marginTop: 40, marginBottom: 0 }}
         >
           <div>
-            <h2>Continue with a real implementation.</h2>
+            <h2>OpenVINS implementation guide</h2>
             <p>
-              Follow the OpenVINS guide from environment setup and EuRoC
-              configuration to saved trajectories and evaluation.
+              The OpenVINS guide covers environment setup, EuRoC configuration,
+              trajectory recording, and evaluation.
             </p>
           </div>
           <Link className="button primary" href="/run/openvins/">

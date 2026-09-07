@@ -14,9 +14,9 @@ export default function Evaluation() {
   return (
     <>
       <PageIntro
-        eyebrow="EVALUATION / FROM TRAJECTORIES TO RESULTS"
-        title="Understand what the error measures."
-        description="A trajectory score depends on the poses you compare, the alignment you allow, and the interval you evaluate. Learn the workflow here, then use EPICA to evaluate your own recorded trajectories."
+        eyebrow="EVALUATION / METHODS AND SOFTWARE"
+        title="Trajectory evaluation"
+        description="Definitions and procedures for temporal association, spatial alignment, trajectory error, and evaluated extent, followed by an EPICA workflow for recorded trajectories."
       >
         <div className="button-row">
           <a className="button primary" href={epica.docs}>
@@ -41,8 +41,7 @@ export default function Evaluation() {
         </aside>
         <article className="prose">
           <section id="workflow">
-            <span className="eyebrow">OUR TRAJECTORY EVALUATION TOOLKIT</span>
-            <h2>EPICA connects the estimate to the reference.</h2>
+            <h2>EPICA evaluation workflow</h2>
             <p>
               EPICA provides trajectory loading, time synchronization, sensor-frame
               calibration, world-frame alignment, and error analysis. Its package
@@ -52,14 +51,14 @@ export default function Evaluation() {
               evaluation.
             </p>
             <ol className="evaluation-steps">
-              <li><span>01</span><div><strong>Prepare two trajectories</strong><p>Keep the reference, estimate, timestamps, and pose conventions together.</p></div></li>
-              <li><span>02</span><div><strong>Synchronize and align</strong><p>Inspect the temporal offset, sensor-frame relationship, and permitted world transform.</p></div></li>
-              <li><span>03</span><div><strong>Measure error and evaluated extent</strong><p>Compute absolute and relative errors on explicitly identified poses and segments.</p></div></li>
-              <li><span>04</span><div><strong>Inspect and retain the evidence</strong><p>Save metrics, plots, configuration, output status, and the exact input and software versions.</p></div></li>
+              <li><span>01</span><div><strong>Trajectory preparation</strong><p>Keep the reference, estimate, timestamps, and pose conventions together.</p></div></li>
+              <li><span>02</span><div><strong>Temporal and spatial alignment</strong><p>Inspect the temporal offset, sensor-frame relationship, and permitted world transform.</p></div></li>
+              <li><span>03</span><div><strong>Error metrics and evaluated extent</strong><p>Compute absolute and relative errors on explicitly identified poses and segments.</p></div></li>
+              <li><span>04</span><div><strong>Diagnostics and reproducibility records</strong><p>Save metrics, plots, configuration, output status, and the exact input and software versions.</p></div></li>
             </ol>
           </section>
           <section id="prepare">
-            <h2>Start with frames, time, and reference data.</h2>
+            <h2>Frames, timestamps, and reference data</h2>
             <p>
               Estimated camera poses and reference IMU or marker poses describe
               different physical frames. Establish the pose direction, axes,
@@ -77,7 +76,7 @@ export default function Evaluation() {
             <p><Link href="/learn/coordinate-frames/">Review coordinate frames</Link> · <Link href="/learn/calibration-and-time/">Review calibration and timing</Link></p>
           </section>
           <section id="alignment">
-            <h2>The alignment defines which differences remain.</h2>
+            <h2>Alignment transformations</h2>
             <div className="table-scroll evaluation-table">
               <table>
                 <thead><tr><th scope="col">MODE</th><th scope="col">PERMITTED TRANSFORM</th><th scope="col">WHEN TO USE IT</th></tr></thead>
@@ -104,7 +103,7 @@ export default function Evaluation() {
             <p><a href={epica.cli + "#epa-alignment-modes"}>EPICA alignment modes and options ↗</a></p>
           </section>
           <section id="metrics">
-            <h2>ATE compares poses. RPE compares motion.</h2>
+            <h2>Absolute and relative trajectory error</h2>
             <h3>Absolute trajectory error (ATE)</h3>
             <p>
               Compare each aligned estimated pose with its associated reference
@@ -138,7 +137,7 @@ export default function Evaluation() {
             ]} />
           </section>
           <section id="coverage">
-            <h2>Read error together with the evaluated extent.</h2>
+            <h2>Evaluated trajectory extent</h2>
             <p>
               Full-trajectory metrics evaluate the associated trajectory under
               the chosen processing settings. Missing estimates and unavailable
@@ -160,7 +159,7 @@ export default function Evaluation() {
               version, local thresholds, global-failure status, and valid mask
               when interpreting this quantity.
             </p>
-            <Callout title="Keep distinct outcomes visible">
+            <Callout title="Missing data and execution outcomes">
               <p>
                 A missing file, failed initialization, interrupted run, unmatched
                 reference, and unavailable metric are different outcomes. Keep
@@ -170,7 +169,7 @@ export default function Evaluation() {
             </Callout>
           </section>
           <section id="run-epica">
-            <h2>Evaluate your recorded trajectory with EPICA.</h2>
+            <h2>EPICA installation and command-line evaluation</h2>
             <p>
               Start with one reference and one estimate from the same recording.
               EPICA requires Python 3.10 or newer. The commands below use Python
@@ -204,11 +203,11 @@ export default function Evaluation() {
               <a href={epica.quickstart}><strong>Quick start ↗</strong><span>Installation, input formats, and outputs.</span></a>
               <a href={epica.cli}><strong>CLI reference ↗</strong><span>Alignment, time handling, and metric options.</span></a>
               <a href={epica.benchmark}><strong>Batch evaluation ↗</strong><span>Prepare many cases and collect summaries.</span></a>
-              <a href={epica.architecture}><strong>Inside EPICA ↗</strong><span>Understand synchronization, calibration, and scoring.</span></a>
+              <a href={epica.architecture}><strong>EPICA architecture ↗</strong><span>Synchronization, calibration, and metric computation.</span></a>
             </div>
           </section>
           <section id="compare">
-            <h2>Connect the evaluation to the leaderboard.</h2>
+            <h2>Interpretation of VIOBench results</h2>
             <p>
               VIOBench’s current accuracy snapshot uses the report’s{" "}
               <code>epa-drift valid</code> selection, labeled a verification
@@ -229,7 +228,7 @@ export default function Evaluation() {
               and platform conditions are documented with the resource results.
             </p>
             <div className="button-row">
-              <Link className="button primary" href="/results/accuracy/">Open the accuracy leaderboard →</Link>
+              <Link className="button primary" href="/results/accuracy/">Accuracy leaderboard →</Link>
               <Link className="button secondary" href="/benchmark/protocol/">Results protocol and provenance →</Link>
             </div>
           </section>

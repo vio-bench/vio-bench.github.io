@@ -32,7 +32,7 @@ export default async function Lesson({
       />
       <div className="container page-content article-layout">
         <aside className="sidebar">
-          <strong>Your learning path</strong>
+          <strong>Tutorial contents</strong>
           {lessons.map((s, i) => (
             <Link
               className={s.slug === slug ? "active" : ""}
@@ -46,7 +46,7 @@ export default async function Lesson({
         </aside>
         <article className="prose">
           <div className="callout">
-            <strong>By the end of this lesson</strong>
+            <strong>Learning objectives</strong>
             <ul>
               {l.objectives.map((o) => (
                 <li key={o}>{o}</li>
@@ -54,7 +54,7 @@ export default async function Lesson({
             </ul>
             {l.prerequisites.length > 0 && (
               <p className="small">
-                Before you begin:{" "}
+                Prerequisites:{" "}
                 {l.prerequisites.map((p, i) => (
                   <span key={p}>
                     {i > 0 ? " · " : ""}
@@ -81,15 +81,15 @@ export default async function Lesson({
             <span className="eyebrow">WORKED EXAMPLE</span>
             <p>{l.exercise.question}</p>
             <details>
-              <summary>Reveal the explanation</summary>
+              <summary>Explanation</summary>
               <p>{l.exercise.answer}</p>
             </details>
           </section>
-          <h2>Go to the source</h2>
+          <h2>References</h2>
           <SourceList sources={l.sources} />
           {slug === "trajectory-evaluation" && (
             <div className="callout">
-              <strong>Continue with EPICA</strong>
+              <strong>EPICA evaluation guide</strong>
               <p>
                 Follow the <Link href="/evaluation/">Evaluation guide</Link> to
                 prepare a trajectory pair, choose an alignment, run EPICA, and
@@ -110,7 +110,7 @@ export default async function Lesson({
                 Next: {lessons[index + 1].title} →
               </Link>
             ) : (
-              <Link href="/run/">Put it into practice →</Link>
+              <Link href="/run/">Implementation guides →</Link>
             )}
           </nav>
         </article>

@@ -1,12 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap");
 :root {
-  --ink: #142039;
-  --muted: #5d6a7c;
-  --blue: #2858df;
-  --line: #e1e6ed;
-  --tint: #f5f7fc;
+  --ink: #25282b;
+  --muted: #595f65;
+  --blue: #244f78;
+  --line: #d7dadd;
+  --tint: #f6f7f8;
   --orange: #d36a29;
-  --radius: 16px;
+  --radius: 2px;
 }
 * {
   box-sizing: border-box;
@@ -20,7 +19,7 @@ body {
   background: #fff;
   color: var(--ink);
   font:
-    16px/1.65 "DM Sans",
+    16px/1.65 Arial,
     system-ui,
     sans-serif;
 }
@@ -61,11 +60,11 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: Manrope, system-ui, sans-serif;
+  font-family: Georgia, "Times New Roman", serif;
   line-height: 1.2;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.012em;
   margin: 0 0 20px;
-  font-weight: 750;
+  font-weight: 600;
 }
 h1 {
   font-size: clamp(36px, 4.5vw, 62px);
@@ -177,7 +176,7 @@ img {
 .eyebrow {
   display: block;
   font-size: 11px;
-  font-weight: 750;
+  font-weight: 600;
   letter-spacing: 0.13em;
   color: var(--blue);
   margin-bottom: 20px;
@@ -504,7 +503,7 @@ img {
 }
 .wordmark {
   font:
-    800 20px Manrope,
+    800 20px Arial,
     system-ui;
 }
 .wordmark span {
@@ -1418,7 +1417,7 @@ tbody tr:last-child td {
 .results-stat-grid strong {
   display: block;
   font:
-    700 31px Manrope,
+    700 31px Arial,
     system-ui,
     sans-serif;
 }

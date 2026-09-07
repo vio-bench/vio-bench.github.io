@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 export function ButtonLink({
   href,
   children,
@@ -15,7 +15,6 @@ export function ButtonLink({
       href={href}
     >
       {children}
-      <ArrowRight size={17} />
     </Link>
   );
 }

@@ -8,11 +8,11 @@ export default function Benchmark() {
     <>
       <PageIntro
         eyebrow="BENCHMARK / DESIGN & SCOPE"
-        title="A cross-domain view of VIO systems."
-        description="VIOBench brings together reported trajectory accuracy and computational measurements for public VIO implementations, with the input, configuration, and evaluation context kept alongside each result."
+        title="VIOBench: scope and reported experiments"
+        description="Reported trajectory errors and computational measurements for public VIO implementations, organized by dataset and configuration. Available input and evaluation metadata accompany each record."
       >
         <div className="button-row">
-          <ButtonLink href="/results/">Explore all results</ButtonLink>
+          <ButtonLink href="/results/">Benchmark results</ButtonLink>
           <ButtonLink href="/evaluation/" secondary>
             Evaluation with EPICA
           </ButtonLink>
@@ -21,11 +21,11 @@ export default function Benchmark() {
       <div className="container page-content">
         <div className="benchmark-summary">
           <div>
-            <span>Public system families</span>
+            <span>System implementations</span>
             <strong>11 implementations</strong>
           </div>
           <div>
-            <span>Dataset domains</span>
+            <span>Datasets</span>
             <strong>5 datasets</strong>
           </div>
           <div>
@@ -37,7 +37,7 @@ export default function Benchmark() {
             <strong>Desktop · Orin · Nano</strong>
           </div>
         </div>
-        <h2>Dataset and result coverage</h2>
+        <h2>Dataset inventory and reported results</h2>
         <p>
           The trajectory report contains 98 sequence headers. The table below
           describes that report inventory, not the number of planned runs or
@@ -89,15 +89,15 @@ export default function Benchmark() {
         </div>
         <div className="benchmark-overview-grid">
           <article>
-            <h2>What a comparison identifies</h2>
-            <h3>The implementation and its input</h3>
+            <h2>Experimental conditions and measurements</h2>
+            <h3>Implementation and input configuration</h3>
             <p>
               A system name alone is insufficient. Retain camera mode, input
               conversion, calibration, estimator configuration, and software
               version. Mono and stereo records remain separate; uncertain
               historical modes are visibly marked in the accuracy views.
             </p>
-            <h3>The output being evaluated</h3>
+            <h3>Trajectory metrics</h3>
             <p>
               The main accuracy view reports position and orientation ATE using
               the canonical <code>epa-drift valid</code> selection. It keeps
@@ -105,7 +105,7 @@ export default function Benchmark() {
               protocols, SR, and RPE tables are preserved under their original
               headings in the complete source archive.
             </p>
-            <h3>The computation being measured</h3>
+            <h3>Computational measurements</h3>
             <p>
               Resource records describe five fixed profiling sequences, not
               dataset-wide resource averages. They retain implementation-native
@@ -115,9 +115,9 @@ export default function Benchmark() {
           </article>
           <aside className="benchmark-route">
             <span className="eyebrow">
-              FROM THE REPORT TO A REPRODUCIBLE RUN
+              RESULTS AND IMPLEMENTATION DOCUMENTATION
             </span>
-            <h2>Follow the evidence.</h2>
+            <h2>Result tables and supporting documentation</h2>
             <p>
               Use the overview for the reported pattern, the leaderboard for a
               selected condition, and the row detail or source table for its
@@ -140,12 +140,12 @@ export default function Benchmark() {
             </p>
             <p>
               <Link className="text-link" href="/evaluation/">
-                Understand evaluation with EPICA →
+                EPICA evaluation guide →
               </Link>
             </p>
           </aside>
         </div>
-        <Callout title="Publication status">
+        <Callout title="Verification status">
           <p>
             The website transcribes and organizes a committed Results snapshot.
             The accuracy protocol remains labeled a verification candidate;

@@ -31,13 +31,13 @@ export default async function System({
         <div className="button-row">
           <ButtonLink href={s.upstreamUrl}>Public source code</ButtonLink>
           <ButtonLink href={s.docsUrl} secondary>
-            Read the documentation
+            Documentation
           </ButtonLink>
         </div>
       </PageIntro>
       <div className="container page-content">
         <article className="prose">
-          <h2>What to learn from this system</h2>
+          <h2>Estimator formulation and implementation</h2>
           <p>{s.learnFocus}</p>
           <h2>Documented inputs</h2>
           <ul>
@@ -45,22 +45,22 @@ export default async function System({
               <li key={m}>{m}</li>
             ))}
           </ul>
-          <Callout title="Configuration matters">
+          <Callout title="Configuration scope">
             <p>{s.scopeNote}</p>
           </Callout>
           <p className="small">
             These are public upstream capabilities, not a statement that every
             mode has been run by VIOVERSE. Sources checked {s.sourceChecked}.
           </p>
-          <h2>Read the original sources</h2>
+          <h2>References</h2>
           <SourceList sources={s.sources} />
           <div className="lesson-nav">
             <Link href="/systems/">← All systems</Link>
             {s.id === "openvins" ? (
-              <Link href="/run/openvins/">Run the OpenVINS guide →</Link>
+              <Link href="/run/openvins/">OpenVINS implementation guide →</Link>
             ) : (
               <Link href="/learn/filtering-and-optimization/">
-                Review estimation approaches →
+                Estimation methods tutorial →
               </Link>
             )}
           </div>

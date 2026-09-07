@@ -7,20 +7,20 @@ export default function OpenVINS() {
   return (
     <>
       <PageIntro
-        eyebrow="RUN / YOUR FIRST LOCAL ESTIMATOR"
+        eyebrow="RUN / OPENVINS"
         title={guide.title}
         description={guide.subtitle}
       />
       <div className="container page-content article-layout">
         <aside className="sidebar">
-          <strong>The local workflow</strong>
+          <strong>Guide contents</strong>
           {guide.steps.map((s) => (
             <a href={"#" + s.id} key={s.id}>
               {s.title}
             </a>
           ))}
           <a href="#troubleshooting">Troubleshooting</a>
-          <Link href="/systems/">Browse other implementations</Link>
+          <Link href="/systems/">Other implementations</Link>
         </aside>
         <article className="prose">
           <Callout title={guide.environment}>
@@ -31,7 +31,7 @@ export default function OpenVINS() {
               executed as part of this website release.
             </p>
           </Callout>
-          <h2>Before you begin</h2>
+          <h2>Prerequisites</h2>
           <ul>
             {guide.prerequisites.map((p) => (
               <li key={p}>{p}</li>
@@ -64,7 +64,7 @@ export default function OpenVINS() {
                 </ul>
               )}
               {"expected" in s && s.expected && (
-                <Callout title="What to check">
+                <Callout title="Expected output and verification">
                   <p>{s.expected}</p>
                 </Callout>
               )}
@@ -73,7 +73,7 @@ export default function OpenVINS() {
             </section>
           ))}
           <section id="troubleshooting">
-            <h2>If something does not work</h2>
+            <h2>Troubleshooting</h2>
             {guide.checks.map((c) => (
               <details className="exercise" key={c.symptom}>
                 <summary>{c.symptom}</summary>
@@ -81,7 +81,7 @@ export default function OpenVINS() {
               </details>
             ))}
           </section>
-          <h2>Keep going</h2>
+          <h2>Related topics</h2>
           <ul>
             {guide.nextSteps.map((p) => (
               <li key={p}>{p}</li>

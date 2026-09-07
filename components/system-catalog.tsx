@@ -64,7 +64,7 @@ export function SystemCatalog() {
             <p className="description">{s.summary}</p>
             <p className="modes">{s.inputModes.join(" · ")}</p>
             <Link className="text-link" href={"/systems/" + s.id + "/"}>
-              Explore the system <ArrowRight size={15} />
+              Implementation details <ArrowRight size={15} />
             </Link>
           </article>
         ))}

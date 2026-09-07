@@ -22,18 +22,26 @@ export function Navigation() {
         className={open ? "nav is-open" : "nav"}
         aria-label="Main navigation"
       >
-        {["Learn", "Systems", "Run", "Evaluation", "Benchmark", "Results", "Resources"].map(
-          (label) => (
+        {[
+          ["Tutorials", "/learn/"],
+          ["Systems", "/systems/"],
+          ["Run", "/run/"],
+          ["Evaluation", "/evaluation/"],
+          ["Benchmark", "/benchmark/"],
+          ["Results", "/results/"],
+          ["Resources", "/resources/"],
+        ].map(
+          ([label, href]) => (
             <Link
               key={label}
               onClick={() => setOpen(false)}
               className={
-                path.startsWith("/" + label.toLowerCase()) ? "active" : ""
+                path.startsWith(href) ? "active" : ""
               }
               aria-current={
-                path.startsWith("/" + label.toLowerCase()) ? "page" : undefined
+                path.startsWith(href) ? "page" : undefined
               }
-              href={"/" + label.toLowerCase() + "/"}
+              href={href}
             >
               {label}
             </Link>

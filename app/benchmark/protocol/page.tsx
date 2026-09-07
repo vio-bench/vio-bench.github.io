@@ -7,8 +7,8 @@ export default function Protocol() {
     <>
       <PageIntro
         eyebrow="BENCHMARK / PROTOCOL & PROVENANCE"
-        title="Definitions that travel with the results."
-        description="How the published result views select, aggregate, and display values from the committed Results report."
+        title="Result definitions and provenance"
+        description="Selection rules, aggregation methods, missing-value conventions, and source provenance for the published Results snapshot."
       />
       <div className="container page-content article-layout">
         <aside className="sidebar">
@@ -23,7 +23,7 @@ export default function Protocol() {
         </aside>
         <article className="prose">
           <div className="callout">
-            <strong>Learn the evaluation workflow</strong>
+            <strong>Evaluation methods</strong>
             <p>
               Start with the <Link href="/evaluation/">Evaluation guide</Link> for
               frames, synchronization, alignment, ATE, RPE, and EPICA. The notes
@@ -31,7 +31,7 @@ export default function Protocol() {
             </p>
           </div>
           <section id="source">
-            <h2>Source and publication version</h2>
+            <h2>Source revision and website release</h2>
             <p>
               This release uses Results revision{" "}
               <code>{accuracy.source.revision}</code>, checked on 6 September
@@ -55,7 +55,7 @@ export default function Protocol() {
             </p>
           </section>
           <section id="accuracy">
-            <h2>Accuracy: one protocol at a time</h2>
+            <h2>Accuracy protocol and aggregation</h2>
             <p>
               The main leaderboard uses{" "}
               <strong>ATE under epa-drift valid</strong>, with protocol status{" "}
@@ -95,7 +95,7 @@ export default function Protocol() {
             </p>
           </section>
           <section id="missing">
-            <h2>Missing states and source failure marks</h2>
+            <h2>Missing values and source annotations</h2>
             <p>
               True zero, dash, NaN, other nonfinite values, and absent records
               remain distinct in the downloadable ledger. A missing
@@ -179,7 +179,7 @@ export default function Protocol() {
             </p>
           </section>
           <section id="reproduction">
-            <h2>Reproduction and downloads</h2>
+            <h2>Reproducibility records and downloads</h2>
             <p>
               For a reproducible estimator run, retain the input files and
               conversion, calibration, camera mode, exact code/build, hardware
