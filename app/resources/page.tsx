@@ -1,6 +1,5 @@
 import { PageIntro, SourceList, Callout } from "@/components/ui";
 import datasets from "@/data/datasets.json";
-import epica from "@/data/epica.json";
 export const metadata = { title: "Datasets and resources" };
 export default function Resources() {
   return (
@@ -56,8 +55,8 @@ export default function Resources() {
               },
               {
                 title: "EPICA trajectory evaluation toolkit",
-                body: "Public documentation for trajectory synchronization, alignment, error metrics, and batch evaluation.",
-                url: epica.docs,
+                body: "Installation, trajectory synchronization, alignment, and error metrics.",
+                url: "/evaluation/#run-epica",
               },
               {
                 title: "OpenVINS documentation",
@@ -88,11 +87,6 @@ export default function Resources() {
                 title: "Trajectory evaluation tutorial",
                 body: "Zhang and Scaramuzza’s tutorial connects alignment choices to odometry evaluation.",
                 url: "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf",
-              },
-              {
-                title: "VIOVERSE on GitHub",
-                body: "Website source code, proposed additions, and technical issue reports.",
-                url: "https://github.com/vio-bench/vio-bench.github.io",
               },
             ].map((t) => (
               <a key={t.title} href={t.url}>

@@ -41,15 +41,15 @@ export function PageIntro({
 export function SourceList({
   sources,
 }: {
-  sources: { title?: string; label?: string; url: string }[];
+  sources: { title?: string; label?: string; url?: string }[];
 }) {
   return (
     <ul className="sources">
       {sources.map((s) => (
-        <li key={s.url + s.title}>
-          <a href={s.url}>
+        <li key={(s.url || "") + (s.title || s.label)}>
+          {s.url ? <a href={s.url}>
             {s.title || s.label} <ArrowUpRight size={14} />
-          </a>
+          </a> : <span>{s.title || s.label}</span>}
         </li>
       ))}
     </ul>

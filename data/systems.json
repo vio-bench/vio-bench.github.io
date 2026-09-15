@@ -312,8 +312,8 @@
       "scopeNote": "The public EuRoC configuration documents one-camera and two-camera modes; the supplied serial launch defaults to stereo. Performance claims require the paper conditions or a recorded run.",
       "sources": [
         {
-          "label": "Peng, Chen, Wu, and Huang: original sqrtVINS paper (T-RO 2025)",
-          "url": "https://chuchuchen.net/pdf/Peng2025TRO.pdf",
+          "label": "Original sqrtVINS paper (T-RO 2025)",
+          "url": "https://doi.org/10.1109/TRO.2025.3626607",
           "supports": "Section III, equation (1): covariance factor P = UᵀU; LLT measurement update and dynamic initialization"
         },
         {

@@ -75,8 +75,8 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
             <summary>References and supplementary reading</summary>
             <ol className="reference-list">
               {chapter.readings.map((reading, i) => (
-                <li key={reading.url + reading.locator} id={`reading-${i + 1}`}>
-                  <p>{reading.source}. <a href={reading.url}>{reading.title}</a>.</p>
+                <li key={reading.title + reading.locator} id={`reading-${i + 1}`}>
+                  <p>{reading.source}. {reading.url ? <a href={reading.url}>{reading.title}</a> : reading.title}.</p>
                   <p className="small">{reading.locator}</p>
                 </li>
               ))}

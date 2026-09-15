@@ -1,8 +1,6 @@
 import Link from "next/link";
 import lessons from "@/data/tutorials.json";
 import accuracy from "@/public/data/accuracy.json";
-import { ProjectAuthors } from "@/components/project-authors";
-import { ProjectCitation } from "@/components/project-citation";
 
 export default function Home() {
   return (
@@ -17,7 +15,6 @@ export default function Home() {
             fetchPriority="high"
           />
         </h1>
-        <ProjectAuthors />
         <p className="project-abstract">
           VIOVERSE is a project for studying, implementing, and evaluating
           visual–inertial odometry (VIO). The site includes a tutorial series
@@ -26,12 +23,10 @@ export default function Home() {
           with EPICA, while VIOBench organizes reported accuracy and resource
           measurements across five datasets and three computing platforms.
         </p>
-        <ProjectCitation />
         <nav className="project-links" aria-label="Project resources">
           <Link href="/learn/">Tutorials</Link>
           <Link href="/evaluation/">Evaluation</Link>
           <Link href="/results/">Benchmark results</Link>
-          <a href="https://github.com/vio-bench">GitHub</a>
         </nav>
       </header>
       <section className="research-section" aria-labelledby="tutorials-heading">
@@ -40,7 +35,7 @@ export default function Home() {
           <Link href="/learn/">Tutorial overview</Link>
         </div>
         <p>
-          A tutorial series by the VIOVERSE authors, from notation and sensor
+          A tutorial series from notation and sensor
           models to calibration, estimation, and evaluation. Chapter text is in
           preparation; references are collected separately for each topic.
         </p>
@@ -70,7 +65,7 @@ export default function Home() {
           alignment model, and evaluated interval. The <Link href="/evaluation/">Evaluation
           guide</Link> explains ATE, RPE, and the distinction between full-trajectory
           and drift-valid measurements. It also documents a trajectory-pair
-          workflow using EPICA, our trajectory alignment
+          workflow using EPICA, a trajectory alignment
           and evaluation toolkit.
         </p>
         <p>
@@ -120,10 +115,8 @@ export default function Home() {
         </nav>
       </section>
       <section className="research-section research-maintenance" aria-labelledby="source-heading">
-        <h2 id="source-heading">Source and corrections</h2>
+        <h2 id="source-heading">Data and software</h2>
         <p>
-          Website source and technical corrections are maintained in the{" "}
-          <a href="https://github.com/vio-bench/vio-bench.github.io">website repository</a>.
           Results are published as versioned snapshots with downloadable data
           and source metadata. Software and datasets linked from this site
           retain their respective licenses.

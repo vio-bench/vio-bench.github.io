@@ -70,7 +70,7 @@ export default function References() {
             <p>
               For observability and linearization, read the three sections of
               <a href="https://docs.openvins.com/fej.html"> First-Estimate Jacobian Estimators</a> in
-              order. Continue with Sections II–IV of <a href="https://pgeneva.com/downloads/papers/Chen2023IROS.pdf">Optimization-based VINS: Consistency, Marginalization, and FEJ</a>.
+              order. Continue with Sections II–IV of <a href="https://doi.org/10.1109/IROS55552.2023.10341637">Optimization-based VINS: Consistency, Marginalization, and FEJ</a>.
               Corresponding chapter: <Link href="/learn/filtering-and-optimization/">Filtering and optimization</Link>.
             </p>
             <p>
@@ -85,7 +85,7 @@ export default function References() {
             <ol className="reference-list">
               {references.map((reference) => (
                 <li id={reference.id} key={reference.id}>
-                  <p>{reference.authors}. <a href={reference.url}>{reference.title}</a>. {reference.venue}, {reference.year}.</p>
+                  <p><a href={reference.url}>{reference.title}</a>. {reference.venue}, {reference.year}.</p>
                   <p className="small">{reference.scope}</p>
                 </li>
               ))}

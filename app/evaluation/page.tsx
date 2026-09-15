@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { PageIntro, Callout, SourceList } from "@/components/ui";
 import { CodeBlock } from "@/components/code-block";
 import { MathBlock } from "@/components/math-block";
@@ -20,9 +19,6 @@ export default function Evaluation() {
         description="Definitions and procedures for temporal association, spatial alignment, trajectory error, and evaluated extent, followed by an EPICA workflow for recorded trajectories."
       >
         <div className="button-row">
-          <a className="button primary" href={epica.docs}>
-            Open EPICA documentation <ArrowUpRight size={17} />
-          </a>
           <a className="button secondary" href="#run-epica">
             Evaluate a trajectory pair ↓
           </a>
@@ -39,7 +35,6 @@ export default function Evaluation() {
           <a href="#run-epica">Run EPICA</a>
           <a href="#compare">Connect to VIOBench results</a>
           <Link href="/references/">Primary references</Link>
-          <a href={epica.docs}>EPICA documentation ↗</a>
         </aside>
         <article className="prose">
           <section id="workflow">
@@ -98,9 +93,8 @@ export default function Evaluation() {
               alignment baseline. Do not select a different alignment or fitting
               interval for each method simply because it gives a lower error.
             </p>
-            <p><a href={epica.cli + "#epa-alignment-modes"}>EPICA alignment modes and options ↗</a></p>
             <SourceList sources={[
-              { title: "EPICA: alignment pipeline", url: epica.architecture },
+              { title: "EPICA: alignment pipeline" },
               { title: "EPICA 0.1.17: reviewed public release", url: "https://pypi.org/project/epica/0.1.17/" },
               { title: "Zhang and Scaramuzza: alignment assumptions", url: "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf" },
             ]} />
@@ -140,7 +134,7 @@ export default function Evaluation() {
               degrees is different from degrees per meter.
             </p>
             <SourceList sources={[
-              { title: "EPICA error metrics", url: epica.metrics },
+              { title: "EPICA error metrics" },
               { title: "OpenVINS trajectory evaluation definitions", url: "https://docs.openvins.com/eval-metrics.html" },
             ]} />
           </section>
@@ -171,7 +165,7 @@ export default function Evaluation() {
               </p>
             </Callout>
             <SourceList sources={[
-              { title: "EPICA: metric definitions", url: epica.metrics },
+              { title: "EPICA: metric definitions" },
               { title: "EPICA 0.1.17: reviewed public release", url: "https://pypi.org/project/epica/0.1.17/" },
             ]} />
           </section>
@@ -206,12 +200,6 @@ export default function Evaluation() {
               output fields. These commands do not reconstruct the historical
               VIOBench evaluation settings.
             </p>
-            <div className="evaluation-doc-links">
-              <a href={epica.quickstart}><strong>Quick start ↗</strong><span>Installation, input formats, and outputs.</span></a>
-              <a href={epica.cli}><strong>CLI reference ↗</strong><span>Alignment, time handling, and metric options.</span></a>
-              <a href={epica.benchmark}><strong>Batch evaluation ↗</strong><span>Prepare many cases and collect summaries.</span></a>
-              <a href={epica.architecture}><strong>EPICA architecture ↗</strong><span>Synchronization, calibration, and metric computation.</span></a>
-            </div>
           </section>
           <section id="compare">
             <h2>Interpretation of VIOBench results</h2>

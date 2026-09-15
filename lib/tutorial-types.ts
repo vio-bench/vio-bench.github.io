@@ -16,7 +16,7 @@ export interface TutorialChapter {
   sections: TutorialSection[];
   readings: {
     title: string;
-    url: string;
+    url?: string;
     source: string;
     locator: string;
     focus: string;

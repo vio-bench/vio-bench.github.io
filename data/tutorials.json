@@ -41,7 +41,7 @@
       {
         "title": "Visual-Inertial Navigation: A Concise Review",
         "url": "https://arxiv.org/pdf/1906.02650",
-        "source": "Guoquan Huang · 2019",
+        "source": "2019",
         "locator": "Section 2.1, IMU Kinematic Model; Section 2.2, Camera Measurement Model",
         "focus": "Begin with the state variables and measurement models. Follow the frame labels attached to orientation, position, velocity, and feature observations."
       },
@@ -62,7 +62,7 @@
       {
         "title": "VIO vs. SLAM",
         "url": "https://arxiv.org/pdf/1906.02650",
-        "source": "Guoquan Huang · 2019",
+        "source": "2019",
         "locator": "Section 3.3, VIO vs. SLAM",
         "focus": "Read the review’s discussion of local motion estimation, mapping, and loop-closure constraints."
       }
@@ -114,7 +114,7 @@
     ],
     "related": [
       {
-        "title": "Geneva and Huang: initialization report, Section 3.3, Discussion on Frame Transformation",
+        "title": "OpenVINS initialization report, Section 3.3, Discussion on Frame Transformation",
         "url": "https://pgeneva.com/downloads/reports/tr_init.pdf"
       }
     ],
@@ -159,7 +159,7 @@
       {
         "title": "Online Self-Calibration for Visual-Inertial Navigation: Models, Analysis, and Degeneracy",
         "url": "https://yangyulin.net/papers/2023_tro_full_calib.pdf",
-        "source": "Yulin Yang, Patrick Geneva, Xingxing Zuo, and Guoquan Huang · IEEE Transactions on Robotics, 2023",
+        "source": "IEEE Transactions on Robotics, 2023",
         "locator": "Section V, Observability Analysis; Section VI, Degenerate Motion Analysis",
         "focus": "Read the assumptions behind the observability analysis and the motion cases associated with unobservable calibration parameters."
       }
@@ -188,7 +188,7 @@
       {
         "title": "OpenVINS State Initialization: Details and Derivations",
         "url": "https://pgeneva.com/downloads/reports/tr_init.pdf",
-        "source": "Patrick Geneva and Guoquan Huang · RPNG-2022-INIT, February 2023 revision",
+        "source": "RPNG-2022-INIT, February 2023 revision",
         "locator": "Section 1, Introduction",
         "focus": "Read the initialization objective, the discussion of unobservable directions, and the motivation for recovering initial covariance."
       },
@@ -209,14 +209,14 @@
       {
         "title": "Least-squares Problem",
         "url": "https://pgeneva.com/downloads/reports/tr_init.pdf",
-        "source": "Patrick Geneva and Guoquan Huang · RPNG-2022-INIT, February 2023 revision",
+        "source": "RPNG-2022-INIT, February 2023 revision",
         "locator": "Section 3, Least-squares Problem; subsections 3.1–3.6",
         "focus": "Follow the inertial and bearing models through frame transformation, the linear system, the gravity-magnitude constraint, and recovery of the inertial states. Note the calibration assumptions in Section 3.2."
       },
       {
         "title": "Maximum Likelihood Estimation",
         "url": "https://pgeneva.com/downloads/reports/tr_init.pdf",
-        "source": "Patrick Geneva and Guoquan Huang · RPNG-2022-INIT, February 2023 revision",
+        "source": "RPNG-2022-INIT, February 2023 revision",
         "locator": "Section 4, Maximum Likelihood Estimation; subsections 4.1–4.3",
         "focus": "Read the inertial measurement model, camera measurement model, and prior cost used in the refinement formulation."
       }
@@ -251,7 +251,7 @@
       {
         "title": "Null-Space-based Marginalization: Analysis and Algorithm",
         "url": "https://yangyulin.net/papers/2017_iros_null.pdf",
-        "source": "Yulin Yang, James Maley, and Guoquan Huang · IROS 2017",
+        "source": "IROS 2017",
         "locator": "Sections II–III; especially III-C, Equivalence of Two Marginalizations, Lemma 1 (PDF page 3)",
         "focus": "Read the elimination comparison together with its noise and linearization assumptions."
       },
@@ -264,15 +264,15 @@
       },
       {
         "title": "Optimization-based VINS: Consistency, Marginalization, and FEJ",
-        "url": "https://pgeneva.com/downloads/papers/Chen2023IROS.pdf",
-        "source": "Chuchu Chen, Patrick Geneva, Yuxiang Peng, Woosik Lee, and Guoquan Huang · IROS 2023",
+        "url": "https://doi.org/10.1109/IROS55552.2023.10341637",
+        "source": "IROS 2023",
         "locator": "Sections II–IV: Optimization-based VINS; Marginalization and Consistency; Marginalization and FEJ",
         "focus": "Read how the paper formulates the estimation problem and applies FEJ to its four marginalization strategies."
       },
       {
         "title": "Is Iteration Worth It? Revisit Its Impact in Sliding-Window VIO",
-        "url": "https://chuchuchen.net/pdf/2025_icra_iterative-1.pdf",
-        "source": "Chuchu Chen, Yuxiang Peng, and Guoquan Huang · ICRA 2025",
+        "url": "https://doi.org/10.1109/ICRA55743.2025.11127352",
+        "source": "ICRA 2025",
         "locator": "Sections III–V: Problem Statement; Estimation Algorithms; Experiments. Begin the comparison with Table I.",
         "focus": "Compare the specified measurement relinearization and processing choices, then read the experimental setup before interpreting the results."
       }
@@ -317,22 +317,19 @@
       },
       {
         "title": "Architecture",
-        "url": "https://epic-lab-gwu.github.io/EPIC-Alignment/architecture/",
-        "source": "EPICA documentation · EPIC Lab",
+        "source": "EPICA documentation",
         "locator": "Main Pipeline Stages: Time Alignment; Extrinsic Calibration; World-Frame Alignment",
         "focus": "Trace the reference and estimate through synchronization, extrinsic calibration, and world-frame alignment."
       },
       {
         "title": "Error Metrics",
-        "url": "https://epic-lab-gwu.github.io/EPIC-Alignment/error_metrics/",
-        "source": "EPICA documentation · EPIC Lab",
+        "source": "EPICA documentation",
         "locator": "Full-Trajectory Metrics; Drift-Valid Success Rate; Drift-Valid Metrics; Reading the Tables",
         "focus": "Read the reported metric populations and coverage definition alongside the table interpretation."
       },
       {
         "title": "Quick Start",
-        "url": "https://epic-lab-gwu.github.io/EPIC-Alignment/quickstart/",
-        "source": "EPICA documentation · EPIC Lab",
+        "source": "EPICA documentation",
         "locator": "Requirements; Install; Run One Pair; Check Outputs",
         "focus": "Follow the official single-pair workflow and identify the documented output files. Use documentation appropriate to the installed release."
       }
@@ -385,8 +382,8 @@
       },
       {
         "title": "Optimization-based VINS: Consistency, Marginalization, and FEJ",
-        "url": "https://pgeneva.com/downloads/papers/Chen2023IROS.pdf",
-        "source": "Chuchu Chen, Patrick Geneva, Yuxiang Peng, Woosik Lee, and Guoquan Huang · IROS 2023",
+        "url": "https://doi.org/10.1109/IROS55552.2023.10341637",
+        "source": "IROS 2023",
         "locator": "Section V, Numerical Study; Table II caption (PDF page 5)",
         "focus": "Check which computations the reported timing includes and excludes before interpreting the runtime comparison."
       }

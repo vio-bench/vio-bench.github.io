@@ -3,7 +3,7 @@
     "topic": "VIO formulation",
     "sources": [
       {
-        "title": "Huang: Visual-Inertial Navigation: A Concise Review",
+        "title": "Visual-Inertial Navigation: A Concise Review",
         "url": "https://arxiv.org/pdf/1906.02650",
         "locator": "Section 2.1, IMU Kinematic Model; Section 2.2, Camera Measurement Model."
       }
@@ -29,7 +29,7 @@
     "topic": "IMU integration and preintegration",
     "sources": [
       {
-        "title": "Eckenhoff, Geneva, and Huang: Closed-form Preintegration Methods for Graph-based Visual-Inertial Navigation",
+        "title": "Closed-form Preintegration Methods for Graph-based Visual-Inertial Navigation",
         "url": "https://arxiv.org/pdf/1805.02774v2",
         "locator": "§IV Closed-form Preintegration, PDF pp. 5–9; §V Visual-Inertial Navigation, beginning PDF p. 10."
       }
@@ -49,12 +49,12 @@
     "topic": "Information, marginalization, and estimator design",
     "sources": [
       {
-        "title": "Yang, Maley, and Huang: Null-Space-based Marginalization: Analysis and Algorithm",
+        "title": "Null-Space-based Marginalization: Analysis and Algorithm",
         "url": "https://yangyulin.net/papers/2017_iros_null.pdf",
         "locator": "Sections II–III; especially III-C, Equivalence of Two Marginalizations, Lemma 1 (PDF page 3)."
       },
       {
-        "title": "Eckenhoff, Geneva, and Huang: Closed-form Preintegration Methods for Graph-based Visual-Inertial Navigation",
+        "title": "Closed-form Preintegration Methods for Graph-based Visual-Inertial Navigation",
         "url": "https://arxiv.org/pdf/1805.02774v2",
         "locator": "§III.A Batch Optimization and §III.B Marginalization, PDF pp. 4–5."
       }

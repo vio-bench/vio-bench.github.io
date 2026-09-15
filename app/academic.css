@@ -176,17 +176,6 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .project-heading .project-logo { width: min(100%, 600px); margin: 0 auto 28px; line-height: 0; }
 .footer-brand { width: min(100%, 240px); }
 .project-logo img, .footer-brand img { position: absolute; top: 50%; left: 0; display: block; width: 100%; height: auto; transform: translateY(-50%); }
-.project-byline { max-width: 920px; margin: 0 auto 30px; text-align: center; }
-.project-authors { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px 22px; list-style: none; margin: 0; padding: 0; font: 18px/1.7 Georgia, "Times New Roman", serif; }
-.project-authors li { white-space: nowrap; }
-.project-authors a { color: var(--blue); text-decoration: none; }
-.project-authors a:hover, .project-authors a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
-.project-byline sup { font-size: .7em; margin-left: 2px; }
-.project-affiliations { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px 24px; font-size: 15px; line-height: 1.6; margin: 13px 0 0; color: var(--muted); }
-.project-citation { max-width: 850px; margin: 0 auto 32px; padding: 18px 0; border-block: 1px solid var(--line); text-align: center; }
-.project-citation p { font-size: 16px; line-height: 1.7; margin: 0; }
-.project-citation .code-block { text-align: left; margin-top: 15px; }
-.project-citation pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .project-abstract { max-width: 850px; margin-inline: auto; font-size: 18px; line-height: 1.8; }
 .project-links { display: flex; flex-wrap: wrap; gap: 8px 25px; font-size: 16px; }
 .project-heading .project-links { justify-content: center; margin-top: 24px; }
@@ -231,8 +220,6 @@ th { font-size: 13px; }
 @media (max-width: 800px) {
   .page-intro h1 { font-size: 32px; }
   .project-heading { padding-top: 32px; }
-  .project-authors { font-size: 17px; gap: 5px 16px; }
-  .project-affiliations { font-size: 14px; gap: 4px 18px; }
   .project-abstract { font-size: 17px; }
   .research-contents { columns: 1; }
   .research-section-heading { display: block; }

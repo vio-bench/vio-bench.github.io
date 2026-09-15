@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const sections = [
   {
@@ -55,9 +55,6 @@ export function Navigation() {
             </Link>
           );
         })}
-        <a className="github-link" href="https://github.com/vio-bench">
-          GitHub <ArrowUpRight size={15} />
-        </a>
       </nav>
     </>
   );

@@ -10,7 +10,7 @@ export default function Learn() {
       <PageIntro
         eyebrow="TUTORIALS / CONTENTS"
         title="Visual–inertial odometry tutorials"
-        description="A tutorial series by the VIOVERSE authors on notation, measurement models, estimation, implementation, and evaluation."
+        description="A tutorial series on notation, measurement models, estimation, implementation, and evaluation."
       />
       <div className="container page-content">
         <p className="tutorial-status">Chapter text is in preparation.</p>

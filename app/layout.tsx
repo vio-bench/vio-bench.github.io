@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   },
   description:
     "Tutorials, system implementations, trajectory evaluation, and benchmark results for visual–inertial odometry.",
+  robots: { index: false, follow: false, nocache: true },
   openGraph: {
     title: "VIOVERSE",
     description: "Visual–inertial odometry: methods, tutorials, and benchmark evaluation.",
@@ -55,11 +56,6 @@ export default function RootLayout({
                   loading="lazy"
                 />
               </Link>
-            </div>
-            <div className="footer-links">
-              <a href="https://github.com/vio-bench/vio-bench.github.io">
-                GitHub
-              </a>
             </div>
           </div>
         </footer>
