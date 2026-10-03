@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://vio-bench.github.io/sitemap.xml
+Disallow: /
