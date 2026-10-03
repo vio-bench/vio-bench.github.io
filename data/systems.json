@@ -157,7 +157,7 @@
         },
         {
           "label": "OpenVINS original paper (ICRA 2020)",
-          "url": "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+          "url": "https://doi.org/10.1109/ICRA40945.2020.9196524",
           "supports": "MSCKF formulation, state and feature representations, and calibration"
         },
         {

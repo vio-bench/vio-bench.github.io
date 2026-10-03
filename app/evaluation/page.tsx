@@ -95,7 +95,7 @@ export default function Evaluation() {
             </p>
             <SourceList sources={[
               { title: "EPICA: alignment pipeline" },
-              { title: "EPICA 0.1.17: reviewed public release", url: "https://pypi.org/project/epica/0.1.17/" },
+              { title: "EPICA 0.1.17: reviewed public release" },
               { title: "Zhang and Scaramuzza: alignment assumptions", url: "https://rpg.ifi.uzh.ch/docs/IROS18_Zhang.pdf" },
             ]} />
           </section>
@@ -166,7 +166,7 @@ export default function Evaluation() {
             </Callout>
             <SourceList sources={[
               { title: "EPICA: metric definitions" },
-              { title: "EPICA 0.1.17: reviewed public release", url: "https://pypi.org/project/epica/0.1.17/" },
+              { title: "EPICA 0.1.17: reviewed public release" },
             ]} />
           </section>
           <section id="run-epica">
@@ -227,7 +227,7 @@ export default function Evaluation() {
               <Link className="button secondary" href="/benchmark/protocol/">Results protocol and provenance →</Link>
             </div>
           </section>
-          <p className="small evaluation-reviewed">EPICA public documentation and package availability checked {epica.checkedOn}. <a href={epica.package}>Public package ↗</a></p>
+          <p className="small evaluation-reviewed">EPICA public documentation and package availability checked {epica.checkedOn}.</p>
         </article>
       </div>
     </>

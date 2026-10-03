@@ -85,7 +85,7 @@ export default function References() {
             <ol className="reference-list">
               {references.map((reference) => (
                 <li id={reference.id} key={reference.id}>
-                  <p><a href={reference.url}>{reference.title}</a>. {reference.venue}, {reference.year}.</p>
+                  <p>{reference.url ? <a href={reference.url}>{reference.title}</a> : reference.title}. {reference.venue}, {reference.year}.</p>
                   <p className="small">{reference.scope}</p>
                 </li>
               ))}

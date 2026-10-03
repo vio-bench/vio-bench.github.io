@@ -50,7 +50,7 @@
     "sources": [
       {
         "title": "Null-Space-based Marginalization: Analysis and Algorithm",
-        "url": "https://yangyulin.net/papers/2017_iros_null.pdf",
+        "url": "https://doi.org/10.1109/IROS.2017.8206592",
         "locator": "Sections II–III; especially III-C, Equivalence of Two Marginalizations, Lemma 1 (PDF page 3)."
       },
       {

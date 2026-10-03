@@ -64,11 +64,6 @@ export default function Resources() {
                 url: "https://docs.openvins.com/",
               },
               {
-                title: "Robotics & State Estimation (RiSE) tutorials",
-                body: "Optional course material on robotics and state estimation. Available lectures and notes are listed in the repository.",
-                url: "https://github.com/yangyulin/rise-tutorial",
-              },
-              {
                 title: "Kalibr",
                 body: "Camera and camera–IMU calibration, time offset conventions, and IMU noise models.",
                 url: "https://github.com/ethz-asl/kalibr/wiki",

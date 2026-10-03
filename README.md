@@ -82,3 +82,10 @@ The deployed website serves a reviewed static snapshot. It does not expose an Ov
 The source document itself is not an execution manifest. Complete report contents do not establish complete attempted-run coverage or validated comparison conditions.
 
 The current review version omits project bylines, author affiliations, personal links, and project citation blocks. Literature references use paper titles and publication metadata. Keep identifying fields out of the static export and its downloadable files. Existing repository history is outside the scope of this website-only anonymization.
+
+During anonymous review, keep named maintainers and their affiliations out of
+the current source documentation as well. Use publisher or DOI links instead
+of personally hosted papers. Retain bibliographic titles when no neutral host
+is available, and omit outbound package-owner and personal-course links. Keep
+neutral references to evaluated systems and datasets. Review the full static
+export, metadata, and downloadable archive before publishing an update.

@@ -26,15 +26,14 @@ Keep Notation first in the chapter sequence, before sensor models and the other
 technical chapters. The homepage, tutorial index, and chapter navigation share
 the order in `data/tutorials.json`.
 
-Third-party course material is linked at its original location; the website
-does not republish recordings or notes. RiSE is an optional Resources entry,
-not a featured source, required prerequisite, or organizing framework.
+The website does not republish third-party recordings or notes. Personal
+course links are omitted from the anonymous review version.
 
 ## Primary references
 
-Technical terminology and notation follow the original work of Guoquan Huang, Patrick
-Geneva, Chuchu Chen, and Yulin Yang, together with the OpenVINS paper and official
-derivations. The public bibliography is maintained in
+Technical terminology and notation follow the primary references listed in the
+public bibliography, together with the OpenVINS paper and official derivations.
+The public bibliography is maintained in
 `data/technical-references.json` and rendered at `/references/`. Cite the particular
 paper or documentation section that supports a statement. An author's name or a
 general project link alone is not evidence for a technical claim.
