@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "checkedAt": "2026-09-06",
-  "intro": "Five complementary domains for learning how visual–inertial systems behave. Dataset descriptions refer to the official releases, not to a claim that every stream or sequence is included in VIOBench.",
+  "intro": "Five complementary domains for learning how visual–inertial systems behave. Dataset descriptions refer to the official releases, not to a claim that every stream or sequence is included in the benchmark.",
   "contentType": "Curated dataset reference cards; learning-focus text is editorial guidance.",
   "datasets": [
     {

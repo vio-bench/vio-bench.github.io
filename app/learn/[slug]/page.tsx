@@ -43,7 +43,6 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
               {i + 1}. {entry.title}
             </Link>
           ))}
-          <Link href="/references/">References and further reading</Link>
         </aside>
         <article className="prose">
           <div className="tutorial-body">
@@ -71,7 +70,7 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
               ))}
             </p>
           )}
-          <details className="chapter-references">
+          {(chapter.readings.length > 0 || chapter.related.length > 0) && <details className="chapter-references">
             <summary>References and supplementary reading</summary>
             <ol className="reference-list">
               {chapter.readings.map((reading, i) => (
@@ -82,13 +81,13 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
               ))}
             </ol>
             {chapter.related.length > 0 && <SourceList sources={chapter.related} />}
-          </details>
+          </details>}
           <nav className="lesson-nav" aria-label="Chapter navigation">
             <Link href={index > 0 ? `/learn/${chapters[index - 1].slug}/` : "/learn/"}>
               ← {index > 0 ? "Previous chapter" : "Tutorial contents"}
             </Link>
-            <Link href={index < chapters.length - 1 ? `/learn/${chapters[index + 1].slug}/` : "/run/"}>
-              {index < chapters.length - 1 ? "Next chapter" : "Implementation guides"} →
+            <Link href={index < chapters.length - 1 ? `/learn/${chapters[index + 1].slug}/` : "/learn/"}>
+              {index < chapters.length - 1 ? "Next chapter" : "Tutorial contents"} →
             </Link>
           </nav>
         </article>

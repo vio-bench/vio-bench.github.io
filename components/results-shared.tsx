@@ -6,11 +6,10 @@ export function ResultsNavigation() {
   return (
     <nav className="results-nav" aria-label="Results sections">
       {[
-        { href: "/results/", label: "Overview" },
+        { href: "/results/", label: "Result tables" },
         { href: "/results/tables/", label: "Trajectory tables" },
         { href: "/results/current/", label: "Path coverage (SR)" },
         { href: "/results/efficiency/", label: "Resource tables" },
-        { href: "/evaluation/", label: "Evaluation & EPICA" },
       ].map((x) => (
         <Link
           href={x.href}

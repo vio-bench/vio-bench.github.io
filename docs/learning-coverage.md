@@ -1,15 +1,14 @@
 # Learning coverage and source policy
 
-The learning section is an original tutorial series by the VIOVERSE authors.
-Its subject coverage is informed by the project manuscript, *Visual-Inertial
-Odometry: A Survey, Evaluation, and Benchmark*. Chapter text, rather than a list
-of external readings, is the main content.
+The learning section is a planned tutorial series. Chapter text, rather than
+a list of external readings, will be the main content.
 
 ## Chapter outline and writing status
 
 `data/tutorials.json` contains nine planned chapter outlines. Their `sections`
-arrays are currently empty, awaiting author-provided text. Existing `readings`
-are retained as collapsed supplementary references after the body:
+arrays are currently empty, awaiting author-provided text. Reading recommendations
+and implementation guides are temporarily withdrawn; do not replace them until
+the user supplies or requests new material:
 
 1. Notation
 2. Camera and IMU measurement models
@@ -22,12 +21,10 @@ are retained as collapsed supplementary references after the body:
 9. Working with your own sensor data
 
 The outline does not establish that the chapters have been written or that VIO
-is fully covered. The separate References page collects further reading on VIO
-formulation, visual geometry, preintegration, and observability.
+is fully covered. The References page remains a preparation notice.
 
-The "Learning methods in VIO" reading row is intentionally empty at the user's
-request. Retain the topic and leave its sources blank until the user asks to add
-readings; do not fill this gap automatically.
+All chapter text and reading recommendations remain empty until the user
+supplies or requests new material; do not fill these gaps automatically.
 
 ## Areas for further source organization
 

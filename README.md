@@ -12,7 +12,8 @@ The October 10 update replaces the previous website result release.
 - `/results/tables/`: reviewed September 9 trajectory tables for five datasets, with drift-valid ATE and separate RPE intervals. Source columns, numbers, missing marks, and Average values are retained without recalculation.
 - `/results/current/`: SR tables from the separately designated September 10 CSV export. Three expected run slots contribute to each sequence mean; missing or invalid SR has an effective zero. This is not the ATE/RPE selection rule.
 - `/results/efficiency/`: resource tables from the latest checked Results revision, preserving each input, platform, camera mode, source statistic, and timing definition. SVO component sums must not be called independent native totals.
-- `/benchmark/protocol/`: concise definitions and source information.
+- `/results/#calculation`: metric definitions, aggregation, and source information.
+- Tutorials retain their chapter outline only; reading recommendations and implementation guides are temporarily withdrawn.
 
 The published source-table export excludes the withdrawn ATE protocol and superseded raw SR tables. The designated SR tables remain available separately. Previous website JSON/CSV/ZIP files are removed from the active export; their source history remains in Git.
 

@@ -2,19 +2,19 @@ import Link from "next/link";
 import { PageIntro, ButtonLink, Callout } from "@/components/ui";
 import accuracy from "@/public/data/current-results.json";
 import resources from "@/public/data/current-efficiency.json";
-export const metadata = { title: "VIOBench benchmark design" };
+export const metadata = { title: "Benchmark design" };
 export default function Benchmark() {
   return (
     <>
       <PageIntro
         eyebrow="BENCHMARK / DESIGN & SCOPE"
-        title="VIOBench: scope and reported experiments"
+        title="Benchmark scope and reported experiments"
         description="Reported trajectory errors and computational measurements for public VIO implementations, organized by dataset and configuration. Available input and evaluation metadata accompany each record."
       >
         <div className="button-row">
           <ButtonLink href="/results/">Benchmark results</ButtonLink>
-          <ButtonLink href="/evaluation/" secondary>
-            Evaluation with EPICA
+          <ButtonLink href="/results/#calculation" secondary>
+            How results are calculated
           </ButtonLink>
         </div>
       </PageIntro>
@@ -127,13 +127,8 @@ export default function Benchmark() {
               </Link>
             </p>
             <p>
-              <Link className="text-link" href="/run/openvins/">
-                OpenVINS implementation guide →
-              </Link>
-            </p>
-            <p>
-              <Link className="text-link" href="/evaluation/">
-                EPICA evaluation guide →
+              <Link className="text-link" href="/results/#calculation">
+                Calculation notes →
               </Link>
             </p>
           </aside>
@@ -150,7 +145,7 @@ export default function Benchmark() {
           <a href="/data/results-20261010.zip" download>
             Download the complete published Results package (ZIP)
           </a>
-          <Link href="/benchmark/protocol/">Definitions and provenance →</Link>
+          <Link href="/results/#calculation">Definitions and provenance →</Link>
         </div>
       </div>
     </>

@@ -29,13 +29,6 @@ export default function Learn() {
             </Link>
           ))}
         </div>
-        <p className="tutorial-resources">
-          <Link href="/references/">References and further reading</Link> accompany
-          the tutorial topics. Practical material is available in the{" "}
-          <Link href="/run/">implementation guides</Link>,{" "}
-          <Link href="/systems/">system documentation</Link>, and{" "}
-          <Link href="/resources/">dataset and software resources</Link>.
-        </p>
       </div>
     </>
   );

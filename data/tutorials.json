@@ -5,29 +5,7 @@
     "summary": "Symbols, coordinate frames, rotation and pose conventions, and state definitions.",
     "prerequisites": [],
     "sections": [],
-    "readings": [
-      {
-        "title": "Inertial State Vector",
-        "url": "https://docs.openvins.com/propagation.html#ins_state",
-        "source": "OpenVINS documentation",
-        "locator": "Inertial State Vector",
-        "focus": "Identify the direction represented by the IMU quaternion and the frames in which position and velocity are expressed."
-      },
-      {
-        "title": "JPL Quaternion Definition",
-        "url": "https://docs.openvins.com/classov__type_1_1JPLQuat.html#jplquat_define",
-        "source": "OpenVINS documentation",
-        "locator": "JPL Quaternion Definition",
-        "focus": "Read the quaternion algebra, scalar/vector component convention, and unit constraint together."
-      },
-      {
-        "title": "Error State Definition",
-        "url": "https://docs.openvins.com/classov__type_1_1JPLQuat.html#jplquat_errorstate",
-        "source": "OpenVINS documentation",
-        "locator": "Error State Definition; update() function documentation",
-        "focus": "Read how OpenVINS defines the orientation perturbation and applies its quaternion update."
-      }
-    ],
+    "readings": [],
     "related": []
   },
   {
@@ -37,42 +15,8 @@
     "prerequisites": [
       "notation"
     ],
-    "readings": [
-      {
-        "title": "Visual-Inertial Navigation: A Concise Review",
-        "url": "https://arxiv.org/pdf/1906.02650",
-        "source": "2019",
-        "locator": "Section 2.1, IMU Kinematic Model; Section 2.2, Camera Measurement Model",
-        "focus": "Begin with the state variables and measurement models. Follow the frame labels attached to orientation, position, velocity, and feature observations."
-      },
-      {
-        "title": "IMU Propagation Derivations",
-        "url": "https://docs.openvins.com/propagation.html#imu_measurements",
-        "source": "OpenVINS documentation",
-        "locator": "IMU Measurements; IMU Kinematic Equations",
-        "focus": "Read the sensor models, bias terms, and kinematic equations. Check the source’s gravity definition and rotation direction before following its propagation derivations."
-      },
-      {
-        "title": "Camera Measurement Update",
-        "url": "https://docs.openvins.com/update-feat.html#model",
-        "source": "OpenVINS documentation",
-        "locator": "Perspective Projection (Bearing) Measurement Model; Measurement Function Overview; Perspective Projection Function",
-        "focus": "Follow the documented stages from a three-dimensional feature to normalized image coordinates and pixel measurements."
-      },
-      {
-        "title": "VIO vs. SLAM",
-        "url": "https://arxiv.org/pdf/1906.02650",
-        "source": "2019",
-        "locator": "Section 3.3, VIO vs. SLAM",
-        "focus": "Read the review’s discussion of local motion estimation, mapping, and loop-closure constraints."
-      }
-    ],
-    "related": [
-      {
-        "title": "OpenVINS: IMU state reference",
-        "url": "https://docs.openvins.com/classov__type_1_1IMU.html"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
@@ -82,42 +26,8 @@
     "prerequisites": [
       "camera-and-imu"
     ],
-    "readings": [
-      {
-        "title": "Inertial State Vector",
-        "url": "https://docs.openvins.com/propagation.html#ins_state",
-        "source": "OpenVINS documentation",
-        "locator": "Inertial State Vector",
-        "focus": "Identify the direction represented by the IMU quaternion and the frames in which position and velocity are expressed."
-      },
-      {
-        "title": "JPL Quaternion Definition",
-        "url": "https://docs.openvins.com/classov__type_1_1JPLQuat.html#jplquat_define",
-        "source": "OpenVINS documentation",
-        "locator": "JPL Quaternion Definition",
-        "focus": "Read the quaternion algebra, scalar/vector component convention, and unit constraint together."
-      },
-      {
-        "title": "Euclidean Transformation",
-        "url": "https://docs.openvins.com/update-feat.html#relative",
-        "source": "OpenVINS documentation",
-        "locator": "Euclidean Transformation",
-        "focus": "Follow the transformation of a global feature into the camera frame, including the IMU–camera extrinsic parameters."
-      },
-      {
-        "title": "Error State Definition",
-        "url": "https://docs.openvins.com/classov__type_1_1JPLQuat.html#jplquat_errorstate",
-        "source": "OpenVINS documentation",
-        "locator": "Error State Definition; update() function documentation",
-        "focus": "Read how OpenVINS defines the orientation perturbation and applies its quaternion update."
-      }
-    ],
-    "related": [
-      {
-        "title": "OpenVINS initialization report, Section 3.3, Discussion on Frame Transformation",
-        "url": "/references/#initialization2023"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
@@ -127,53 +37,8 @@
     "prerequisites": [
       "coordinate-frames"
     ],
-    "readings": [
-      {
-        "title": "Camera Intrinsic Calibration (Offline)",
-        "url": "https://docs.openvins.com/gs-calibration.html#gs-calib-cam-static",
-        "source": "OpenVINS documentation",
-        "locator": "Camera Intrinsic Calibration (Offline)",
-        "focus": "Follow the documented camera preparation, calibration recording, model selection, and reprojection-report inspection."
-      },
-      {
-        "title": "IMU Noise Calibration (Offline)",
-        "url": "https://docs.openvins.com/gs-calibration.html#gs-calib-imu-static",
-        "source": "OpenVINS documentation",
-        "locator": "IMU Noise Calibration (Offline)",
-        "focus": "Read the parameter table and units before the Allan-variance workflow and its stated practical recommendations."
-      },
-      {
-        "title": "Dynamic IMU-Camera Calibration (Offline)",
-        "url": "https://docs.openvins.com/gs-calibration.html#gs-calib-cam-dynamic",
-        "source": "OpenVINS documentation",
-        "locator": "Dynamic IMU-Camera Calibration (Offline)",
-        "focus": "Read the recording procedure, motion-excitation discussion, timestamp checks, and calibration-report checks."
-      },
-      {
-        "title": "Camera–IMU time-offset parameter",
-        "url": "https://docs.openvins.com/classov__msckf_1_1State.html#a0ef68be4e06e4b4947c86852d1005893",
-        "source": "OpenVINS documentation",
-        "locator": "State class, Public variables: _calib_dt_CAMtoIMU",
-        "focus": "Check the documented equation defining the camera-to-IMU time-offset sign."
-      },
-      {
-        "title": "Online Self-Calibration for Visual-Inertial Navigation: Models, Analysis, and Degeneracy",
-        "url": "https://doi.org/10.1109/TRO.2023.3275878",
-        "source": "IEEE Transactions on Robotics, 2023",
-        "locator": "Section V, Observability Analysis; Section VI, Degenerate Motion Analysis",
-        "focus": "Read the assumptions behind the observability analysis and the motion cases associated with unobservable calibration parameters."
-      }
-    ],
-    "related": [
-      {
-        "title": "OpenVINS: Calibration of Inertial Intrinsics, within IMU Measurements",
-        "url": "https://docs.openvins.com/propagation.html#imu_measurements"
-      },
-      {
-        "title": "OpenVINS: Video Walkthrough Guide to Calibration",
-        "url": "https://docs.openvins.com/gs-calibration.html#gs-calib-video"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
@@ -184,50 +49,8 @@
       "camera-and-imu",
       "calibration-and-time"
     ],
-    "readings": [
-      {
-        "title": "OpenVINS State Initialization: Details and Derivations",
-        "source": "Technical report, February 2023 revision",
-        "locator": "Section 1, Introduction",
-        "focus": "Read the initialization objective, the discussion of unobservable directions, and the motivation for recovering initial covariance."
-      },
-      {
-        "title": "StaticInitializer",
-        "url": "https://docs.openvins.com/classov__init_1_1StaticInitializer.html",
-        "source": "OpenVINS documentation",
-        "locator": "Class description; initialize() function documentation",
-        "focus": "Read the standstill assumption, the use of the previous measurement window, and the documented behavior of wait_for_jerk."
-      },
-      {
-        "title": "DynamicInitializer",
-        "url": "https://docs.openvins.com/classov__init_1_1DynamicInitializer.html",
-        "source": "OpenVINS documentation",
-        "locator": "Class description, three-step initialization outline; initialize() function documentation",
-        "focus": "Review the documented sequence of preintegration, constrained initialization, and maximum-likelihood refinement, including its stated bias assumption."
-      },
-      {
-        "title": "Least-squares Problem",
-        "source": "Technical report, February 2023 revision",
-        "locator": "Section 3, Least-squares Problem; subsections 3.1–3.6",
-        "focus": "Follow the inertial and bearing models through frame transformation, the linear system, the gravity-magnitude constraint, and recovery of the inertial states. Note the calibration assumptions in Section 3.2."
-      },
-      {
-        "title": "Maximum Likelihood Estimation",
-        "source": "Technical report, February 2023 revision",
-        "locator": "Section 4, Maximum Likelihood Estimation; subsections 4.1–4.3",
-        "focus": "Read the inertial measurement model, camera measurement model, and prior cost used in the refinement formulation."
-      }
-    ],
-    "related": [
-      {
-        "title": "OpenVINS: InertialInitializerOptions reference",
-        "url": "https://docs.openvins.com/structov__init_1_1InertialInitializerOptions.html"
-      },
-      {
-        "title": "OpenVINS: First-Estimate Jacobians",
-        "url": "https://docs.openvins.com/fej.html"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
@@ -237,114 +60,19 @@
     "prerequisites": [
       "initialization"
     ],
-    "readings": [
-      {
-        "title": "MSCKF Nullspace Projection",
-        "url": "https://docs.openvins.com/update-null.html",
-        "source": "OpenVINS documentation",
-        "locator": "Main derivation, followed by Implementation",
-        "focus": "Follow the feature-Jacobian projection and its use in the measurement update; then inspect the documented QR implementation."
-      },
-      {
-        "title": "Null-Space-based Marginalization: Analysis and Algorithm",
-        "url": "https://doi.org/10.1109/IROS.2017.8206592",
-        "source": "IROS 2017",
-        "locator": "Sections II–III; especially III-C, Equivalence of Two Marginalizations, Lemma 1 (PDF page 3)",
-        "focus": "Read the elimination comparison together with its noise and linearization assumptions."
-      },
-      {
-        "title": "First-Estimate Jacobian Estimators",
-        "url": "https://docs.openvins.com/fej.html",
-        "source": "OpenVINS documentation",
-        "locator": "EKF Linearized Error-State System; Linearized System Observability; First Estimate Jacobians",
-        "focus": "Follow the documented error-state model, unobservable directions, and choice of Jacobian evaluation points."
-      },
-      {
-        "title": "Optimization-based VINS: Consistency, Marginalization, and FEJ",
-        "url": "https://doi.org/10.1109/IROS55552.2023.10341637",
-        "source": "IROS 2023",
-        "locator": "Sections II–IV: Optimization-based VINS; Marginalization and Consistency; Marginalization and FEJ",
-        "focus": "Read how the paper formulates the estimation problem and applies FEJ to its four marginalization strategies."
-      },
-      {
-        "title": "Is Iteration Worth It? Revisit Its Impact in Sliding-Window VIO",
-        "url": "https://doi.org/10.1109/ICRA55743.2025.11127352",
-        "source": "ICRA 2025",
-        "locator": "Sections III–V: Problem Statement; Estimation Algorithms; Experiments. Begin the comparison with Table I.",
-        "focus": "Compare the specified measurement relinearization and processing choices, then read the experimental setup before interpreting the results."
-      }
-    ],
-    "related": [
-      {
-        "title": "VIO systems",
-        "url": "/systems/"
-      },
-      {
-        "title": "Run OpenVINS",
-        "url": "/run/openvins/"
-      },
-      {
-        "title": "Results",
-        "url": "/results/"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
     "slug": "trajectory-evaluation",
     "title": "Trajectory evaluation",
-    "summary": "Trajectory conventions, association, alignment, error metrics, and evaluation with EPICA.",
+    "summary": "Trajectory conventions, association, alignment, error metrics, and coverage.",
     "prerequisites": [
       "coordinate-frames"
     ],
-    "readings": [
-      {
-        "title": "Filter Error Evaluation Methods",
-        "url": "https://docs.openvins.com/eval-error.html",
-        "source": "OpenVINS documentation",
-        "locator": "Collection; Transformation",
-        "focus": "Check the trajectory file fields and format-conversion conventions used by the OpenVINS evaluation tools."
-      },
-      {
-        "title": "Filter Evaluation Metrics",
-        "url": "https://docs.openvins.com/eval-metrics.html",
-        "source": "OpenVINS documentation",
-        "locator": "Absolute Trajectory Error (ATE); Relative Pose Error (RPE); Root Mean Squared Error (RMSE)",
-        "focus": "Read each definition with its alignment, pose-pair selection, and averaging convention."
-      },
-      {
-        "title": "Architecture",
-        "source": "EPICA documentation",
-        "locator": "Main Pipeline Stages: Time Alignment; Extrinsic Calibration; World-Frame Alignment",
-        "focus": "Trace the reference and estimate through synchronization, extrinsic calibration, and world-frame alignment."
-      },
-      {
-        "title": "Error Metrics",
-        "source": "EPICA documentation",
-        "locator": "Full-Trajectory Metrics; Drift-Valid Success Rate; Drift-Valid Metrics; Reading the Tables",
-        "focus": "Read the reported metric populations and coverage definition alongside the table interpretation."
-      },
-      {
-        "title": "Quick Start",
-        "source": "EPICA documentation",
-        "locator": "Requirements; Install; Run One Pair; Check Outputs",
-        "focus": "Follow the official single-pair workflow and identify the documented output files. Use documentation appropriate to the installed release."
-      }
-    ],
-    "related": [
-      {
-        "title": "Evaluation with EPICA",
-        "url": "/evaluation/"
-      },
-      {
-        "title": "Run OpenVINS",
-        "url": "/run/openvins/"
-      },
-      {
-        "title": "Results",
-        "url": "/results/"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
@@ -355,50 +83,8 @@
       "filtering-and-optimization",
       "trajectory-evaluation"
     ],
-    "readings": [
-      {
-        "title": "Filter Timing Analysis",
-        "url": "https://docs.openvins.com/eval-timing.html",
-        "source": "OpenVINS documentation",
-        "locator": "Collection",
-        "focus": "Distinguish internal component timers from sampled process CPU, memory, and thread data; read the hardware-comparison qualification."
-      },
-      {
-        "title": "Filter Timing Analysis",
-        "url": "https://docs.openvins.com/eval-timing.html",
-        "source": "OpenVINS documentation",
-        "locator": "Processing & Plotting: Script \"timing_flamegraph\"; Script \"timing_histogram\"; Script \"timing_percentages\"",
-        "focus": "Inspect the documented component summaries, timing distributions, and process-resource plots."
-      },
-      {
-        "title": "System Profiling",
-        "url": "https://docs.openvins.com/dev-profiling.html",
-        "source": "OpenVINS documentation",
-        "locator": "Profiling Processing Time; Memory Leaks",
-        "focus": "Read the separate workflows for call-stack profiling and memory-leak inspection, including the stated profiling overhead."
-      },
-      {
-        "title": "Optimization-based VINS: Consistency, Marginalization, and FEJ",
-        "url": "https://doi.org/10.1109/IROS55552.2023.10341637",
-        "source": "IROS 2023",
-        "locator": "Section V, Numerical Study; Table II caption (PDF page 5)",
-        "focus": "Check which computations the reported timing includes and excludes before interpreting the runtime comparison."
-      }
-    ],
-    "related": [
-      {
-        "title": "Efficiency results",
-        "url": "/results/efficiency/"
-      },
-      {
-        "title": "Benchmark protocol",
-        "url": "/benchmark/protocol/"
-      },
-      {
-        "title": "Run",
-        "url": "/run/"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   },
   {
@@ -410,57 +96,8 @@
       "initialization",
       "trajectory-evaluation"
     ],
-    "readings": [
-      {
-        "title": "Sensor Calibration",
-        "url": "https://docs.openvins.com/gs-calibration.html",
-        "source": "OpenVINS documentation",
-        "locator": "Camera Intrinsic Calibration (Offline)",
-        "focus": "Read the camera-model and calibration-data requirements before preparing the camera configuration."
-      },
-      {
-        "title": "Sensor Calibration",
-        "url": "https://docs.openvins.com/gs-calibration.html",
-        "source": "OpenVINS documentation",
-        "locator": "IMU Noise Calibration (Offline)",
-        "focus": "Follow the documented static-data collection and noise-parameter workflow."
-      },
-      {
-        "title": "Sensor Calibration",
-        "url": "https://docs.openvins.com/gs-calibration.html",
-        "source": "OpenVINS documentation",
-        "locator": "Dynamic IMU-Camera Calibration (Offline)",
-        "focus": "Read the joint camera–IMU calibration procedure and the requirements for recording calibration motion."
-      },
-      {
-        "title": "Simple Tutorial",
-        "url": "https://docs.openvins.com/gs-tutorial.html",
-        "source": "OpenVINS documentation",
-        "locator": "Opening configuration-file descriptions; ROS 1 Tutorial or ROS 2 Tutorial, according to the selected environment",
-        "focus": "Locate the estimator and sensor calibration files, then follow the matching ROS configuration example."
-      },
-      {
-        "title": "Filter Error Evaluation Methods",
-        "url": "https://docs.openvins.com/eval-error.html",
-        "source": "OpenVINS documentation",
-        "locator": "Collection; Transformation",
-        "focus": "Read the export format and file-format conversion guidance before passing the estimated trajectory to an evaluator."
-      }
-    ],
-    "related": [
-      {
-        "title": "Run",
-        "url": "/run/"
-      },
-      {
-        "title": "Run OpenVINS",
-        "url": "/run/openvins/"
-      },
-      {
-        "title": "Evaluation with EPICA",
-        "url": "/evaluation/"
-      }
-    ],
+    "readings": [],
+    "related": [],
     "sections": []
   }
 ]

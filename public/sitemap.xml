@@ -4,9 +4,7 @@
 <url><loc>https://vio-bench.github.io/learn/</loc></url>
 <url><loc>https://vio-bench.github.io/systems/</loc></url>
 <url><loc>https://vio-bench.github.io/run/</loc></url>
-<url><loc>https://vio-bench.github.io/run/openvins/</loc></url>
 <url><loc>https://vio-bench.github.io/benchmark/</loc></url>
-<url><loc>https://vio-bench.github.io/benchmark/protocol/</loc></url>
 <url><loc>https://vio-bench.github.io/resources/</loc></url>
 <url><loc>https://vio-bench.github.io/references/</loc></url>
 <url><loc>https://vio-bench.github.io/learn/notation/</loc></url>
@@ -33,5 +31,4 @@
 <url><loc>https://vio-bench.github.io/results/accuracy/</loc></url>
 <url><loc>https://vio-bench.github.io/results/efficiency/</loc></url>
 <url><loc>https://vio-bench.github.io/results/tables/</loc></url>
-<url><loc>https://vio-bench.github.io/evaluation/</loc></url>
 </urlset>

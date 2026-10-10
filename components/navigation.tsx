@@ -15,7 +15,6 @@ const sections = [
     href: "/benchmark/",
     routes: ["/benchmark", "/results"],
   },
-  { label: "Evaluation", href: "/evaluation/", routes: ["/evaluation"] },
 ];
 
 export function Navigation() {

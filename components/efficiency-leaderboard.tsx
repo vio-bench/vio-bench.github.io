@@ -325,7 +325,7 @@ export function EfficiencyLeaderboard() {
       <p className="note-line">
         Missing measurements remain blank. A frontend + backend total is labeled
         separately from an implementation-reported native total.{" "}
-        <Link href="/benchmark/protocol/">Read measurement definitions →</Link>
+        <Link href="/results/#calculation">Read measurement definitions →</Link>
       </p>
       <div className="data-links">
         <a href="/data/current-efficiency.json" download>

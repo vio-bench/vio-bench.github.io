@@ -19,13 +19,10 @@ export default function Home() {
           VIOVERSE is a project for studying, implementing, and evaluating
           visual–inertial odometry (VIO). The site includes a tutorial series
           in preparation, implementation documentation, and experimental
-          results. Trajectory evaluation is presented
-          with EPICA, while VIOBench organizes reported accuracy and resource
-          measurements across five datasets and three computing platforms.
+          results across five datasets and three computing platforms.
         </p>
         <nav className="project-links" aria-label="Project resources">
           <Link href="/learn/">Tutorials</Link>
-          <Link href="/evaluation/">Evaluation</Link>
           <Link href="/results/">Benchmark results</Link>
         </nav>
       </header>
@@ -37,7 +34,7 @@ export default function Home() {
         <p>
           A tutorial series from notation and sensor
           models to calibration, estimation, and evaluation. Chapter text is in
-          preparation; references are collected separately for each topic.
+          preparation.
         </p>
         <ol className="research-contents">
           {lessons.map((lesson) => (
@@ -52,26 +49,8 @@ export default function Home() {
         <p>
           The <Link href="/systems/">system catalog</Link> documents 11 public
           implementations, including their estimation approach, supported input
-          configurations, and upstream code. The <Link href="/run/openvins/">OpenVINS
-          implementation guide</Link> covers installation, EuRoC configuration,
-          trajectory export, and evaluation. Dataset and calibration references
+          configurations, and upstream code. Dataset and calibration references
           are collected in <Link href="/resources/">Resources</Link>.
-        </p>
-      </section>
-      <section className="research-section" aria-labelledby="evaluation-heading">
-        <h2 id="evaluation-heading">Trajectory evaluation</h2>
-        <p>
-          Evaluation requires a stated pose convention, time association policy,
-          alignment model, and evaluated interval. The <Link href="/evaluation/">Evaluation
-          guide</Link> explains ATE, RPE, and the distinction between full-trajectory
-          and drift-valid measurements. It also documents a trajectory-pair
-          workflow using EPICA, a trajectory alignment
-          and evaluation toolkit.
-        </p>
-        <p>
-          The <Link href="/benchmark/protocol/">current result definitions</Link> specify
-          how the published result tables are selected and aggregated, including
-          source annotations, missing values, and measurement limitations.
         </p>
       </section>
       <section className="research-section" aria-labelledby="results-heading">

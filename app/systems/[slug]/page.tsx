@@ -56,13 +56,7 @@ export default async function System({
           <SourceList sources={s.sources} />
           <div className="lesson-nav">
             <Link href="/systems/">← All systems</Link>
-            {s.id === "openvins" ? (
-              <Link href="/run/openvins/">OpenVINS implementation guide →</Link>
-            ) : (
-              <Link href="/learn/filtering-and-optimization/">
-                Estimation methods chapter →
-              </Link>
-            )}
+            <Link href="/learn/">Tutorial contents →</Link>
           </div>
         </article>
       </div>

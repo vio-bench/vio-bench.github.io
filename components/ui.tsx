@@ -24,14 +24,14 @@ export function PageIntro({
   description,
   children,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
   children?: React.ReactNode;
 }) {
   return (
     <section className="page-intro container">
-      <span className="eyebrow">{eyebrow}</span>
+      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
       <h1>{title}</h1>
       <p className="lead">{description}</p>
       {children}

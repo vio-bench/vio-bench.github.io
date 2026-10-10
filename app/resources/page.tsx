@@ -49,19 +49,9 @@ export default function Resources() {
           <div className="tool-list">
             {[
               {
-                title: "VIO references and further reading",
-                body: "Original frame, quaternion, and IMU state definitions, with references for the tutorial topics.",
-                url: "/references/",
-              },
-              {
-                title: "EPICA trajectory evaluation toolkit",
-                body: "Installation, trajectory synchronization, alignment, and error metrics.",
-                url: "/evaluation/#run-epica",
-              },
-              {
-                title: "OpenVINS documentation",
-                body: "Estimator derivations, state representations, calibration, simulation, and evaluation.",
-                url: "https://docs.openvins.com/",
+                title: "Result table definitions",
+                body: "Trajectory errors, path coverage, aggregation, and resource measurement notes.",
+                url: "/results/#calculation",
               },
               {
                 title: "Kalibr",

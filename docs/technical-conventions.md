@@ -17,8 +17,7 @@ generated prose does not establish that the authors supplied or reviewed it.
 
 Store author-provided chapter sections in `data/tutorials.json`. Until chapter
 text is supplied, leave `sections` empty and show the preparation notice.
-Existing `readings` are supplementary references, not the chapter body or
-evidence that a chapter has been written. Do not assign the paper's complete
+Keep `readings` and `related` empty while the tutorial material is withdrawn. Do not assign the paper's complete
 author list to individual chapters without chapter-specific attribution.
 Use the long project manuscript to inform subject coverage, and do not present
 the current outline as a completed course.
@@ -31,11 +30,10 @@ course links are omitted from the anonymous review version.
 
 ## Primary references
 
-Technical terminology and notation follow the primary references listed in the
-public bibliography, together with the OpenVINS paper and official derivations.
-The public bibliography is maintained in
-`data/technical-references.json` and rendered at `/references/`. Cite the particular
-paper or documentation section that supports a statement. An author's name or a
+Tutorial text and reading recommendations are temporarily withdrawn. Keep chapter
+outlines, but do not add replacement teaching text or references until the user
+supplies or requests them. For future authored content, cite the particular
+primary paper or documentation section that supports a statement. An author's name or a
 general project link alone is not evidence for a technical claim.
 
 Use each system's original paper, documentation, and source for its implementation
@@ -51,13 +49,10 @@ does not imply that every external implementation uses the same convention.
 - Use global frame G, IMU frame I, and camera frame C. R_IG maps coordinates
   from G into I, and R_CI maps from I into C. Position p_GI is the IMU origin
   expressed in G. Define both direction and expressed-in frame before equations.
-- When using the OpenVINS convention, identify JPL quaternion algebra,
-  scalar-last storage, the global-to-IMU rotation, and the left multiplicative
-  attitude error. `xyzw` alone is not a quaternion convention. File exports and
-  message interfaces must be checked separately from internal state storage.
-- Define the gravity sign. OpenVINS uses g_G = [0, 0, g]^T and subtracts it in
-  global velocity propagation. Do not silently substitute the physical downward
-  gravitational-acceleration vector in this equation.
+- Identify quaternion algebra, component order, rotation direction, and the
+  multiplicative attitude-error convention. `xyzw` alone is not a quaternion
+  convention. Check file exports separately from internal state storage.
+- Define the gravity sign and its role in the stated propagation equation.
 - Identify ideal or calibrated measurement models and any omitted intrinsics,
   extrinsics, time offset, rolling shutter, or noise terms. Distinguish specific
   force, linear acceleration, bias, white-noise density, and bias random walk.
@@ -93,10 +88,10 @@ does not imply that every external implementation uses the same convention.
   counts are different denominators.
 - Keep evaluated extent, drift-valid path fraction, recording coverage, and
   successful-run fraction separate. Missing measurements are not zero errors.
-- EPICA is introduced within Evaluation. Its fitting/selection procedure must
-  be described separately from a prescribed conventional alignment baseline.
-  Retain public-package versus documentation differences that affect results.
-- Do not reinterpret historical VIOBench labels, change numerical results, or
+- Explain the published metric and aggregation rules within Result tables.
+  Trace the explanation to that result release rather than an unrelated package
+  version or an obsolete installation guide.
+- Do not reinterpret historical source labels, change numerical results, or
   infer historical settings from current evaluator documentation. Trace such
   changes to the actual source records before publication.
 - Distinguish native processing timers, output latency, throughput, CPU
