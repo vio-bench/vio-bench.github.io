@@ -1,16 +1,43 @@
 {
-  "sourceRevision": "bac8b9feb05c93a1d33b5fec08259730517965ee",
-  "checkedOn": "2026-09-06",
+  "schemaVersion": 2,
+  "checkedOn": "2026-10-10",
+  "sourceRevisions": {
+    "trajectory": "d11e47385afcf3745d17912654d3a22b4b8bb2ca",
+    "resources": "29a1fa93804899fac8bf17799b5bd101ae02d9a4",
+    "sr": null
+  },
+  "sourceScope": "Trajectory ATE/RPE and resource tables retain their own source revisions. The designated SR CSV export has no supplied Git revision.",
   "artifacts": {
-    "accuracy.json": "5b41705f67dc8541161caa96c043a116a6ed9a571f72953b9f69ff8042b0241a",
-    "efficiency.json": "ef1f0aec3f389926b0fbbda1f5ba388e302c7d301f05c5aad6ebb304a56cd487",
-    "source-tables.json": "4190882369a1c258941b6ffb155538b7921fcfa899629192238250fd593e96a5"
+    "current-results.json": "6f6bf21d3879fe408fb116da17797f70f0bbbff62df7b64b610ef48d52f089b4",
+    "current-source-tables.json": "a6fd23a73e2958ecd50e0f5fd08544ecc72dac0bf407c55bf2e9b3e825adc6c7",
+    "current-efficiency.json": "e49b7c153254becb16294abcfa5570c9b6cb3335bce6563c9c528ac0c09c4c17",
+    "current-source-cells.csv": "1b2fbbcee852c54e2e9eeed7287f08b65af77b1b5ee3482a64575f42e7043ae6",
+    "current-sr-datasets.csv": "dfdddca04bae33ac17fa4203a35c796f294ee0daad1bfc12f3097b8d6a2357b0",
+    "current-sr-sequences.csv": "d7c1109ed7cc96a50effd8c18f7b6b47bd78551ad22d1c3b6d1d17ae59b3a373",
+    "current-sr-runs.csv": "0f87cc5d633b1884bdbeb778379f08764de0bb851d3cb94aaa9fc567f2a0eed5",
+    "current-resource-cells.csv": "a1472bb2820767c872ec1943b9413dfa55c77ffad72b3cac3640b896a33c7cdb"
   },
   "counts": {
-    "accuracyCells": 180,
-    "accuracyConfigurations": 18,
-    "reportSequences": 98,
-    "resourceRecords": 164,
-    "sourceTables": 157
+    "sourceTables": 94,
+    "sourceMethodRows": 1395,
+    "sourceCells": 7740,
+    "srDatasetMeans": 72,
+    "srSequenceMeans": 1422,
+    "srExpectedRunSlots": 4266,
+    "resourceRecords": 166
+  },
+  "download": {
+    "filename": "results-20261010.zip",
+    "members": [
+      "current-results.json",
+      "current-source-tables.json",
+      "current-efficiency.json",
+      "current-source-cells.csv",
+      "current-sr-datasets.csv",
+      "current-sr-sequences.csv",
+      "current-sr-runs.csv",
+      "current-resource-cells.csv",
+      "results-manifest.json"
+    ]
   }
 }
