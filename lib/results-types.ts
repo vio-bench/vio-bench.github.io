@@ -75,6 +75,7 @@ export type EfficiencyMetric =
   | "reportedProcessMemoryMiB";
 export interface EfficiencyRow {
   sourceRecordId: string;
+  sourceRevision: string;
   inputId: string;
   system: string;
   systemId: string;
@@ -85,11 +86,20 @@ export interface EfficiencyRow {
   inputVariant: string;
   sourceSelectedRuns: number;
   selectedRunException: boolean;
+  timingDefinition?: string;
   nativeTotalMs: number | null;
   reportedCpuPercent: number | null;
   reportedProcessMemoryMiB: number | null;
   metricStatus: Record<string, string>;
   extendedMetrics?: Record<string, number | null>;
+  extendedMetricStatus?: Record<string, string>;
+  sourceValues?: Record<string, {
+    valueText: string;
+    rawToken: string;
+    sourceMetric: string;
+    sourceStatistic: string;
+    sourceStatus: string;
+  }>;
 }
 export interface EfficiencyData {
   inputs: {

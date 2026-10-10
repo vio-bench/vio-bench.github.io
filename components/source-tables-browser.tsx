@@ -1,84 +1,158 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Download } from "lucide-react";
-import source from "@/public/data/source-tables.json";
+import currentSource from "@/public/data/current-source-tables.json";
 import type { SourceTablesData } from "@/lib/results-types";
 import { csvText } from "@/lib/leaderboards";
 import { downloadText, updateQuery } from "./results-shared";
-const data = source as SourceTablesData;
+
+const data = currentSource as SourceTablesData;
+const defaultFilters = {
+  dataset: "all",
+  metric: "all",
+  group: "all",
+  query: "",
+  sequence: "",
+};
+type Filters = typeof defaultFilters;
+
+function displaySourceValue(value: string) {
+  return value.replace(/\$/g, "")
+    .replace(/\\text\{([^{}]*)\}/g, "$1")
+    .replace(/\{\\scriptsize\s+([^{}]*)\}/g, "$1")
+    .replace(/\^\{(\*+)\}/g, "$1")
+    .trim();
+}
+
+function normalizeFilters(filters: Filters): Filters {
+  const dataset = data.datasets.some((d) => d.id === filters.dataset)
+    ? filters.dataset
+    : "all";
+  const available = data.tables.filter(
+    (table) => dataset === "all" || table.datasetId === dataset,
+  );
+  return {
+    ...filters,
+    dataset,
+    metric: available.some((table) => table.metric === filters.metric)
+      ? filters.metric
+      : "all",
+    group: available.some((table) => table.group === filters.group)
+      ? filters.group
+      : "all",
+  };
+}
+
 export function SourceTablesBrowser() {
-  const [dataset, setDataset] = useState(data.datasets[0].id),
-    [metric, setMetric] = useState("ATE (epa-drift valid)"),
-    [group, setGroup] = useState("all"),
-    [query, setQuery] = useState("");
-  const metrics = Array.from(
-    new Set(
-      data.tables.filter((t) => t.datasetId === dataset).map((t) => t.metric),
-    ),
+  const searchParams = useSearchParams();
+  const filters = normalizeFilters({
+    dataset: searchParams.get("dataset") ?? "all",
+    metric: searchParams.get("metric") ?? "all",
+    group: searchParams.get("group") ?? "all",
+    query: searchParams.get("query") ?? "",
+    sequence: searchParams.get("sequence") ?? "",
+  });
+  const { dataset, metric, group, query, sequence } = filters;
+  const totalRows = data.tables.reduce((sum, table) => sum + table.rows.length, 0);
+  const available = data.tables.filter(
+    (table) => dataset === "all" || table.datasetId === dataset,
   );
-  const groups = Array.from(
-    new Set(
-      data.tables.filter((t) => t.datasetId === dataset).map((t) => t.group),
-    ),
-  );
-  useEffect(() => {
-    const q = new URLSearchParams(window.location.search);
-    const d =
-      data.datasets.find((d) => d.id === q.get("dataset"))?.id ??
-      data.datasets[0].id;
-    setDataset(d);
-    if (
-      data.tables.some((t) => t.datasetId === d && t.metric === q.get("metric"))
-    )
-      setMetric(q.get("metric")!);
-    if (
-      data.tables.some((t) => t.datasetId === d && t.group === q.get("group"))
-    )
-      setGroup(q.get("group")!);
-    setQuery(q.get("query") ?? "");
-  }, []);
-  function change(
-    changes: Partial<{
-      dataset: string;
-      metric: string;
-      group: string;
-      query: string;
-    }>,
-  ) {
-    const next = { dataset, metric, group, query, ...changes };
-    if (changes.dataset) {
+  const metrics = Array.from(new Set(available.map((table) => table.metric)));
+  const groups = Array.from(new Set(available.map((table) => table.group)));
+
+  function change(changes: Partial<Filters>) {
+    const next = { ...filters, ...changes };
+    if (changes.dataset !== undefined && changes.group === undefined)
       next.group = "all";
-      if (
-        !data.tables.some(
-          (t) => t.datasetId === next.dataset && t.metric === next.metric,
-        )
-      )
-        next.metric = data.tables.find(
-          (t) => t.datasetId === next.dataset,
-        )!.metric;
-    }
-    setDataset(next.dataset);
-    setMetric(next.metric);
-    setGroup(next.group);
-    setQuery(next.query);
-    updateQuery(next);
+    updateQuery(normalizeFilters(next));
   }
-  const tables = data.tables
+
+  function resetFilters() {
+    updateQuery(defaultFilters);
+  }
+
+  const methodQuery = query.trim().toLowerCase();
+  const sequenceQuery = sequence.trim().toLowerCase();
+  const tables = available
     .filter(
-      (t) =>
-        t.datasetId === dataset &&
-        t.metric === metric &&
-        (group === "all" || t.group === group),
+      (table) =>
+        (metric === "all" || table.metric === metric) &&
+        (group === "all" || table.group === group) &&
+        (!sequenceQuery ||
+          table.columns.some(
+            (column) =>
+              column !== "Average" &&
+              column.toLowerCase().includes(sequenceQuery),
+          )),
     )
-    .map((t) => ({
-      ...t,
-      rows: t.rows.filter((r) =>
-        r.method.toLowerCase().includes(query.toLowerCase()),
+    .map((table) => {
+      const columnIndices = table.columns.flatMap((column, index) =>
+        !sequenceQuery ||
+        column === "Average" ||
+        column.toLowerCase().includes(sequenceQuery)
+          ? [index]
+          : [],
+      );
+      return {
+        ...table,
+        columns: columnIndices.map((index) => table.columns[index]),
+        rows: table.rows
+          .filter((row) => row.method.toLowerCase().includes(methodQuery))
+          .map((row) => ({
+            method: row.method,
+            cells: columnIndices.map((index) => row.cells[index]),
+          })),
+      };
+    })
+    .filter((table) => table.rows.length > 0);
+  const matchingRows = tables.reduce((sum, table) => sum + table.rows.length, 0);
+  const focused = dataset !== "all";
+
+  function exportMatching() {
+    downloadText(
+      csvText(
+        [
+          "Snapshot checked at",
+          "Source revision",
+          "Table ID",
+          "Dataset ID",
+          "Dataset",
+          "Sequence group",
+          "Metric / protocol",
+          "Method (source)",
+          "Column (source)",
+          "Column kind",
+          "Raw value",
+        ],
+        tables.flatMap((table) =>
+          table.rows.flatMap((row) =>
+            table.columns.map((column, index) => [
+              data.source.checkedAt,
+              data.source.revision,
+              table.id,
+              table.datasetId,
+              data.datasets.find((d) => d.id === table.datasetId)!.name,
+              table.group,
+              table.metric,
+              row.method,
+              column,
+              column === "Average" ? "Source average" : "Sequence",
+              row.cells[index],
+            ]),
+          ),
+        ),
       ),
-    }))
-    .filter((t) => t.rows.length);
+      "vioverse-trajectory-matching-tables.csv",
+    );
+  }
+
   return (
     <>
+      <p className="result-reading-note">
+        Error pairs are rotation (degrees) / translation (meters). RPE is reported
+        at each segment length without division by distance. Tables retain their
+        report headings and annotations. <a href="/results/current/">View SR tables →</a>
+      </p>
       <div className="filters results-filters">
         <label className="field">
           Dataset
@@ -86,6 +160,7 @@ export function SourceTablesBrowser() {
             value={dataset}
             onChange={(e) => change({ dataset: e.target.value })}
           >
+            <option value="all">All datasets</option>
             {data.datasets.map((d) => (
               <option key={d.id} value={d.id}>
                 {d.name}
@@ -94,13 +169,16 @@ export function SourceTablesBrowser() {
           </select>
         </label>
         <label className="field sequence-field">
-          Original metric heading
+          Metric / protocol
           <select
             value={metric}
             onChange={(e) => change({ metric: e.target.value })}
           >
+            <option value="all">All metrics and protocols</option>
             {metrics.map((m) => (
-              <option key={m}>{m}</option>
+              <option key={m} value={m}>
+                {m}
+              </option>
             ))}
           </select>
         </label>
@@ -112,7 +190,9 @@ export function SourceTablesBrowser() {
           >
             <option value="all">All groups</option>
             {groups.map((g) => (
-              <option key={g}>{g}</option>
+              <option key={g} value={g}>
+                {g}
+              </option>
             ))}
           </select>
         </label>
@@ -120,100 +200,139 @@ export function SourceTablesBrowser() {
           Method label
           <input
             type="search"
-            placeholder="Filter source method labels…"
+            placeholder="Find a method…"
             value={query}
             onChange={(e) => change({ query: e.target.value })}
           />
         </label>
+        <label className="field">
+          Sequence column
+          <input
+            type="search"
+            placeholder="Find a sequence…"
+            value={sequence}
+            onChange={(e) => change({ sequence: e.target.value })}
+            aria-describedby="source-average-note"
+          />
+        </label>
       </div>
-      <p className="result-reading-note">
-        These tables retain the source report’s original protocols, method
-        labels, numeric strings, missing states, and failure marks. The source
-        “Average” is transcribed, not recomputed or used to build the main
-        leaderboard. SR remains the source label; no success denominator or RPE
-        unit is inferred here.
+      <p className="small" id="source-average-note">
+        Source Average remains the reported group average when sequence columns
+        are filtered. Downloads preserve the original precision and annotations.
       </p>
-      <p className="small" role="status">
-        {tables.length} matching tables ·{" "}
-        {tables.reduce((s, t) => s + t.rows.length, 0)} method rows
+      <div className="source-table-tools">
+        <p className="small" role="status" aria-live="polite">
+          {tables.length} of {data.tables.length} matching tables · {matchingRows}{" "}
+          of {totalRows} method rows
+        </p>
+        <button
+          className="button secondary"
+          onClick={exportMatching}
+          disabled={!tables.length}
+        >
+          <Download size={14} aria-hidden="true" /> Export matching tables CSV
+        </button>
+        <button
+          className="button secondary"
+          onClick={resetFilters}
+        >
+          Reset filters
+        </button>
+      </div>
+      <p className="small">
+        Select a dataset to open its tables, or expand any table below.
       </p>
-      {tables.map((t) => (
-        <section className="source-table-section" key={t.id}>
-          <div className="source-table-heading">
-            <div>
-              <span className="eyebrow">
-                {data.datasets.find((d) => d.id === t.datasetId)?.name}
-              </span>
-              <h2>{t.group}</h2>
-              <p>{t.metric}</p>
-            </div>
+      <details className="result-reading-note">
+        <summary>Table definitions and annotations</summary>
+        <ul>
+          {data.notes.map((note) => <li key={note}>{note}</li>)}
+        </ul>
+      </details>
+      {tables.map((table) => (
+        <details
+          className="source-table-section"
+          key={`${table.id}:${focused}`}
+          open={focused}
+        >
+          <summary className="source-table-summary">
+            <span className="eyebrow">
+              {data.datasets.find((d) => d.id === table.datasetId)?.name} ·{" "}
+              {table.group}
+            </span>{" "}
+            <strong>{table.metric}</strong>{" "}
+            <span className="small">
+              {table.rows.length} method rows ·{" "}
+              {table.columns.filter((column) => column !== "Average").length}{" "}
+              sequence columns + Source Average
+            </span>
+          </summary>
+          <div className="source-table-tools">
             <button
               className="button secondary"
               onClick={() =>
                 downloadText(
                   csvText(
-                    ["Method", ...t.columns],
-                    t.rows.map((r) => [r.method, ...r.cells]),
+                    ["Method", ...table.columns],
+                    table.rows.map((row) => [row.method, ...row.cells]),
                   ),
-                  `vioverse-${t.id}.csv`,
+                  `vioverse-trajectory-${table.id}.csv`,
                 )
               }
             >
-              <Download size={14} /> Export table
+              <Download size={14} aria-hidden="true" /> Export displayed table
             </button>
           </div>
           <div className="table-scroll">
             <table className="source-table">
               <caption className="sr-only">
-                {t.group}, {t.metric}; original source order
+                {data.datasets.find((d) => d.id === table.datasetId)?.name},{" "}
+                {table.group}, {table.metric};
+                original source order. Source Average is not
+                recomputed by the website.
+
               </caption>
               <thead>
                 <tr>
                   <th scope="col">METHOD (SOURCE)</th>
-                  {t.columns.map((c) => (
-                    <th key={c} scope="col">
-                      {c === "Average" ? "AVERAGE (SOURCE)" : c}
+                  {table.columns.map((column) => (
+                    <th key={column} scope="col">
+                      {column === "Average" ? "Source Average" : column}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {t.rows.map((r) => (
-                  <tr key={r.method}>
-                    <th scope="row">{r.method}</th>
-                    {r.cells.map((v, i) => (
-                      <td key={i}>{v}</td>
+                {table.rows.map((row, rowIndex) => (
+                  <tr key={`${row.method}:${rowIndex}`}>
+                    <th scope="row">{row.method}</th>
+                    {row.cells.map((value, index) => (
+                      <td key={index} title={value}>{displaySourceValue(value)}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </section>
+        </details>
       ))}
       {!tables.length && (
         <div className="empty">
           <h2>No matching source rows.</h2>
-          <p>Try another metric, group, or method label.</p>
+          <p>Try another dataset, metric, group, method, or sequence column.</p>
           <button
             className="button secondary"
-            onClick={() => change({ query: "", group: "all" })}
+            onClick={resetFilters}
           >
-            Clear method and group filters
+            Show all trajectory tables
           </button>
         </div>
       )}
       <div className="data-links">
-        <a href="/data/source-tables.json" download>
-          Download all 157 source tables (JSON)
+        <a href="/data/current-source-tables.json" download>
+          Download all {data.tables.length} trajectory tables (JSON)
         </a>
       </div>
-      <p className="note-line">
-        Transcribed from committed Results revision{" "}
-        {data.source.revision.slice(0, 12)}. Displaying a value under its
-        original heading does not independently validate the underlying run or
-        metric implementation.
-      </p>
+
     </>
   );
 }

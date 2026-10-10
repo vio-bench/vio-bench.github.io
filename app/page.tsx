@@ -1,6 +1,6 @@
 import Link from "next/link";
 import lessons from "@/data/tutorials.json";
-import accuracy from "@/public/data/accuracy.json";
+import accuracy from "@/public/data/current-results.json";
 
 export default function Home() {
   return (
@@ -69,7 +69,7 @@ export default function Home() {
           and evaluation toolkit.
         </p>
         <p>
-          The <Link href="/benchmark/protocol/">VIOBench protocol notes</Link> specify
+          The <Link href="/benchmark/protocol/">current result definitions</Link> specify
           how the published result tables are selected and aggregated, including
           source annotations, missing values, and measurement limitations.
         </p>
@@ -80,8 +80,8 @@ export default function Home() {
           <Link href="/benchmark/">Benchmark design</Link>
         </div>
         <p>
-          The current report contains 98 sequence headers, 18 accuracy
-          configurations, and 164 resource records. Accuracy results are
+          The current report contains 98 sequence headers and 18 accuracy
+          configurations. Resource tables cover Desktop, Orin, and Nano. Accuracy results are
           organized by dataset, camera mode, and metric. Resource measurements
           retain the profiling input and platform for each record.
         </p>
@@ -94,9 +94,9 @@ export default function Home() {
             <tbody>
               {accuracy.datasets.map((dataset) => (
                 <tr key={dataset.id}>
-                  <th scope="row">{dataset.name}</th>
-                  <td>{dataset.N_report}</td>
-                  <td><Link href={`/results/accuracy/?dataset=${dataset.id}&mode=mono&metric=position&sequence=all`}>Sequence and dataset results</Link></td>
+                  <th scope="row">{dataset.label}</th>
+                  <td>{dataset.sequenceCount}</td>
+                  <td><Link href={`/results/tables/?dataset=${dataset.id}`}>Result tables</Link></td>
                 </tr>
               ))}
             </tbody>
@@ -109,7 +109,7 @@ export default function Home() {
         </p>
         <nav className="project-links" aria-label="Benchmark result views">
           <Link href="/results/">Results overview</Link>
-          <Link href="/results/accuracy/">Accuracy leaderboard</Link>
+          <Link href="/results/current/">Path coverage (SR)</Link>
           <Link href="/results/efficiency/">Runtime and resources</Link>
           <Link href="/results/tables/">Original result tables</Link>
         </nav>

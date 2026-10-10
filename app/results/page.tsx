@@ -1,71 +1,27 @@
 import Link from "next/link";
 import { PageIntro } from "@/components/ui";
 import { ResultsNavigation } from "@/components/results-shared";
-import { AccuracyMatrix } from "@/components/accuracy-matrix";
-import source from "@/public/data/accuracy.json";
-import type { AccuracyData } from "@/lib/results-types";
-const data = source as unknown as AccuracyData;
-export const metadata = {
-  title: "VIOBench results and leaderboards",
-  description: "VIOBench trajectory accuracy, runtime and resource measurements, and original result tables.",
-};
+import data from "@/public/data/current-source-tables.json";
+
+export const metadata = { title: "VIOBench result tables", description: "Trajectory error, reference-path coverage, runtime and resource tables." };
+
 export default function Results() {
-  return (
-    <>
-      <PageIntro
-        eyebrow="RESULTS / VIOBENCH"
-        title="Benchmark results"
-        description="Trajectory accuracy and computational measurements from the Results report, indexed by dataset, camera configuration, and metric."
-      />
-      <div className="container page-content">
-        <ResultsNavigation />
-        <p className="result-release-note">
-          Report revision <code>{data.source.revision.slice(0, 12)}</code> · 6 September 2026 ·{" "}
-          <Link href="/benchmark/protocol/">Protocol and provenance</Link>
-        </p>
-        <p className="results-summary-text">
-          The accuracy report contains 18 configurations and 98 sequence headers
-          across five datasets. The overview uses the <code>epa-drift valid</code>{" "}
-          selection, whose protocol remains a verification candidate. Each cell
-          reports the mean of finite sequence values and its contributor count.
-          Report sequence counts are distinct from attempted-run counts and
-          successful-run counts.
-        </p>
-        <section className="matrix-section">
-          <AccuracyMatrix
-            datasets={data.datasets}
-            configurations={[...data.configurations].sort((a, b) => a.displayOrder - b.displayOrder)}
-            cells={data.cells}
-          />
-        </section>
-        <div className="result-document-sections">
-          <section>
-            <h2>Runtime and resource measurements</h2>
-            <p>
-              The <Link href="/results/efficiency/">resource tables</Link> contain
-              164 records for five profiling inputs on Desktop, Jetson Orin, and
-              Jetson Nano. Each record retains the camera mode, native timing,
-              CPU, memory, and available extended statistics. Instrumentation
-              boundaries and platform conditions are documented in the{" "}
-              <Link href="/benchmark/protocol/#resources">measurement notes</Link>.
-            </p>
-          </section>
-          <section>
-            <h2>Original tables and downloadable data</h2>
-            <p>
-              The <Link href="/results/tables/">source-table archive</Link> contains
-              all 157 tables from the five Final dataset sections. Original ATE
-              protocols, SR headings, RPE intervals, and source annotations remain
-              separate. Historical input and platform fields that were not
-              recorded remain unspecified.
-            </p>
-            <p>
-              <a href="/data/results-bac8b9f.zip" download>Results data package (ZIP)</a>{" "}
-              · <Link href="/evaluation/">Evaluation methods and EPICA</Link>
-            </p>
-          </section>
-        </div>
-      </div>
-    </>
-  );
+  return <>
+    <PageIntro eyebrow="RESULTS / VIOBENCH" title="Result tables" description="Trajectory errors, reference-path coverage, and resource measurements from the benchmark reports." />
+    <div className="container page-content">
+      <ResultsNavigation />
+      <section className="result-document-sections">
+        <h2>Trajectory errors</h2>
+        <p>ATE and RPE under drift-valid selection, with RPE intervals of 10, 20, 50, and 100 m where reported. Tables preserve the reported sequence values, annotations, and group averages.</p>
+        <div className="table-scroll"><table className="leaderboard"><thead><tr><th scope="col">Dataset</th><th scope="col">Tables</th></tr></thead><tbody>{data.datasets.map(d => <tr key={d.id}><th scope="row">{d.name}</th><td><Link href={`/results/tables/?dataset=${d.id}`}>View trajectory tables →</Link></td></tr>)}</tbody></table></div>
+        <div className="data-links"><Link href="/results/tables/">All trajectory tables →</Link><a href="/data/current-source-tables.json" download>Download tables (JSON)</a></div>
+        <h2>Reference-path coverage</h2>
+        <p>Valid reference-path fraction (SR), with separate dataset, sequence, and run tables. The mean uses three expected runs per sequence.</p>
+        <div className="data-links"><Link href="/results/current/">View SR tables →</Link><a href="/data/current-results.json" download>Download trajectory and SR records (JSON)</a></div>
+        <h2>Runtime and resource use</h2>
+        <p>Reported processing time, CPU, memory, and available GPU measurements for Desktop, Jetson Orin, and Jetson Nano.</p>
+        <div className="data-links"><Link href="/results/efficiency/">View resource tables →</Link><a href="/data/current-efficiency.json" download>Download resource tables (JSON)</a></div>
+      </section>
+    </div>
+  </>;
 }

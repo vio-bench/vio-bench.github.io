@@ -1988,3 +1988,16 @@ tbody tr:last-child td {
     grid-template-columns: 1fr;
   }
 }
+.current-results-table { min-width: 900px; }
+.current-results-table td, .current-results-table th { vertical-align: top; }
+.current-results-table .score { white-space: nowrap; }
+.current-results-table summary, .source-table-summary { cursor: pointer; }
+.current-record-details { min-width: 220px; max-width: 360px; max-height: 28rem; overflow: auto; font-size: .82rem; text-align: left; }
+.current-record-details div { margin-bottom: .65rem; }
+.current-record-details dt { font-weight: 600; }
+.current-record-details dd { margin: 0; overflow-wrap: anywhere; white-space: normal; }
+.source-table-summary { padding: 1rem 0; font-weight: 600; }
+.source-table-tools { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.result-document-sections { line-height: 1.7; }
+.result-document-sections h2 { margin-top: 2.4rem; }
+.result-context button:disabled { opacity: .45; cursor: default; }

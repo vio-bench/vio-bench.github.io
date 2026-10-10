@@ -7,9 +7,9 @@ export function ResultsNavigation() {
     <nav className="results-nav" aria-label="Results sections">
       {[
         { href: "/results/", label: "Overview" },
-        { href: "/results/accuracy/", label: "Accuracy leaderboard" },
-        { href: "/results/efficiency/", label: "Runtime & resources" },
-        { href: "/results/tables/", label: "All source tables" },
+        { href: "/results/tables/", label: "Trajectory tables" },
+        { href: "/results/current/", label: "Path coverage (SR)" },
+        { href: "/results/efficiency/", label: "Resource tables" },
         { href: "/evaluation/", label: "Evaluation & EPICA" },
       ].map((x) => (
         <Link

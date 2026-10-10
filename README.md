@@ -1,91 +1,54 @@
 # VIOVERSE
 
-Tutorials, system implementations, trajectory evaluation, and benchmark results for visual–inertial odometry: https://vio-bench.github.io/
+Tutorials, implementation documentation, trajectory evaluation, and benchmark result tables for visual–inertial odometry: https://vio-bench.github.io/
 
-The site uses a document-oriented layout: project overview, tutorial contents, methods, and result tables. Titles state the subject directly. Keep navigation as ordinary links, reserve color for links and scientific figures, and preserve metric definitions and source qualifications when editing prose. The original VIOVERSE logo remains the project mark.
+The site uses an academic document layout. Preserve the supplied logo, source metric definitions, missing states, and comparison conditions. Tutorial chapter text is awaiting author material; do not invent it.
 
-## What is included
+## Published result tables
 
-- Nine planned tutorial chapters by the project authors, beginning with Notation; chapter text is awaiting the authors' manuscript, with supplementary references available separately.
-- Eleven public upstream system profiles with configuration caveats.
-- An OpenVINS / EuRoC local run guide, reviewed against upstream documentation and source.
-- A dedicated Evaluation guide covering frames, synchronization, alignment, ATE/RPE, evaluated extent, and EPICA commands, with direct links to the public EPICA documentation.
-- Accuracy leaderboards and a five-dataset overview: 180 canonical ATE cells, 18 configurations, and 98 report sequences.
-- All 164 resource-table rows across five fixed inputs, mono/stereo modes, and three platforms.
-- All 157 original Final dataset tables, including separate ATE protocols, SR and RPE, with downloads.
-- Five dataset reference cards and links to calibration/evaluation resources.
+The October 10 update replaces the previous website result release.
 
-The OpenVINS guide has not been executed as part of this site release. Results are a versioned export from committed source `bac8b9feb05c93a1d33b5fec08259730517965ee`, not a live connection from the public browser to Overleaf. Original per-run artifacts are not part of this public repository. See `/benchmark/protocol/` and the metadata in each public JSON.
+- `/results/`: compact index of dataset, SR, and resource tables.
+- `/results/tables/`: reviewed September 9 trajectory tables for five datasets, with drift-valid ATE and separate RPE intervals. Source columns, numbers, missing marks, and Average values are retained without recalculation.
+- `/results/current/`: SR tables from the separately designated September 10 CSV export. Three expected run slots contribute to each sequence mean; missing or invalid SR has an effective zero. This is not the ATE/RPE selection rule.
+- `/results/efficiency/`: resource tables from the latest checked Results revision, preserving each input, platform, camera mode, source statistic, and timing definition. SVO component sums must not be called independent native totals.
+- `/benchmark/protocol/`: concise definitions and source information.
 
-## Develop
+The published source-table export excludes the withdrawn ATE protocol and superseded raw SR tables. The designated SR tables remain available separately. Previous website JSON/CSV/ZIP files are removed from the active export; their source history remains in Git.
 
-Node.js 22.18+ and npm. Use a current supported Node LTS for maintenance.
+### Data files
+
+- `public/data/current-source-tables.json`: trajectory table cells and source metadata.
+- `public/data/current-results.json`: reviewed trajectory ledgers and designated SR dataset, sequence, and run records.
+- `public/data/current-efficiency.json`: resource rows, exact source strings, units, missing states, and source metadata.
+- `public/data/results-manifest.json`: export counts and checksums.
+- `public/data/results-20261010.zip`: downloadable current data package.
+
+Source exports do not establish complete attempted-run coverage or identical measurement conditions. Keep missing errors null; do not infer failure from absence. Preserve the distinct SR effective-zero rule. Do not combine different inputs, platforms, camera modes, timing boundaries, or evaluator variants into an overall ranking.
+
+The exporters accept an explicit authorized local source path. Public metadata contains source hashes and revisions, not private source URLs, machine paths, credentials, or personal information. The website does not connect to Overleaf in the browser or rerun experiments.
+
+## Development
+
+Node.js 22.18+ and npm.
 
 ```sh
 npm ci
 npm run dev
-```
-
-The development server uses http://127.0.0.1:3106.
-
-```sh
 npm run test
 npm run build
 npm run check
 npm run validate
 ```
 
-The static export is generated into `out/`. GitHub Pages serves the `gh-pages` branch at its root. `main` contains the source. Deployment uses a generated-output branch, without requiring a server or a workflow token scope.
+Development runs at http://127.0.0.1:3106. The static export is generated in `out/`. GitHub Pages serves `gh-pages` at `/`; `main` contains source.
 
-## Update content
+## Publishing
 
-- `data/tutorials.json`: chapter titles, summaries, related chapters, author-provided `sections`, and supplementary `readings`. Sections contain a heading, paragraphs, optional LaTeX equation, and references supporting that section. Leave sections empty until the authors provide text.
-- `data/further-reading.json`: additional original readings organized by subject.
-- `data/systems.json`: upstream profiles. Capability statements require a primary source.
-- `data/run-guide.json`: reviewed commands and their expected outputs; distinguish a documented route from an executed test.
-- `data/epica.json`: verified public EPICA documentation and package links. The Evaluation guide describes the workflow; `/benchmark/protocol/` retains release-specific Results definitions.
-- `data/datasets.json`: official dataset metadata and learning focus.
-- `public/data/accuracy.json`: canonical dataset cells and complete sequence/configuration ledger. Never mix ATE protocols or source Average columns into the means.
-- `public/data/efficiency.json`: all source resource rows and extended metrics, preserving nulls and run-count exceptions.
-- `public/data/source-tables.json`: original scientific table contents, grouped by dataset, sequence group, and protocol; no interpretation of unconfirmed SR/RPE semantics.
-- `public/data/results-manifest.json`: checksums and counts for this public release.
-- `public/data/results-bac8b9f.zip`: immutable downloadable package for the committed source revision.
-- `public/data/runtime.json` and `runtime.csv`: original limited runtime release retained for old download URLs; superseded in the active interface by `efficiency.json`.
+Commit and push reviewed source to `main`, then run `npm run deploy`. The script tests, builds, validates, and replaces the contents of `gh-pages` with the static export using a normal push. Verify Pages completion and live response bytes separately.
 
-Keep missing metrics null or absent. Never replace them with zero. A missing record does not prove a failure or unsupported operation. Do not turn unmatched inputs or different metric protocols into a composite performance score.
+## Content and anonymity
 
-## Publish an update
+Read `docs/technical-conventions.md` before editing technical content. Keep tutorials as author-supplied chapters; references support the text rather than replace it. Public implementations and datasets retain their licenses.
 
-Commit and push reviewed source to `main`, then run `npm run deploy`. The script tests, builds, and validates locally, clones the existing `gh-pages` branch into a temporary directory, copies the static export, commits, and pushes normally (no force push). The first deployment initializes that branch. GitHub Pages must be configured once to publish from `gh-pages` at `/`.
-
-## Brand and sources
-
-`public/brand/vioverse-logo.jpg` is the supplied official VIOVERSE logo, preserved unchanged. The original remains 1280 × 720. The header frames the wordmark with CSS; no generated approximation is used. The logo is a project brand asset and is not granted a separate reuse license by this repository.
-
-Tutorials are original chapters written by the project authors. References support the text; they do not replace its explanations, derivations, figures, or examples. Do not invent teaching content on the authors' behalf without a user request; follow `docs/technical-conventions.md`. Public upstream code, documentation, datasets, and names retain their respective licenses. This site links to them; it does not redistribute the algorithm repositories or datasets. No third-party dataset photographs are republished.
-
-## Contribute
-
-Open an issue with the affected URL, the proposed correction, and a primary reference or reproducible example. Pull requests should preserve claim boundaries and include the relevant build/validation checks. Do not add private run logs, credentials, local machine paths, or unpublished personal information.
-
-## Refreshing Results
-
-The deployed website serves a reviewed static snapshot. It does not expose an Overleaf credential or poll private documents. A future refresh should:
-
-1. Read a clean committed Results revision in an authorized local environment. Keep the source worktree unchanged.
-2. Regenerate the canonical ATE package using the approved source protocol and configuration identities. Review values, counts, source marks, and contributor changes together.
-3. Recheck resource-table values and input identities against the same committed revision. Review metric semantics if the source schema changed.
-4. Transcribe the separate original report tables without mixing evaluator variants or promoting source SR/RPE headings into unverified metrics.
-5. Export only sanitized public fields. Update artifact checksums, preserve the prior ZIP, generate a new versioned ZIP, and update the release links/date together.
-6. Run tests and export validation, review the changed data and scope, then publish. Check live response bytes against the generated export after Pages completes.
-
-The source document itself is not an execution manifest. Complete report contents do not establish complete attempted-run coverage or validated comparison conditions.
-
-The current review version omits project bylines, author affiliations, personal links, and project citation blocks. Literature references use paper titles and publication metadata. Keep identifying fields out of the static export and its downloadable files. Existing repository history is outside the scope of this website-only anonymization.
-
-During anonymous review, keep named maintainers and their affiliations out of
-the current source documentation as well. Use publisher or DOI links instead
-of personally hosted papers. Retain bibliographic titles when no neutral host
-is available, and omit outbound package-owner and personal-course links. Keep
-neutral references to evaluated systems and datasets. Review the full static
-export, metadata, and downloadable archive before publishing an update.
+`public/brand/vioverse-logo.jpg` is the supplied project mark, retained unchanged. The current review version omits bylines, affiliations, personal links, and project citation blocks. Keep identifying content out of current source documentation, public exports, and downloads. Historical Git commits are outside this website update.

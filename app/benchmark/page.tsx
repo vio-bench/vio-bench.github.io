@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PageIntro, ButtonLink, Callout } from "@/components/ui";
-import accuracy from "@/public/data/accuracy.json";
-import resources from "@/public/data/efficiency.json";
+import accuracy from "@/public/data/current-results.json";
+import resources from "@/public/data/current-efficiency.json";
 export const metadata = { title: "VIOBench benchmark design" };
 export default function Benchmark() {
   return (
@@ -57,18 +57,18 @@ export default function Benchmark() {
             <tbody>
               {accuracy.datasets.map((d) => {
                 const input = resources.inputs.find(
-                  (i) => i.dataset === d.name,
+                  (i) => i.dataset === (({ euroc: "EuRoC MAV", "uzh-fpv": "UZH-FPV", aqualoc: "AQUALOC", lamaria: "LaMAria", grandtour: "GrandTour" } as Record<string, string>)[d.id] ?? d.label),
                 );
                 return (
                   <tr key={d.id}>
-                    <th scope="row">{d.name}</th>
-                    <td>{d.N_report}</td>
+                    <th scope="row">{d.label}</th>
+                    <td>{d.sequenceCount}</td>
                     <td>{input?.sequence ?? "See resource records"}</td>
                     <td>
                       <Link
-                        href={`/results/accuracy/?dataset=${d.id}&mode=mono&metric=position&sequence=all`}
+                        href={`/results/tables/?dataset=${d.id}`}
                       >
-                        Accuracy →
+                        Result tables →
                       </Link>
                       {input && (
                         <>
@@ -94,16 +94,11 @@ export default function Benchmark() {
             <p>
               A system name alone is insufficient. Retain camera mode, input
               conversion, calibration, estimator configuration, and software
-              version. Mono and stereo records remain separate; uncertain
-              historical modes are visibly marked in the accuracy views.
+              version. Mono and stereo records remain separate; the trajectory batch uses its recorded mode confirmations.
             </p>
             <h3>Trajectory metrics</h3>
             <p>
-              The main accuracy view reports position and orientation ATE using
-              the canonical <code>epa-drift valid</code> selection. It keeps
-              finite-value counts and source failure annotations. Other ATE
-              protocols, SR, and RPE tables are preserved under their original
-              headings in the complete source archive.
+              The result tables preserve drift-valid ATE, RPE distances, sequence columns, source averages, and missing values. Valid reference-path coverage (SR) is supplied separately using the designated three-run export.
             </p>
             <h3>Computational measurements</h3>
             <p>
@@ -119,9 +114,7 @@ export default function Benchmark() {
             </span>
             <h2>Result tables and supporting documentation</h2>
             <p>
-              Use the overview for the reported pattern, the leaderboard for a
-              selected condition, and the row detail or source table for its
-              underlying values.
+              Select a dataset to read its result tables, or select a profiling input and platform to read the resource measurements.
             </p>
             <p>
               <Link className="text-link" href="/results/">
@@ -130,7 +123,7 @@ export default function Benchmark() {
             </p>
             <p>
               <Link className="text-link" href="/results/tables/">
-                All 157 source tables →
+                Trajectory result tables →
               </Link>
             </p>
             <p>
@@ -148,14 +141,13 @@ export default function Benchmark() {
         <Callout title="Verification status">
           <p>
             The website transcribes and organizes a committed Results snapshot.
-            The accuracy protocol remains labeled a verification candidate;
-            unspecified historical run fields remain unspecified. Displaying a
+            Unspecified historical run fields remain unspecified. Displaying a
             result does not certify that all configurations share identical
             evaluated intervals, input files, or builds.
           </p>
         </Callout>
         <div className="data-links">
-          <a href="/data/results-bac8b9f.zip" download>
+          <a href="/data/results-20261010.zip" download>
             Download the complete published Results package (ZIP)
           </a>
           <Link href="/benchmark/protocol/">Definitions and provenance →</Link>

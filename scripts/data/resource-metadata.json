@@ -1,0 +1,1859 @@
+{
+  "schemaVersion": 1,
+  "metricDefinitions": {
+    "nativeTotalMs": {
+      "label": "Mean reported total time",
+      "unit": "ms",
+      "statistic": "mean of per-selected-run means",
+      "scope": "SVO total means are the source-reported sum of frontend and backend means; their total SD is unavailable. Other rows retain the implementation-specific reported native timing boundary. Neither definition establishes end-to-end latency."
+    },
+    "reportedCpuPercent": {
+      "label": "Mean reported host CPU",
+      "unit": "%",
+      "statistic": "mean of per-selected-run means",
+      "scope": "Source excludes the monitor initialization row. Cross-platform normalization is not verified; values above 100 are retained."
+    },
+    "reportedProcessMemoryMiB": {
+      "label": "Mean reported process memory",
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run means",
+      "scope": "Source VINS/process memory; RSS/PSS identity is not independently established."
+    },
+    "nativeTrackingMeanMs": {
+      "unit": "ms",
+      "statistic": "mean of per-selected-run means",
+      "scope": "Implementation-native tracking/frontend, estimation/backend, or total timing. Do not sum stages to replace a missing total."
+    },
+    "nativeTrackingMeanWithinRunPopulationSdMs": {
+      "unit": "ms",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "Implementation-native tracking/frontend, estimation/backend, or total timing. Do not sum stages to replace a missing total."
+    },
+    "nativeEstimationMeanMs": {
+      "unit": "ms",
+      "statistic": "mean of per-selected-run means",
+      "scope": "Implementation-native tracking/frontend, estimation/backend, or total timing. Do not sum stages to replace a missing total."
+    },
+    "nativeEstimationMeanWithinRunPopulationSdMs": {
+      "unit": "ms",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "Implementation-native tracking/frontend, estimation/backend, or total timing. Do not sum stages to replace a missing total."
+    },
+    "nativeTotalMeanWithinRunPopulationSdMs": {
+      "unit": "ms",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "SVO total means are the source-reported sum of frontend and backend means; their total SD is unavailable. Other rows retain the implementation-specific reported native timing boundary. Neither definition establishes end-to-end latency."
+    },
+    "reportedCpuMeanWithinRunPopulationSdPercent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "Reported host CPU; cross-platform normalization is not verified."
+    },
+    "reportedCpuMeanRunP95Percent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run 95th percentiles",
+      "scope": "Reported host CPU; cross-platform normalization is not verified."
+    },
+    "reportedCpuMeanRunPeakPercent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run peaks",
+      "scope": "Reported host CPU; cross-platform normalization is not verified."
+    },
+    "reportedProcessMemoryMeanWithinRunPopulationSdMiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "Source VINS/process memory, not relabeled RSS or PSS."
+    },
+    "reportedProcessMemoryMeanRunP95MiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run 95th percentiles",
+      "scope": "Source VINS/process memory, not relabeled RSS or PSS."
+    },
+    "reportedProcessMemoryMeanRunPeakMiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run peaks",
+      "scope": "Source VINS/process memory, not relabeled RSS or PSS."
+    },
+    "reportedGpuMeanPercent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run means",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMeanWithinRunPopulationSdPercent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMeanRunP95Percent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run 95th percentiles",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMeanRunPeakPercent": {
+      "unit": "%",
+      "statistic": "mean of per-selected-run peaks",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMemoryMeanRunBaselineMiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run reported GPU-memory baselines",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMemoryDeltaMeanMiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run means",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMemoryDeltaMeanWithinRunPopulationSdMiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run within-run population standard deviations",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMemoryDeltaMeanRunP95MiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run 95th percentiles",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    },
+    "reportedGpuMemoryDeltaMeanRunPeakMiB": {
+      "unit": "MiB",
+      "statistic": "mean of per-selected-run peaks",
+      "scope": "GPU metric as recorded by the source. Collector scope and attribution are not independently established; GPU memory delta is relative to the reported baseline, not process RAM."
+    }
+  },
+  "inputs": [
+    {
+      "id": "grandtour-2024-11-15-11-37-15-standard",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "id": "lamaria-r-02-easy-unspecified",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "id": "euroc-v1-01-easy-unspecified",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "id": "aqualoc-harbor-6-unspecified",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "id": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    }
+  ],
+  "systems": [
+    {
+      "id": "airslam",
+      "name": "AirSLAM"
+    },
+    {
+      "id": "basalt",
+      "name": "Basalt"
+    },
+    {
+      "id": "kimera-vio",
+      "name": "Kimera-VIO"
+    },
+    {
+      "id": "okvis2-x",
+      "name": "OKVIS2-X"
+    },
+    {
+      "id": "orb-slam3",
+      "name": "ORB-SLAM3"
+    },
+    {
+      "id": "rovio",
+      "name": "ROVIO"
+    },
+    {
+      "id": "svo-pro",
+      "name": "SVO Pro"
+    },
+    {
+      "id": "openvins",
+      "name": "OpenVINS"
+    },
+    {
+      "id": "sqrtvins",
+      "name": "sqrtVINS"
+    },
+    {
+      "id": "vins-fusion",
+      "name": "VINS-Fusion"
+    }
+  ],
+  "identities": [
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "AirSLAM",
+      "systemId": "airslam",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "AirSLAM",
+      "systemId": "airslam",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "AirSLAM",
+      "systemId": "airslam",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Desktop",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Jetson Orin",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "grandtour-2024-11-15-11-37-15-standard",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "GrandTour",
+      "sequence": "2024-11-15-11-37-15",
+      "inputVariant": "standard"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "lamaria-r-02-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "LaMAria",
+      "sequence": "R_02_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "euroc-v1-01-easy-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "EuRoC MAV",
+      "sequence": "V1_01_easy",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "ROVIO",
+      "systemId": "rovio",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "aqualoc-harbor-6-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "AQUALOC",
+      "sequence": "harbor_sequence_6",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Basalt",
+      "systemId": "basalt",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "Kimera-VIO",
+      "systemId": "kimera-vio",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OKVIS2-X",
+      "systemId": "okvis2-x",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "ORB-SLAM3",
+      "systemId": "orb-slam3",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "SVO Pro",
+      "systemId": "svo-pro",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "OpenVINS",
+      "systemId": "openvins",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "mono",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "sqrtVINS",
+      "systemId": "sqrtvins",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    },
+    {
+      "inputId": "uzh-fpv-indoor-45-12-snapdragon-with-gt-unspecified",
+      "system": "VINS-Fusion",
+      "systemId": "vins-fusion",
+      "mode": "stereo",
+      "platform": "Jetson Nano",
+      "dataset": "UZH-FPV",
+      "sequence": "indoor_45_12_snapdragon_with_gt",
+      "inputVariant": "unspecified"
+    }
+  ]
+}
