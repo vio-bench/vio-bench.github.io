@@ -1,12 +1,21 @@
 import { Suspense } from "react";
-import Link from "next/link";
-import { PageIntro } from "@/components/ui";
 import { ResultsNavigation } from "@/components/results-shared";
 import { SourceTablesBrowser } from "@/components/source-tables-browser";
+
 export const metadata = { title: "Trajectory error tables" };
+
 export default function Tables() {
-  return <>
-    <PageIntro eyebrow="RESULTS / TRAJECTORY" title="Trajectory error tables" description="Reported ATE and RPE at 10, 20, 50, and 100 m. Filter by dataset, sequence group, method, and metric." />
-    <div className="container page-content"><ResultsNavigation /><p className="small"><Link href="/results/#calculation">Metric definitions and aggregation →</Link></p><Suspense fallback={<p>Loading trajectory tables…</p>}><SourceTablesBrowser /></Suspense></div>
-  </>;
+  return (
+    <>
+      <header className="page-intro container">
+        <h1>Trajectory error tables</h1>
+      </header>
+      <div className="container page-content trajectory-tables">
+        <ResultsNavigation />
+        <Suspense fallback={<p>Loading tables…</p>}>
+          <SourceTablesBrowser />
+        </Suspense>
+      </div>
+    </>
+  );
 }

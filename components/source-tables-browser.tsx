@@ -1,10 +1,8 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { Download } from "lucide-react";
 import currentSource from "@/public/data/current-source-tables.json";
 import type { SourceTablesData } from "@/lib/results-types";
-import { csvText } from "@/lib/leaderboards";
-import { downloadText, updateQuery } from "./results-shared";
+import { updateQuery } from "./results-shared";
 
 const data = currentSource as SourceTablesData;
 const defaultFilters = {
@@ -53,7 +51,6 @@ export function SourceTablesBrowser() {
     sequence: searchParams.get("sequence") ?? "",
   });
   const { dataset, metric, group, query, sequence } = filters;
-  const totalRows = data.tables.reduce((sum, table) => sum + table.rows.length, 0);
   const available = data.tables.filter(
     (table) => dataset === "all" || table.datasetId === dataset,
   );
@@ -107,52 +104,8 @@ export function SourceTablesBrowser() {
     .filter((table) => table.rows.length > 0);
   const matchingRows = tables.reduce((sum, table) => sum + table.rows.length, 0);
   const focused = dataset !== "all";
-
-  function exportMatching() {
-    downloadText(
-      csvText(
-        [
-          "Snapshot checked at",
-          "Source revision",
-          "Table ID",
-          "Dataset ID",
-          "Dataset",
-          "Sequence group",
-          "Metric / protocol",
-          "Method (source)",
-          "Column (source)",
-          "Column kind",
-          "Raw value",
-        ],
-        tables.flatMap((table) =>
-          table.rows.flatMap((row) =>
-            table.columns.map((column, index) => [
-              data.source.checkedAt,
-              data.source.revision,
-              table.id,
-              table.datasetId,
-              data.datasets.find((d) => d.id === table.datasetId)!.name,
-              table.group,
-              table.metric,
-              row.method,
-              column,
-              column === "Average" ? "Source average" : "Sequence",
-              row.cells[index],
-            ]),
-          ),
-        ),
-      ),
-      "vioverse-trajectory-matching-tables.csv",
-    );
-  }
-
   return (
     <>
-      <p className="result-reading-note">
-        Error pairs are rotation (degrees) / translation (meters). RPE is reported
-        at each segment length without division by distance. Tables retain their
-        report headings and annotations. <a href="/results/current/">View SR tables →</a>
-      </p>
       <div className="filters results-filters">
         <label className="field">
           Dataset
@@ -169,12 +122,12 @@ export function SourceTablesBrowser() {
           </select>
         </label>
         <label className="field sequence-field">
-          Metric / protocol
+          Metric
           <select
             value={metric}
             onChange={(e) => change({ metric: e.target.value })}
           >
-            <option value="all">All metrics and protocols</option>
+            <option value="all">All metrics</option>
             {metrics.map((m) => (
               <option key={m} value={m}>
                 {m}
@@ -183,7 +136,7 @@ export function SourceTablesBrowser() {
           </select>
         </label>
         <label className="field">
-          Sequence group
+          Group
           <select
             value={group}
             onChange={(e) => change({ group: e.target.value })}
@@ -197,16 +150,16 @@ export function SourceTablesBrowser() {
           </select>
         </label>
         <label className="field">
-          Method label
+          System
           <input
             type="search"
-            placeholder="Find a method…"
+            placeholder="Find a system…"
             value={query}
             onChange={(e) => change({ query: e.target.value })}
           />
         </label>
         <label className="field">
-          Sequence column
+          Sequence
           <input
             type="search"
             placeholder="Find a sequence…"
@@ -216,34 +169,19 @@ export function SourceTablesBrowser() {
           />
         </label>
       </div>
-      <p className="small" id="source-average-note">
-        Source Average remains the reported group average when sequence columns
-        are filtered. Downloads preserve the original precision and annotations.
-      </p>
       <div className="source-table-tools">
         <p className="small" role="status" aria-live="polite">
-          {tables.length} of {data.tables.length} matching tables · {matchingRows}{" "}
-          of {totalRows} method rows
+          {tables.length} table{tables.length === 1 ? "" : "s"} · {matchingRows} row{matchingRows === 1 ? "" : "s"}
         </p>
-        <button
-          className="button secondary"
-          onClick={exportMatching}
-          disabled={!tables.length}
-        >
-          <Download size={14} aria-hidden="true" /> Export matching tables CSV
-        </button>
-        <button
-          className="button secondary"
-          onClick={resetFilters}
-        >
-          Reset filters
+        <button className="button secondary" onClick={resetFilters}>
+          Reset
         </button>
       </div>
-      <p className="small">
-        Select a dataset to open its tables, or expand any table below.
-      </p>
       <details className="result-reading-note">
-        <summary>Table definitions and annotations</summary>
+        <summary>Notes</summary>
+        <p>Values are rotation (degrees) / translation (meters). RPE is not divided by segment length.</p>
+        <p id="source-average-note">Average is the reported group mean and does not change when sequence columns are filtered.</p>
+        <p><a href="/results/#calculation">Metric definitions and aggregation →</a></p>
         <ul>
           {data.notes.map((note) => <li key={note}>{note}</li>)}
         </ul>
@@ -255,48 +193,25 @@ export function SourceTablesBrowser() {
           open={focused}
         >
           <summary className="source-table-summary">
-            <span className="eyebrow">
+            <strong>
               {data.datasets.find((d) => d.id === table.datasetId)?.name} ·{" "}
               {table.group}
-            </span>{" "}
-            <strong>{table.metric}</strong>{" "}
-            <span className="small">
-              {table.rows.length} method rows ·{" "}
-              {table.columns.filter((column) => column !== "Average").length}{" "}
-              sequence columns + Source Average
-            </span>
+            </strong>{" — "}{table.metric}
           </summary>
-          <div className="source-table-tools">
-            <button
-              className="button secondary"
-              onClick={() =>
-                downloadText(
-                  csvText(
-                    ["Method", ...table.columns],
-                    table.rows.map((row) => [row.method, ...row.cells]),
-                  ),
-                  `vioverse-trajectory-${table.id}.csv`,
-                )
-              }
-            >
-              <Download size={14} aria-hidden="true" /> Export displayed table
-            </button>
-          </div>
           <div className="table-scroll">
             <table className="source-table">
               <caption className="sr-only">
                 {data.datasets.find((d) => d.id === table.datasetId)?.name},{" "}
                 {table.group}, {table.metric};
-                original source order. Source Average is not
+                original source order. Average is not
                 recomputed by the website.
-
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">METHOD (SOURCE)</th>
+                  <th scope="col">System</th>
                   {table.columns.map((column) => (
                     <th key={column} scope="col">
-                      {column === "Average" ? "Source Average" : column}
+                      {column}
                     </th>
                   ))}
                 </tr>
@@ -327,12 +242,6 @@ export function SourceTablesBrowser() {
           </button>
         </div>
       )}
-      <div className="data-links">
-        <a href="/data/current-source-tables.json" download>
-          Download all {data.tables.length} trajectory tables (JSON)
-        </a>
-      </div>
-
     </>
   );
 }

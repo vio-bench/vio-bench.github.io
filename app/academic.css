@@ -143,6 +143,8 @@ a.button, a.button:hover {
 .results-nav a { padding: 9px 0 12px; border-radius: 0; font-size: 15px; font-weight: 500; }
 .results-nav a:hover { background: none; color: var(--blue); }
 .results-nav .active { background: none; border-bottom: 2px solid var(--blue); }
+.trajectory-tables .source-table-section { margin-top: 16px; }
+.trajectory-tables .source-table-summary { padding: 12px 0; font-size: 15px; font-weight: 400; }
 .table-scroll { border-radius: 0; border-left: 0; border-right: 0; }
 table { font-size: 15px; }
 thead th { background: #f3f4f4; color: #3c4248; }
