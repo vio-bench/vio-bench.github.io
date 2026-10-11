@@ -11,8 +11,8 @@ const sections = [
     routes: ["/learn", "/run", "/references"],
   },
   {
-    label: "Results",
-    href: "/results/",
+    label: "Benchmark",
+    href: "/benchmark/",
     routes: ["/benchmark", "/results"],
   },
 ];

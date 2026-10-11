@@ -44,6 +44,21 @@ export default function RootLayout({
           </div>
         </header>
         <main id="main">{children}</main>
+        <footer className="footer">
+          <div className="container footer-grid">
+            <div>
+              <Link href="/" className="footer-brand" aria-label="VIOVERSE home">
+                <img
+                  src="/brand/vioverse-logo.jpg"
+                  alt="VIOVERSE"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                />
+              </Link>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

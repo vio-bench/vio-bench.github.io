@@ -55,5 +55,3 @@ Read `docs/technical-conventions.md` before editing technical content. Keep tuto
 `public/brand/vioverse-logo.jpg` is the supplied project mark, retained unchanged. The current review version omits bylines, affiliations, personal links, and project citation blocks. Keep identifying content out of current source documentation, public exports, and downloads. Historical Git commits are outside this website update.
 
 System profiles and dataset/software resource pages are temporarily withdrawn. Their descriptive catalog data is separate from the retained benchmark result inventories.
-
-The homepage contains a short description and one Result tables entry. Tutorials remain accessible as an empty chapter outline from the navigation.
