@@ -1,6 +1,6 @@
 # VIOVERSE
 
-Tutorials, implementation documentation, trajectory evaluation, and benchmark result tables for visual–inertial odometry: https://vio-bench.github.io/
+Tutorials, trajectory evaluation, and benchmark result tables for visual–inertial odometry: https://vio-bench.github.io/
 
 The site uses an academic document layout. Preserve the supplied logo, source metric definitions, missing states, and comparison conditions. Tutorial chapter text is awaiting author material; do not invent it.
 
@@ -53,3 +53,7 @@ Commit and push reviewed source to `main`, then run `npm run deploy`. The script
 Read `docs/technical-conventions.md` before editing technical content. Keep tutorials as author-supplied chapters; references support the text rather than replace it. Public implementations and datasets retain their licenses.
 
 `public/brand/vioverse-logo.jpg` is the supplied project mark, retained unchanged. The current review version omits bylines, affiliations, personal links, and project citation blocks. Keep identifying content out of current source documentation, public exports, and downloads. Historical Git commits are outside this website update.
+
+System profiles and dataset/software resource pages are temporarily withdrawn. Their descriptive catalog data is separate from the retained benchmark result inventories.
+
+The homepage contains a short description and one Result tables entry. Tutorials remain accessible as an empty chapter outline from the navigation.

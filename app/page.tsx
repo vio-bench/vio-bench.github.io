@@ -1,106 +1,15 @@
 import Link from "next/link";
-import lessons from "@/data/tutorials.json";
-import accuracy from "@/public/data/current-results.json";
+import { PageIntro } from "@/components/ui";
 
 export default function Home() {
   return (
-    <div className="container research-home">
-      <header className="project-heading">
-        <h1 className="project-logo">
-          <img
-            src="/brand/vioverse-logo.jpg"
-            alt="VIOVERSE"
-            width="1280"
-            height="720"
-            fetchPriority="high"
-          />
-        </h1>
-        <p className="project-abstract">
-          VIOVERSE is a project for studying, implementing, and evaluating
-          visual–inertial odometry (VIO). The site includes a tutorial series
-          in preparation, implementation documentation, and experimental
-          results across five datasets and three computing platforms.
-        </p>
-        <nav className="project-links" aria-label="Project resources">
-          <Link href="/learn/">Tutorials</Link>
-          <Link href="/results/">Benchmark results</Link>
-        </nav>
-      </header>
-      <section className="research-section" aria-labelledby="tutorials-heading">
-        <div className="research-section-heading">
-          <h2 id="tutorials-heading">Tutorials</h2>
-          <Link href="/learn/">Tutorial overview</Link>
-        </div>
-        <p>
-          A tutorial series from notation and sensor
-          models to calibration, estimation, and evaluation. Chapter text is in
-          preparation.
-        </p>
-        <ol className="research-contents">
-          {lessons.map((lesson) => (
-            <li key={lesson.slug}>
-              <Link href={"/learn/" + lesson.slug + "/"}>{lesson.title}</Link>
-            </li>
-          ))}
-        </ol>
-      </section>
-      <section className="research-section" aria-labelledby="software-heading">
-        <h2 id="software-heading">System implementations</h2>
-        <p>
-          The <Link href="/systems/">system catalog</Link> documents 11 public
-          implementations, including their estimation approach, supported input
-          configurations, and upstream code. Dataset and calibration references
-          are collected in <Link href="/resources/">Resources</Link>.
-        </p>
-      </section>
-      <section className="research-section" aria-labelledby="results-heading">
-        <div className="research-section-heading">
-          <h2 id="results-heading">Benchmark results</h2>
-          <Link href="/benchmark/">Benchmark design</Link>
-        </div>
-        <p>
-          The current report contains 98 sequence headers and 18 accuracy
-          configurations. Resource tables cover Desktop, Orin, and Nano. Accuracy results are
-          organized by dataset, camera mode, and metric. Resource measurements
-          retain the profiling input and platform for each record.
-        </p>
-        <div className="table-scroll home-dataset-table">
-          <table>
-            <caption>Table 1. Dataset inventory in the published accuracy report.</caption>
-            <thead>
-              <tr><th scope="col">Dataset</th><th scope="col">Report sequences</th><th scope="col">Accuracy results</th></tr>
-            </thead>
-            <tbody>
-              {accuracy.datasets.map((dataset) => (
-                <tr key={dataset.id}>
-                  <th scope="row">{dataset.label}</th>
-                  <td>{dataset.sequenceCount}</td>
-                  <td><Link href={`/results/tables/?dataset=${dataset.id}`}>Result tables</Link></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="table-note">
-          Sequence counts describe the report inventory. The number of finite
-          contributors is reported separately for each result; these counts do
-          not establish the number of planned or successful runs.
-        </p>
-        <nav className="project-links" aria-label="Benchmark result views">
-          <Link href="/results/">Results overview</Link>
-          <Link href="/results/current/">Path coverage (SR)</Link>
-          <Link href="/results/efficiency/">Runtime and resources</Link>
-          <Link href="/results/tables/">Original result tables</Link>
-        </nav>
-      </section>
-      <section className="research-section research-maintenance" aria-labelledby="source-heading">
-        <h2 id="source-heading">Data and software</h2>
-        <p>
-          Results are published as versioned snapshots with downloadable data
-          and source metadata. Software and datasets linked from this site
-          retain their respective licenses.
-        </p>
-      </section>
-    </div>
+    <PageIntro
+      title="VIO benchmark results"
+      description="Results across five datasets, with computational profiling on three platforms."
+    >
+      <div className="button-row">
+        <Link className="button" href="/results/">Result tables →</Link>
+      </div>
+    </PageIntro>
   );
 }

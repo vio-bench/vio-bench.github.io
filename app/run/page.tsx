@@ -4,6 +4,6 @@ export const metadata = { title: "Implementation guides" };
 export default function Run() {
   return <>
     <PageIntro title="Implementation guides" description="Guide content is in preparation." />
-    <div className="container page-content"><Link href="/systems/">System documentation →</Link></div>
+    <div className="container page-content"><Link href="/learn/">← Tutorial contents</Link></div>
   </>;
 }

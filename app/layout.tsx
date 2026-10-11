@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s · VIOVERSE",
   },
   description:
-    "Tutorials, system implementations, trajectory evaluation, and benchmark results for visual–inertial odometry.",
+    "Tutorials, trajectory evaluation, and benchmark results for visual–inertial odometry.",
   robots: { index: false, follow: false, nocache: true },
   openGraph: {
     title: "VIOVERSE",
@@ -44,21 +44,6 @@ export default function RootLayout({
           </div>
         </header>
         <main id="main">{children}</main>
-        <footer className="footer">
-          <div className="container footer-grid">
-            <div>
-              <Link href="/" className="footer-brand" aria-label="VIOVERSE home">
-                <img
-                  src="/brand/vioverse-logo.jpg"
-                  alt="VIOVERSE"
-                  width="1280"
-                  height="720"
-                  loading="lazy"
-                />
-              </Link>
-            </div>
-          </div>
-        </footer>
       </body>
     </html>
   );

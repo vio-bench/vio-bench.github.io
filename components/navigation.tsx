@@ -8,11 +8,11 @@ const sections = [
   {
     label: "Tutorials",
     href: "/learn/",
-    routes: ["/learn", "/run", "/systems", "/resources", "/references"],
+    routes: ["/learn", "/run", "/references"],
   },
   {
-    label: "Benchmark",
-    href: "/benchmark/",
+    label: "Results",
+    href: "/results/",
     routes: ["/benchmark", "/results"],
   },
 ];
