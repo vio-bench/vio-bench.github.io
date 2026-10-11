@@ -2,10 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://vio-bench.github.io/</loc></url>
 <url><loc>https://vio-bench.github.io/learn/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/</loc></url>
 <url><loc>https://vio-bench.github.io/run/</loc></url>
 <url><loc>https://vio-bench.github.io/benchmark/</loc></url>
-<url><loc>https://vio-bench.github.io/resources/</loc></url>
 <url><loc>https://vio-bench.github.io/references/</loc></url>
 <url><loc>https://vio-bench.github.io/learn/notation/</loc></url>
 <url><loc>https://vio-bench.github.io/learn/camera-and-imu/</loc></url>
@@ -16,17 +14,6 @@
 <url><loc>https://vio-bench.github.io/learn/trajectory-evaluation/</loc></url>
 <url><loc>https://vio-bench.github.io/learn/runtime-and-platform/</loc></url>
 <url><loc>https://vio-bench.github.io/learn/your-own-data/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/rovio/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/svo-pro/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/vins-fusion/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/basalt/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/openvins/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/kimera-vio/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/orb-slam3/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/dm-vio/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/airslam/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/okvis2-x/</loc></url>
-<url><loc>https://vio-bench.github.io/systems/sqrtvins/</loc></url>
 <url><loc>https://vio-bench.github.io/results/</loc></url>
 <url><loc>https://vio-bench.github.io/results/accuracy/</loc></url>
 <url><loc>https://vio-bench.github.io/results/efficiency/</loc></url>
