@@ -8,7 +8,12 @@ const sections = [
   {
     label: "Benchmark",
     href: "/benchmark/",
-    routes: ["/benchmark", "/results"],
+    routes: ["/benchmark"],
+  },
+  {
+    label: "Results",
+    href: "/results/",
+    routes: ["/results"],
   },
   {
     label: "Tutorials",
