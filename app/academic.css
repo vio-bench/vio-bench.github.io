@@ -362,33 +362,6 @@ th { font-size: 13px; }
 .result-view-switch button { border: 0; background: none; padding: 0 0 4px; font-size: 13px; color: var(--muted); cursor: pointer; }
 .result-view-switch button[aria-pressed="true"] { color: var(--blue); border-bottom: 1px solid var(--blue); }
 .result-view-switch button:disabled { opacity: .4; cursor: default; }
-.paper-results-intro { margin: 24px 0; }
-.paper-results-intro h2 { font-size: 24px; margin-bottom: 8px; }
-.paper-results-intro p, .paper-results-section p { font-size: 15px; line-height: 1.65; }
-.paper-results-section { padding: 24px 0; border-top: 1px solid var(--line); }
-.paper-results-section h2 { font-size: 22px; margin: 0 0 12px; }
-.paper-results-section h2 span { font-size: 15px; font-weight: 400; color: var(--muted); }
-.paper-results-section h3 { font-size: 17px; font-weight: 500; margin: 22px 0 10px; }
-.paper-results-section table { width: 100%; font-size: 14px; margin: 12px 0; }
-.paper-results-section th, .paper-results-section td { padding: 9px 12px; }
-.paper-results-section th { font-weight: 500; }
-.paper-results-section tbody th { background: white; }
-.paper-results-section .small { font-size: 13px; color: var(--muted); }
-.paper-example-table small { display: block; margin-top: 3px; font-size: 13px; font-weight: 400; color: var(--muted); }
-.paper-results-section details { font-size: 14px; margin-top: 15px; }
-.paper-results-section details summary { cursor: pointer; color: var(--muted); }
-.paper-results-section details p { font-size: 14px; margin: 9px 0; }
-.paper-alignment-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-.paper-alignment-cases strong { font-weight: 500; }
-.paper-alignment-cases code { overflow-wrap: anywhere; }
-.paper-alignment-figure { margin: 18px 0; }
-.paper-alignment-figure img { width: 100%; height: auto; display: block; }
-.paper-alignment-figure figcaption { font-size: 13px; line-height: 1.6; color: var(--muted); margin-top: 12px; }
-@media (max-width: 600px) {
-  .paper-alignment-cases { grid-template-columns: 1fr; gap: 8px; }
-  .paper-results-section th, .paper-results-section td { padding: 8px; }
-  .paper-results-section h2 { font-size: 20px; }
-}
 .dataset-means-table td a { color: var(--blue); }
 .missing-mean { color: #a7b0b8; }
 .results-workspace .results-nav { margin-bottom: 18px; gap: 30px; border-bottom: 1px solid var(--line); }

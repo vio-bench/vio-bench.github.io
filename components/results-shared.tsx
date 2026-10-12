@@ -9,7 +9,6 @@ export function ResultsNavigation() {
         { href: "/results/tables/", label: "ATE / RPE" },
         { href: "/results/current/", label: "Path coverage (SR)" },
         { href: "/results/efficiency/", label: "Runtime & resources" },
-        { href: "/results/paper/", label: "Paper comparisons" },
       ].map((x) => (
         <Link
           href={x.href}

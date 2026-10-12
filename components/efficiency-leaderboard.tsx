@@ -1,7 +1,6 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import source from "@/public/data/current-efficiency.json";
@@ -137,7 +136,7 @@ export function EfficiencyLeaderboard() {
         <div>
           <p>Reported means use fixed inputs and each system’s native timing scope. SVO totals are source-reported frontend + backend sums. CPU and memory retain source accounting.</p>
           <p>Source rows list five selected runs; per-metric contributors and total attempts are unreported. SD, p95, and peak entries average per-run summaries. SD is within-run variation.</p>
-          <p>Dashes indicate unavailable measurements, not zero or failure. Hover in Details for source states. <Link href="/results/paper/#paper-resources">Paper comparisons</Link> retain the paper’s timing ratios and contribution notes.</p>
+          <p>Dashes indicate unavailable measurements, not zero or failure. Hover in Details for source states.</p>
         </div>
       </details>
 
