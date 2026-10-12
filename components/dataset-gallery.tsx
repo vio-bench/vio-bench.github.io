@@ -3,21 +3,29 @@ import media from "@/data/benchmark-media.json";
 import results from "@/public/data/current-results.json";
 
 /** Official dataset examples; display crops preserve the original image files. */
-export function DatasetGallery({ showCounts = false }: { showCounts?: boolean }) {
+export function DatasetGallery({ showCounts = false, preview = false }: { showCounts?: boolean; preview?: boolean }) {
   return (
     <div className="dataset-gallery">
       {media.map(item => {
         const dataset = results.datasets.find(d => d.id === item.datasetId)!;
+        const credit = `Image: ${item.credit}${item.crop ? "; detail" : ""}${item.license ? ` · ${item.license}` : ""}; source: ${item.sourcePage}`;
+        const visual = item.crop ? (
+          <svg viewBox={item.crop.join(" ")} preserveAspectRatio="xMidYMid slice" role="img" aria-label={item.alt}>
+            <image href={item.image} width={item.width} height={item.height} />
+          </svg>
+        ) : (
+          <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" style={{ objectPosition: item.objectPosition }} />
+        );
+        if (preview) return (
+          <figure className="dataset-scene dataset-preview" key={item.datasetId} title={credit}>
+            <div className="dataset-photo">{visual}</div>
+            <figcaption><span className="dataset-name">{dataset.label}</span></figcaption>
+          </figure>
+        );
         return (
           <figure className="dataset-scene" key={item.datasetId}>
             <Link className="dataset-photo" href={`/results/tables/?dataset=${item.datasetId}`} aria-label={`${dataset.label} results`}>
-              {item.crop ? (
-                <svg viewBox={item.crop.join(" ")} preserveAspectRatio="xMidYMid slice" role="img" aria-label={item.alt}>
-                  <image href={item.image} width={item.width} height={item.height} />
-                </svg>
-              ) : (
-                <img src={item.image} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" style={{ objectPosition: item.objectPosition }} />
-              )}
+              {visual}
             </Link>
             <figcaption>
               <Link className="dataset-name" href={`/results/tables/?dataset=${item.datasetId}`}>{dataset.label}</Link>
