@@ -345,8 +345,15 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .home-preview-grid figcaption span { font-size: 12px; color: var(--muted); line-height: 1.5; }
 .home-section-link { display: inline-block; font-size: 15px; }
 .home-tutorial-entry { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
-.home-tutorial-entry h2 { font-size: 22px; font-weight: 500; margin: 0 0 10px; }
+.home-tutorial-entry h2 { font-size: 25px; font-weight: 500; margin: 0; }
 .home-tutorial-entry p { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
+.research-home .home-tutorial-link { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 17px; border: 1px solid var(--blue); border-radius: 3px; color: var(--blue); font-size: 16px; font-weight: 500; text-decoration: none; }
+.research-home .home-tutorial-link:hover { background: #f2f6f9; }
+.home-tutorial-topics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 22px; }
+.home-tutorial-topics > div { padding-top: 12px; border-top: 2px solid #d5e1eb; }
+.home-tutorial-topics h3 { margin: 0 0 7px; font-size: 16px; font-weight: 500; line-height: 1.5; }
+.home-tutorial-topics p { font-size: 14px; }
+.home-tutorial-entry .home-tutorial-status { margin-top: 20px; font-size: 13px; }
 @media (max-width: 600px) {
   .project-subtitle { font-size: 21px; }
   .home-benchmark-stats { column-gap: 18px; }
@@ -357,6 +364,7 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
   .home-section-heading { flex-wrap: wrap; gap: 12px; }
   .home-section-heading h2 { font-size: 24px; }
   .home-tutorial-entry { margin-top: 28px; }
+  .home-tutorial-topics { grid-template-columns: 1fr; gap: 16px; }
 }
 @media (max-width: 800px) { .home-preview-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 14px; } }
 @media (max-width: 500px) { .home-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

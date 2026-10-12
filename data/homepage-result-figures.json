@@ -4,10 +4,13 @@
     "label": "Valid-path coverage (SR)",
     "image": "/images/results/overview-coverage.svg",
     "alt": "Mean SR across the five datasets, with monocular and stereo configurations shown separately",
+    "caption": "Monocular and stereo configurations are shown separately.",
     "width": 504.0,
     "height": 184.251969,
     "sha256": "7e6b661a6cb31d5579ad219d289fb131fd37c7ad36e3d62034ccb74043643355",
+    "paperSha256": "7e6b661a6cb31d5579ad219d289fb131fd37c7ad36e3d62034ccb74043643355",
     "paperSource": "figures/robustness_sr.svg",
+    "renderingAdjustments": [],
     "resultSources": [
       {
         "id": "sr",
@@ -36,10 +39,13 @@
     "label": "Trajectory error (ATE / RPE)",
     "image": "/images/results/overview-trajectory.svg",
     "alt": "Position and orientation ATE and relative pose errors at a 10 m segment length across the five datasets",
+    "caption": "Monocular and stereo configurations are shown separately.",
     "width": 504.0,
     "height": 354.897638,
     "sha256": "e8f05b8c6bc58138607782870a293444fc457363370d925a02c74bc5429da3c8",
+    "paperSha256": "e8f05b8c6bc58138607782870a293444fc457363370d925a02c74bc5429da3c8",
     "paperSource": "results/accuracy_joint/component_colors_20260910/accuracy_ate_rpe.svg",
+    "renderingAdjustments": [],
     "resultSources": [
       {
         "id": "ate",
@@ -72,6 +78,39 @@
             "sha256": "a1b85c9cbe5e2e8f3e1ac6064bf88561e71f6314fd14c4d3db0e993efbc28a32"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "resources",
+    "label": "Runtime & resources",
+    "image": "/images/results/overview-resources.svg",
+    "alt": "Desktop monocular resource measurements on five fixed profiling inputs; axes show reported total time and process memory, and circle area and color show CPU utilization",
+    "caption": "Desktop monocular measurements on one sequence per dataset. Axes show reported total time and process memory; circle area and color show CPU utilization. SVO time is the source-reported sum of frontend and backend means.",
+    "width": 504.0,
+    "height": 195.590551,
+    "sha256": "42d8d4ed21e47c8388f282ee1fc6785d9641eb4033a94428814cf36bd184afbc",
+    "paperSha256": "bb266e0ba4bfbf06c10a1c7f3efcb23a46b4a2f3aa48e5673cd1803b447fa730",
+    "paperSource": "figures/efficiency_desktop_overview.svg",
+    "renderingAdjustments": [
+      "Outlined five cmex10 radical glyphs for browser portability"
+    ],
+    "resultSources": [
+      {
+        "id": "resources",
+        "label": "Reviewed resource source tables",
+        "revision": "29a1fa93804899fac8bf17799b5bd101ae02d9a4",
+        "files": [
+          {
+            "name": "resource_pc.tex",
+            "sha256": "a2c1c41c613ecf013f71e5174d8b91c5a9504c73a4cc53ba40176ba996e4993a"
+          },
+          {
+            "name": "resource-plot.csv",
+            "sha256": "bcadf24680239964b6e08f0db0b10304e23431f59089873baf7d71de7de3790a"
+          }
+        ],
+        "matchedDesktopMonocularPoints": 39
       }
     ]
   }

@@ -50,8 +50,26 @@ export default function Home() {
         <HomeResultsOverview />
       </section>
       <section className="home-tutorial-entry" aria-labelledby="tutorials-heading">
-        <h2 id="tutorials-heading"><Link href="/learn/">Tutorials</Link></h2>
-        <p>Background on visual–inertial sensing, calibration, initialization, and estimation. Chapter text is in preparation.</p>
+        <div className="home-section-heading">
+          <h2 id="tutorials-heading">Tutorials</h2>
+          <Link className="home-tutorial-link" href="/learn/">Explore tutorials →</Link>
+        </div>
+        <p>Background for understanding, implementing, and evaluating visual–inertial odometry.</p>
+        <div className="home-tutorial-topics">
+          <div>
+            <h3>Notation and sensing</h3>
+            <p>Camera and IMU models, coordinate frames, and pose conventions.</p>
+          </div>
+          <div>
+            <h3>Calibration and estimation</h3>
+            <p>Synchronization, initialization, filtering, and optimization.</p>
+          </div>
+          <div>
+            <h3>Evaluation and implementation</h3>
+            <p>Trajectory metrics, runtime and resources, and working with your own sensor data.</p>
+          </div>
+        </div>
+        <p className="home-tutorial-status">Chapter text is in preparation.</p>
       </section>
     </div>
   );

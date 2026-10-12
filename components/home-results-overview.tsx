@@ -22,9 +22,7 @@ export function HomeResultsOverview() {
           <img src={figure.image} alt={figure.alt} width={figure.width} height={figure.height}
             loading="lazy" decoding="async" />
         </div>
-        <figcaption>
-          Monocular and stereo configurations are shown separately. Full values and evaluation rules are in Results.
-        </figcaption>
+        <figcaption>{figure.caption} Full values and evaluation rules are in Results.</figcaption>
       </figure>
     </div>
   );
