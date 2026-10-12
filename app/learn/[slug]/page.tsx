@@ -4,6 +4,7 @@ import tutorialData from "@/data/tutorials.json";
 import type { TutorialChapter } from "@/lib/tutorial-types";
 import { PageIntro, SourceList } from "@/components/ui";
 import { MathBlock } from "@/components/math-block";
+import { TutorialChapterLinks } from "@/components/tutorial-contents";
 
 const chapters: TutorialChapter[] = tutorialData;
 
@@ -30,21 +31,16 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
         title={chapter.title}
         description={chapter.summary}
       />
-      <div className="container page-content article-layout">
+      <div className="container page-content article-layout tutorial-chapter-layout">
         <aside className="sidebar">
           <strong>Tutorial chapters</strong>
-          {chapters.map((entry, i) => (
-            <Link
-              className={entry.slug === slug ? "active" : ""}
-              aria-current={entry.slug === slug ? "page" : undefined}
-              key={entry.slug}
-              href={`/learn/${entry.slug}/`}
-            >
-              {i + 1}. {entry.title}
-            </Link>
-          ))}
+          <TutorialChapterLinks activeSlug={slug} />
         </aside>
         <article className="prose">
+          <details className="tutorial-mobile-contents">
+            <summary>Chapter {String(index + 1).padStart(2, "0")} of {chapters.length} · All chapters</summary>
+            <TutorialChapterLinks activeSlug={slug} />
+          </details>
           <div className="tutorial-body">
             {chapter.sections.length === 0 ? (
               <p className="tutorial-status">Chapter text is in preparation.</p>
@@ -84,10 +80,12 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
           </details>}
           <nav className="lesson-nav" aria-label="Chapter navigation">
             <Link href={index > 0 ? `/learn/${chapters[index - 1].slug}/` : "/learn/"}>
-              ← {index > 0 ? "Previous chapter" : "Tutorial contents"}
+              <span>← {index > 0 ? "Previous chapter" : "Contents"}</span>
+              {index > 0 ? chapters[index - 1].title : "Tutorial contents"}
             </Link>
             <Link href={index < chapters.length - 1 ? `/learn/${chapters[index + 1].slug}/` : "/learn/"}>
-              {index < chapters.length - 1 ? "Next chapter" : "Tutorial contents"} →
+              <span>{index < chapters.length - 1 ? "Next chapter" : "Contents"} →</span>
+              {index < chapters.length - 1 ? chapters[index + 1].title : "Tutorial contents"}
             </Link>
           </nav>
         </article>

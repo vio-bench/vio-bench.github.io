@@ -4,6 +4,7 @@ import results from "@/public/data/current-results.json";
 import abstract from "@/data/project-abstract.json";
 import { DatasetInputPreviews } from "@/components/dataset-input-previews";
 import { HomeResultsOverview } from "@/components/home-results-overview";
+import { TutorialContents } from "@/components/tutorial-contents";
 
 export default function Home() {
   return (
@@ -55,20 +56,7 @@ export default function Home() {
           <Link className="home-tutorial-link" href="/learn/">Explore tutorials →</Link>
         </div>
         <p>Background for understanding, implementing, and evaluating visual–inertial odometry.</p>
-        <div className="home-tutorial-topics">
-          <div>
-            <h3>Notation and sensing</h3>
-            <p>Camera and IMU models, coordinate frames, and pose conventions.</p>
-          </div>
-          <div>
-            <h3>Calibration and estimation</h3>
-            <p>Synchronization, initialization, filtering, and optimization.</p>
-          </div>
-          <div>
-            <h3>Evaluation and implementation</h3>
-            <p>Trajectory metrics, runtime and resources, and working with your own sensor data.</p>
-          </div>
-        </div>
+        <TutorialContents compact />
         <p className="home-tutorial-status">Chapter text is in preparation.</p>
       </section>
     </div>

@@ -23,6 +23,13 @@ the user supplies or requests new material:
 The outline does not establish that the chapters have been written or that VIO
 is fully covered. The References page remains a preparation notice.
 
+Preserve the original chapter titles and order (Notation was placed first in
+the original website revision `469141e529ad9203b7eee12f70c7b88551fadd6f`).
+The homepage and contents page display this complete nine-chapter directory
+from the same source. Chapter navigation uses that source too, with a current
+chapter indicator and named previous/next links. On mobile, the chapter sidebar
+is a collapsed directory so it does not displace the current chapter body.
+
 All chapter text and reading recommendations remain empty until the user
 supplies or requests new material; do not fill these gaps automatically.
 

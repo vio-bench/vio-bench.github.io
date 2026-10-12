@@ -70,8 +70,9 @@ are recorded separately. SR and ATE/RPE SVGs are copied byte-for-byte.
 
 ## Tutorial entry
 
-The homepage groups the existing nine chapter outlines into notation and sensing,
-calibration and estimation, and evaluation and implementation. A visible entry
-links to the full contents. The preparation notice remains: chapter text is not
-yet supplied. Do not replace the withdrawn material with invented teaching text
-or a third-party reading list.
+The homepage shows all nine original chapter titles in their original order,
+starting with Notation. Homepage and full tutorial contents use the same
+`data/tutorials.json` source; the full contents also display its existing chapter
+summaries. A visible entry links to the full contents. The preparation notice
+remains: chapter text is not yet supplied. Do not replace the withdrawn material
+with invented teaching text or a third-party reading list.

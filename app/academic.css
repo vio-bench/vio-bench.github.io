@@ -81,6 +81,37 @@ a.button, a.button:hover {
 .prose .reading-introduction { font-size: 17px; }
 .tutorial-body { margin-block: 8px 32px; }
 .tutorial-status, .prose .tutorial-status { font-size: 17px; color: var(--muted); margin-bottom: 28px; }
+.tutorial-index .container { max-width: 1040px; }
+.tutorial-index .page-intro { padding-bottom: 12px; }
+.tutorial-index .tutorial-status { font-size: 14px; margin: 0 0 24px; }
+.tutorial-contents { margin-top: 20px; }
+.tutorial-contents ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 40px; list-style: none; padding: 0; margin: 0; }
+.tutorial-contents li { min-width: 0; border-bottom: 1px solid var(--line); }
+.tutorial-contents li:nth-child(1), .tutorial-contents li:nth-child(6) { border-top: 1px solid var(--line); }
+.tutorial-contents a { display: grid; grid-template-columns: 28px minmax(0, 1fr) 14px; align-items: baseline; gap: 12px; padding: 18px 0; color: var(--ink); text-decoration: none; height: 100%; }
+.tutorial-contents a:hover { color: var(--blue); }
+.tutorial-contents a:hover h2, .tutorial-contents a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.tutorial-contents h2, .tutorial-contents h3 { font-size: 18px; font-weight: 400; line-height: 1.45; margin: 0; }
+.tutorial-contents p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 6px 0 0; }
+.tutorial-chapter-number { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.tutorial-chapter-arrow { color: var(--blue); font-size: 15px; }
+.tutorial-contents.compact a { padding: 13px 0; }
+.tutorial-contents.compact h3 { font-size: 16px; }
+.lesson-nav a { flex: 1; font-size: 15px; line-height: 1.55; text-decoration: none; }
+.lesson-nav a:last-child { text-align: right; }
+.lesson-nav a span { display: block; font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+.tutorial-chapter-links a { display: block; }
+.tutorial-chapter-links a span { font-size: 12px; font-variant-numeric: tabular-nums; margin-right: 5px; }
+.tutorial-mobile-contents { display: none; }
+@media (max-width: 800px) {
+  .tutorial-chapter-layout { display: block; }
+  .tutorial-chapter-layout .sidebar { display: none; }
+  .tutorial-mobile-contents { display: block; margin: 0 0 24px; padding: 12px 0; border-block: 1px solid var(--line); }
+  .tutorial-mobile-contents summary { cursor: pointer; color: var(--blue); font-size: 14px; }
+  .tutorial-mobile-contents .tutorial-chapter-links { margin-top: 12px; }
+  .tutorial-mobile-contents .tutorial-chapter-links a { padding: 9px 8px; font-size: 15px; color: var(--muted); text-decoration: none; }
+  .tutorial-mobile-contents .tutorial-chapter-links a.active { color: var(--blue); background: #f2f6f9; }
+}
 .chapter-references { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 16px; }
 .chapter-references summary { cursor: pointer; font-size: 16px; color: var(--blue); }
 .chapter-references .reference-list p { font-size: 16px; }
@@ -349,10 +380,6 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .home-tutorial-entry p { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
 .research-home .home-tutorial-link { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 17px; border: 1px solid var(--blue); border-radius: 3px; color: var(--blue); font-size: 16px; font-weight: 500; text-decoration: none; }
 .research-home .home-tutorial-link:hover { background: #f2f6f9; }
-.home-tutorial-topics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 22px; }
-.home-tutorial-topics > div { padding-top: 12px; border-top: 2px solid #d5e1eb; }
-.home-tutorial-topics h3 { margin: 0 0 7px; font-size: 16px; font-weight: 500; line-height: 1.5; }
-.home-tutorial-topics p { font-size: 14px; }
 .home-tutorial-entry .home-tutorial-status { margin-top: 20px; font-size: 13px; }
 @media (max-width: 600px) {
   .project-subtitle { font-size: 21px; }
@@ -364,7 +391,10 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
   .home-section-heading { flex-wrap: wrap; gap: 12px; }
   .home-section-heading h2 { font-size: 24px; }
   .home-tutorial-entry { margin-top: 28px; }
-  .home-tutorial-topics { grid-template-columns: 1fr; gap: 16px; }
+  .tutorial-contents ol { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
+  .tutorial-contents li:nth-child(6) { border-top: 0; }
+  .tutorial-contents a { gap: 9px; padding: 15px 0; }
+  .tutorial-contents h2 { font-size: 18px; }
 }
 @media (max-width: 800px) { .home-preview-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 14px; } }
 @media (max-width: 500px) { .home-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
