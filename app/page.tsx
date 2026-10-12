@@ -3,6 +3,7 @@ import systems from "@/data/benchmark-systems.json";
 import results from "@/public/data/current-results.json";
 import abstract from "@/data/project-abstract.json";
 import { DatasetInputPreviews } from "@/components/dataset-input-previews";
+import { HomeResultsOverview } from "@/components/home-results-overview";
 
 export default function Home() {
   return (
@@ -46,6 +47,7 @@ export default function Home() {
           on desktop and embedded platforms. All reported results come from our
           own reruns and evaluations.
         </p>
+        <HomeResultsOverview />
       </section>
       <section className="home-tutorial-entry" aria-labelledby="tutorials-heading">
         <h2 id="tutorials-heading"><Link href="/learn/">Tutorials</Link></h2>

@@ -1,0 +1,78 @@
+[
+  {
+    "id": "coverage",
+    "label": "Valid-path coverage (SR)",
+    "image": "/images/results/overview-coverage.svg",
+    "alt": "Mean SR across the five datasets, with monocular and stereo configurations shown separately",
+    "width": 504.0,
+    "height": 184.251969,
+    "sha256": "7e6b661a6cb31d5579ad219d289fb131fd37c7ad36e3d62034ccb74043643355",
+    "paperSource": "figures/robustness_sr.svg",
+    "resultSources": [
+      {
+        "id": "sr",
+        "label": "Designated SR dataset, sequence and run export",
+        "revision": null,
+        "batch": "20260909_030015",
+        "files": [
+          {
+            "name": "sr-aggregate.csv",
+            "sha256": "2a850d02e34357bcc18c1ba843952d551a7edd6c87c2c31bbb5e249fb7afa6c9"
+          },
+          {
+            "name": "sr-sequence.csv",
+            "sha256": "148c26274508896eb7dacc6acd195491ccc3c66daab45883e67dabc8340f0998"
+          },
+          {
+            "name": "sr-run.csv",
+            "sha256": "4f6a8a40e9be681c492b5681126a6ead23786b81b26114b1613f6864f5041e0c"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "trajectory",
+    "label": "Trajectory error (ATE / RPE)",
+    "image": "/images/results/overview-trajectory.svg",
+    "alt": "Position and orientation ATE and relative pose errors at a 10 m segment length across the five datasets",
+    "width": 504.0,
+    "height": 354.897638,
+    "sha256": "e8f05b8c6bc58138607782870a293444fc457363370d925a02c74bc5429da3c8",
+    "paperSource": "results/accuracy_joint/component_colors_20260910/accuracy_ate_rpe.svg",
+    "resultSources": [
+      {
+        "id": "ate",
+        "label": "Reviewed ATE aggregate and contribution ledgers",
+        "revision": "d11e47385afcf3745d17912654d3a22b4b8bb2ca",
+        "batch": "20260909_030015",
+        "files": [
+          {
+            "name": "ate-aggregate.csv",
+            "sha256": "ad071fec2960aeea55aff2890a39363322d5d9169149187c84b473f104aac2e0"
+          },
+          {
+            "name": "ate-sequence.csv",
+            "sha256": "daff7261b48cf5defbf9fce6bf1fafc51187b07578ef6697b81a83a46533b028"
+          }
+        ]
+      },
+      {
+        "id": "rpe10",
+        "label": "Reviewed 10 m RPE aggregate and sequence ledgers",
+        "revision": "d11e47385afcf3745d17912654d3a22b4b8bb2ca",
+        "batch": "20260909_030015",
+        "files": [
+          {
+            "name": "rpe10-aggregate.csv",
+            "sha256": "8b2d1614f246632bde00799f73ea13bbaf85801c2b529eefbbf710a6eb90e9b5"
+          },
+          {
+            "name": "rpe10-sequence.csv",
+            "sha256": "a1b85c9cbe5e2e8f3e1ac6064bf88561e71f6314fd14c4d3db0e993efbc28a32"
+          }
+        ]
+      }
+    ]
+  }
+]

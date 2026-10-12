@@ -322,8 +322,16 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .home-section-heading h2 { font-size: 25px; font-weight: 500; margin: 0; }
 .research-home .home-design-link { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; border-radius: 3px; background: var(--blue); color: white; font-size: 16px; font-weight: 500; text-decoration: none; }
 .research-home .home-design-link:hover { background: #20486d; }
-.research-home .home-results-link { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 16px; border: 1px solid #b6c5d1; border-radius: 3px; color: var(--blue); font-size: 15px; text-decoration: none; }
-.research-home .home-results-link:hover { background: #f2f5f7; }
+.research-home .home-results-link { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; border-radius: 3px; background: var(--blue); color: white; font-size: 16px; font-weight: 500; text-decoration: none; }
+.research-home .home-results-link:hover { background: #20486d; }
+.home-results-overview { margin-top: 22px; padding-top: 14px; border-top: 1px solid #e2e6e9; min-width: 0; }
+.home-result-tabs { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-bottom: 17px; }
+.home-result-tabs button { padding: 6px 0; min-height: 36px; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); font-size: 15px; font-weight: 500; }
+.home-result-tabs button[aria-pressed="true"] { color: var(--blue); border-bottom-color: var(--blue); }
+.home-result-preview { margin: 0; min-width: 0; }
+.home-result-plot { overflow-x: auto; }
+.home-result-plot img { display: block; width: 100%; min-width: 840px; max-width: none; height: auto; }
+.home-result-preview figcaption { margin-top: 12px; font-size: 13px; color: var(--muted); line-height: 1.6; }
 .home-preview-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
 .home-preview-heading p { color: var(--muted); font-size: 14px; margin: 0; line-height: 1.4; }
 .home-preview-heading button { padding: 4px 0; border: 0; background: none; color: var(--muted); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }

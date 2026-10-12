@@ -37,3 +37,19 @@ fallback. Exactly identical adjacent frames may share one WebP frame with
 their combined duration; distinct frames and playback duration are preserved.
 Hashes and source identities
 are retained in `data/dataset-input-previews.json`.
+
+## Scientific result previews
+
+The homepage result section displays the approved paper SR and ATE/RPE SVGs
+at full width, switching between them to preserve readable system and numeric
+labels. It does not introduce new aggregates or discussion cases. On narrow
+screens, the plot scrolls horizontally instead of shrinking all labels.
+
+```sh
+python3 scripts/sync-homepage-result-figures.py /path/to/paper-checkout
+```
+
+The script checks the paper aggregate source hashes against the current
+website source metadata before copying either figure. Source identities,
+figure hashes, and dimensions are retained in `data/homepage-result-figures.json`.
+Do not copy numbers from these rendered previews to update any result table.
