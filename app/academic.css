@@ -309,23 +309,49 @@ table caption { text-align: left; padding: 0 0 12px; font-size: 15px; color: var
 .research-section-heading > a { font-size: 15px; }
 .dataset-preview .dataset-name:hover { text-decoration: none; }
 .dataset-preview .dataset-preview-device { object-fit: contain; padding: 10px; background: white; }
-.home-benchmark-stats { display: flex; flex-wrap: wrap; gap: 20px 48px; list-style: none; padding: 0; margin: 22px 0 18px; }
-.home-benchmark-stats li { display: flex; flex-direction: column; gap: 3px; }
-.home-benchmark-stats strong { font-size: 36px; line-height: 1.1; font-weight: 600; color: var(--ink); }
-.home-benchmark-stats span { font-size: 15px; color: var(--muted); }
+.research-home .project-heading { padding-bottom: 25px; border: 0; }
+.research-home .project-heading .project-logo { width: min(100%, 420px); margin-bottom: 18px; }
+.home-benchmark-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 38px; list-style: none; padding: 0; margin: 23px 0 0; }
+.home-benchmark-stats li { display: flex; align-items: baseline; gap: 6px; }
+.home-benchmark-stats strong { font-size: 22px; line-height: 1.2; font-weight: 600; color: var(--blue); }
+.home-benchmark-stats span { font-size: 15px; color: var(--ink); }
+.home-abstract { max-width: 880px; margin: 12px auto 6px; }
+.home-abstract h2 { font-size: 23px; font-weight: 500; margin: 0 0 12px; text-align: center; }
+.home-abstract p { font-size: 16px; line-height: 1.85; margin: 0; }
+.home-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
+.home-section-heading h2 { font-size: 25px; font-weight: 500; margin: 0; }
 .research-home .home-design-link { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 18px; border-radius: 3px; background: var(--blue); color: white; font-size: 16px; font-weight: 500; text-decoration: none; }
 .research-home .home-design-link:hover { background: #20486d; }
+.research-home .home-results-link { display: inline-flex; align-items: center; min-height: 44px; padding: 9px 16px; border: 1px solid #b6c5d1; border-radius: 3px; color: var(--blue); font-size: 15px; text-decoration: none; }
+.research-home .home-results-link:hover { background: #f2f5f7; }
+.home-preview-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
+.home-preview-heading p { color: var(--muted); font-size: 14px; margin: 0; line-height: 1.4; }
+.home-preview-heading button { padding: 4px 0; border: 0; background: none; color: var(--muted); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.home-preview-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.home-preview-grid figure { margin: 0; min-width: 0; }
+.home-preview-frame { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 2px; background: #151515; }
+.home-preview-frame picture { display: block; width: 100%; height: 100%; }
+.home-preview-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.home-preview-grid figcaption { display: flex; flex-direction: column; gap: 2px; margin-top: 9px; }
+.home-preview-grid figcaption strong { font-size: 15px; font-weight: 500; }
+.home-preview-grid figcaption span { font-size: 12px; color: var(--muted); line-height: 1.5; }
 .home-section-link { display: inline-block; font-size: 15px; }
 .home-tutorial-entry { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
 .home-tutorial-entry h2 { font-size: 22px; font-weight: 500; margin: 0 0 10px; }
 .home-tutorial-entry p { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
 @media (max-width: 600px) {
   .project-subtitle { font-size: 21px; }
-  .home-benchmark-stats { column-gap: 26px; }
-  .home-benchmark-stats strong { font-size: 32px; }
-  .home-benchmark-stats span { font-size: 13px; }
+  .home-benchmark-stats { column-gap: 18px; }
+  .home-benchmark-stats strong { font-size: 20px; }
+  .home-benchmark-stats span { font-size: 12px; }
+  .home-abstract { margin-top: 4px; }
+  .home-abstract p { font-size: 16px; line-height: 1.8; }
+  .home-section-heading { flex-wrap: wrap; gap: 12px; }
+  .home-section-heading h2 { font-size: 24px; }
   .home-tutorial-entry { margin-top: 28px; }
 }
+@media (max-width: 800px) { .home-preview-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 14px; } }
+@media (max-width: 500px) { .home-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .research-contents { columns: 2; column-gap: 55px; padding-left: 23px; margin: 18px 0 4px; }
 .research-contents li { break-inside: avoid; padding: 5px 0 5px 4px; font-size: 17px; }
 .research-contents li::marker { font-size: 14px; color: var(--muted); }

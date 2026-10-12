@@ -1,7 +1,8 @@
 import Link from "next/link";
 import systems from "@/data/benchmark-systems.json";
 import results from "@/public/data/current-results.json";
-import { DatasetGallery } from "@/components/dataset-gallery";
+import abstract from "@/data/project-abstract.json";
+import { DatasetInputPreviews } from "@/components/dataset-input-previews";
 
 export default function Home() {
   return (
@@ -17,31 +18,34 @@ export default function Home() {
           />
         </h1>
         <p className="project-subtitle">A Cross-Domain Benchmark of Visual–Inertial Odometry</p>
-      </header>
-      <section className="research-section home-benchmark" aria-labelledby="benchmark-heading">
-        <h2 id="benchmark-heading">The VIOverse benchmark</h2>
         <ul className="home-benchmark-stats" aria-label="Benchmark scope">
           <li><strong>{systems.length}</strong><span>VIO systems</span></li>
           <li><strong>{results.datasets.length}</strong><span>Public datasets</span></li>
           <li><strong>{results.datasets.reduce((count, dataset) => count + dataset.sequenceCount, 0)}</strong><span>Selected sequences</span></li>
         </ul>
-        <p>
-          Open-source visual–inertial odometry (VIO) implementations evaluated across
-          indoor and aggressive flight, underwater navigation, wearable sensing,
-          and legged field robotics.
-        </p>
-        <DatasetGallery preview />
-        <Link className="home-design-link" href="/benchmark/">Explore benchmark design →</Link>
+      </header>
+      <section className="home-abstract" aria-labelledby="abstract-heading">
+        <h2 id="abstract-heading">Abstract</h2>
+        <p>{abstract.text}</p>
+      </section>
+      <section className="research-section home-benchmark" aria-labelledby="benchmark-heading">
+        <div className="home-section-heading">
+          <h2 id="benchmark-heading">Benchmark</h2>
+          <Link className="home-design-link" href="/benchmark/">Benchmark design →</Link>
+        </div>
+        <DatasetInputPreviews />
       </section>
       <section className="research-section" aria-labelledby="results-heading">
-        <h2 id="results-heading">Evaluation and complete results</h2>
+        <div className="home-section-heading">
+          <h2 id="results-heading">Evaluation and complete results</h2>
+          <Link className="home-results-link" href="/results/">Complete results →</Link>
+        </div>
         <p>
           VIOverse provides a unified comparison of trajectory error and valid-path
           coverage across operating domains, complemented by computational profiling
           on desktop and embedded platforms. All reported results come from our
           own reruns and evaluations.
         </p>
-        <Link className="home-section-link" href="/results/">Complete results →</Link>
       </section>
       <section className="home-tutorial-entry" aria-labelledby="tutorials-heading">
         <h2 id="tutorials-heading"><Link href="/learn/">Tutorials</Link></h2>
