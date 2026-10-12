@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import source from "@/public/data/current-efficiency.json";
@@ -127,18 +128,16 @@ export function EfficiencyLeaderboard() {
         <h2>{selected ? `${selected.dataset} · ${selected.sequence}` : "All profiling inputs"}</h2>
         <p className="small">
           {platform === "all" ? "All platforms" : platform} · {mode === "all" ? "All modes" : mode === "mono" ? "Mono" : "Stereo"}
-          {selected ? ` · Input variant: ${selected.inputVariant}` : ""}
+          {selected && selected.inputVariant !== "unspecified" ? ` · ${selected.inputVariant}` : ""}
         </p>
       </div>
 
       <details className="result-reading-note">
         <summary>Notes</summary>
         <div>
-          <p>Time, CPU, and RAM are reported means for fixed profiling inputs, not dataset-wide averages. Rows retain source order and precision. A dash is a missing measurement, not zero or an execution failure.</p>
-          <p>Time retains each implementation’s native measurement boundary; it is not a common end-to-end latency. SVO totals are source-reported frontend + backend sums. Other missing totals are not reconstructed from stages.</p>
-          <p>CPU and process memory retain source accounting. Cross-platform CPU normalization and memory RSS/PSS identity are unverified; GPU readings do not establish total energy use.</p>
-          <p>Values average available per-selected-run summaries. Each source row lists five selected runs; per-metric contributing counts and total attempts are unreported. SD averages within-run population deviations, while p95 and peak values average per-run summaries. They are not pooled statistics, between-run variability, or confidence intervals.</p>
-          <p>GrandTour uses the reported standard input; other input variants are unspecified. This source is not a complete configuration/input/platform matrix and has no DM-VIO resource rows.</p>
+          <p>Reported means use fixed inputs and each system’s native timing scope. SVO totals are source-reported frontend + backend sums. CPU and memory retain source accounting.</p>
+          <p>Source rows list five selected runs; per-metric contributors and total attempts are unreported. SD, p95, and peak entries average per-run summaries. SD is within-run variation.</p>
+          <p>Dashes indicate unavailable measurements, not zero or failure. Hover in Details for source states. <Link href="/results/paper/#paper-resources">Paper comparisons</Link> retain the paper’s timing ratios and contribution notes.</p>
         </div>
       </details>
 
@@ -163,7 +162,7 @@ export function EfficiencyLeaderboard() {
                 <Fragment key={row.sourceRecordId}>
                   <tr>
                     <th scope="row">{systemName(row.system)}</th>
-                    {showInput && <td>{row.dataset} · {row.sequence}<br /><span className="small">{row.inputVariant}</span></td>}
+                    {showInput && <td>{row.dataset} · {row.sequence}{row.inputVariant !== "unspecified" && <><br /><span className="small">{row.inputVariant}</span></>}</td>}
                     {showPlatform && <td>{row.platform}</td>}
                     {showMode && <td>{row.mode === "mono" ? "Mono" : "Stereo"}</td>}
                     {metrics.map((metric) => <td className="resource-score" key={metric.id}>{resourceMetricDisplay(row, metric.id)}</td>)}
@@ -184,10 +183,6 @@ export function EfficiencyLeaderboard() {
                       <td colSpan={columnCount}>
                         <div className="record-metadata">
                           <strong>{systemName(row.system)} · {row.platform} · {row.mode === "mono" ? "Mono" : "Stereo"}</strong>
-                          <p>{row.dataset} · {row.sequence} · Input variant: {row.inputVariant}.</p>
-                          <p>{row.sourceSelectedRuns} selected runs in the source row{row.selectedRunException ? " (source exception flagged)" : ""}; contributing runs for individual metrics and total attempts are unreported.</p>
-                          <p>Timing: {row.timingDefinition === "frontend_plus_backend" ? "source-reported frontend + backend sum" : row.nativeTotalMs === null ? "native total unavailable" : "implementation-reported native total"}. SD, p95, and peak entries average per-run summaries.</p>
-                          <p className="small">Source record: <code>{row.sourceRecordId}</code> · Revision: <code>{row.sourceRevision.slice(0, 12)}</code></p>
                         </div>
                         <div className="table-scroll detail-table">
                           <table>
@@ -196,8 +191,6 @@ export function EfficiencyLeaderboard() {
                                 <th scope="col">Statistic</th>
                                 <th scope="col">Value</th>
                                 <th scope="col">Unit</th>
-                                <th scope="col">Source token</th>
-                                <th scope="col">Source state</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -209,10 +202,8 @@ export function EfficiencyLeaderboard() {
                                     <th scope="row" style={{ position: "static", whiteSpace: "normal" }} title={`${definition.statistic}. ${definition.scope}`}>
                                       {key === "nativeTotalMs" && row.timingDefinition === "frontend_plus_backend" ? "Frontend + backend time · mean" : definition.label ?? extraLabels[key] ?? key}
                                     </th>
-                                    <td>{resourceMetricDisplay(row, key)}</td>
+                                    <td title={`Source: ${sourceValue?.rawToken ?? "—"}; ${resourceStatusLabel(status)}${sourceValue && sourceValue.sourceStatus !== status ? ` · ${resourceStatusLabel(sourceValue.sourceStatus)}` : ""}`}>{resourceMetricDisplay(row, key)}</td>
                                     <td>{definition.unit}</td>
-                                    <td><code>{sourceValue?.rawToken ?? "—"}</code></td>
-                                    <td>{resourceStatusLabel(status)}{sourceValue && sourceValue.sourceStatus !== status ? ` · ${resourceStatusLabel(sourceValue.sourceStatus)}` : ""}</td>
                                   </tr>
                                 );
                               })}
@@ -229,7 +220,7 @@ export function EfficiencyLeaderboard() {
         </div>
       ) : (
         <div className="empty">
-          <p>No source records for this selection. This does not establish failure or unsupported operation.</p>
+          <p>No reported records for this selection.</p>
           <button className="button secondary" onClick={() => change({ input: "all", platform: "all", mode: "all", system: "" })}>Show all records</button>
         </div>
       )}

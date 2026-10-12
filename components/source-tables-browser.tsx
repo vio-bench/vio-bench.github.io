@@ -90,11 +90,9 @@ export function SourceTablesBrowser() {
       </table></div>
     </section>)}
     {!summary && !tables.length && <p className="empty">No reported configurations match this selection.</p>}
-    <details className="result-notes" id="calculation"><summary>Notes — metrics and aggregation</summary>
-      <p>ATE and RPE use drift-valid portions after temporal association and SE(3) alignment without scale fitting. Only runs with SR ≥ 75% contribute. Retained error samples are pooled within each sequence to compute RMSE; dataset means equally weight finite sequence RMSEs. RPE is not divided by segment length.</p>
-      <p>Sequence values retain source precision. Dataset means are displayed to four significant digits; their exact supplied values and finite-sequence counts are available on hover. Dataset summaries are supplied for ATE and 10 m RPE. Select a mean to inspect its sequence results.</p>
-      <p>Each asterisk marks one run excluded for SR &lt; 75%. Parentheses retain contribution counts, not successful attempts. A dash means no finite reported value; it does not by itself identify execution failure. Gray entries in dataset means have no source configuration.</p>
-      <p>The reported group mean comes directly from the source and does not change when sequence columns are filtered. <Link href="/results/current/">SR results</Link> use a separate three-expected-run aggregation.</p>
+    <details className="result-notes" id="calculation"><summary>Notes</summary>
+      <p>ATE/RPE use drift-valid portions, SE(3) alignment without scale fitting, and runs with SR ≥ 75%. Dataset means average finite sequence RMSEs. RPE is not divided by segment length.</p>
+      <p>Stars mark excluded runs; parentheses show contributions. Dashes indicate unavailable values, not execution failure. Group means retain the source values. Hover for exact precision.</p>
     </details>
   </>;
 }

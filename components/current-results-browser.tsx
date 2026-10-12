@@ -1,6 +1,5 @@
 "use client";
 import { Fragment } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import source from "@/public/data/current-results.json";
 import { updateQuery } from "./results-shared";
@@ -128,10 +127,8 @@ export function CurrentResultsBrowser() {
     <details className="result-reading-note" id="definitions">
       <summary>Notes</summary>
       <p>{data.protocols.coverage.definition}</p>
-      <p>Sequence means average exactly three expected run slots; missing or invalid SR contributes zero. Dataset means equally average the sequence means. These slots do not establish how many executions were attempted.</p>
-      <p>“Finite” means the source supplies a usable SR value, including true zeros and values below 75%. It does not mean that an execution succeeded. Effective SR is the value used in averaging; raw SR and its missing or invalid state remain separate.</p>
-      <p>Values are shown to two decimal places. Hover over a value to read its exact source precision. Sequence rows expand to show their three matching run slots; the run view exposes all supplied slots. Unreported configurations are not filled with zero.</p>
-      <p>The designated SR export is independent of the ATE/RPE contributor counts. <Link href="/results/#calculation">ATE/RPE selection and aggregation</Link>.</p>
+      <p>Each sequence averages three expected run slots; missing or invalid SR contributes zero. Dataset means equally weight sequences. Unreported configurations remain unreported.</p>
+      <p>“Finite” includes zero and values below 75%. Effective SR enters the mean; raw SR and its state are retained separately. Hover for exact precision.</p>
     </details>
     <div className="table-scroll"><table className="leaderboard current-results-table">
       <caption className="sr-only">SR reference-path coverage: {view === "summary" ? "dataset means" : view === "sequence" ? "sequence means" : "individual runs"}</caption>
