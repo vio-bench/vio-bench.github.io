@@ -1,5 +1,6 @@
 import Link from "next/link";
 import media from "@/data/benchmark-media.json";
+import hardware from "@/data/benchmark-hardware.json";
 import results from "@/public/data/current-results.json";
 
 /** Official dataset examples; display crops preserve the original image files. */
@@ -8,8 +9,15 @@ export function DatasetGallery({ showCounts = false, preview = false }: { showCo
     <div className="dataset-gallery">
       {media.map(item => {
         const dataset = results.datasets.find(d => d.id === item.datasetId)!;
-        const credit = `Image: ${item.credit}${item.crop ? "; detail" : ""}${item.license ? ` · ${item.license}` : ""}; source: ${item.sourcePage}`;
-        const visual = item.crop ? (
+        const previewDevice = preview && item.datasetId === "lamaria"
+          ? hardware.find(device => device.datasetId === item.datasetId)?.platformImage
+          : undefined;
+        const credit = previewDevice
+          ? `Image: ${previewDevice.credit}; source: ${previewDevice.sourcePage}`
+          : `Image: ${item.credit}${item.crop ? "; detail" : ""}${item.license ? ` · ${item.license}` : ""}; source: ${item.sourcePage}`;
+        const visual = previewDevice ? (
+          <img className="dataset-preview-device" src={previewDevice.src} alt={previewDevice.alt} width={previewDevice.width} height={previewDevice.height} loading="lazy" decoding="async" />
+        ) : item.crop ? (
           <svg viewBox={item.crop.join(" ")} preserveAspectRatio="xMidYMid slice" role="img" aria-label={item.alt}>
             <image href={item.image} width={item.width} height={item.height} />
           </svg>

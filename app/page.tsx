@@ -20,13 +20,18 @@ export default function Home() {
       </header>
       <section className="research-section home-benchmark" aria-labelledby="benchmark-heading">
         <h2 id="benchmark-heading">The VIOverse benchmark</h2>
+        <ul className="home-benchmark-stats" aria-label="Benchmark scope">
+          <li><strong>{systems.length}</strong><span>VIO systems</span></li>
+          <li><strong>{results.datasets.length}</strong><span>Public datasets</span></li>
+          <li><strong>{results.datasets.reduce((count, dataset) => count + dataset.sequenceCount, 0)}</strong><span>Selected sequences</span></li>
+        </ul>
         <p>
-          We benchmark {systems.length} open-source visual–inertial odometry (VIO)
-          systems on {results.datasets.reduce((count, dataset) => count + dataset.sequenceCount, 0)} selected
-          sequences from five public datasets.
+          Open-source visual–inertial odometry (VIO) implementations evaluated across
+          indoor and aggressive flight, underwater navigation, wearable sensing,
+          and legged field robotics.
         </p>
         <DatasetGallery preview />
-        <Link className="home-section-link" href="/benchmark/">Benchmark design: systems, datasets, and experimental setup →</Link>
+        <Link className="home-design-link" href="/benchmark/">Explore benchmark design →</Link>
       </section>
       <section className="research-section" aria-labelledby="results-heading">
         <h2 id="results-heading">Evaluation and complete results</h2>
