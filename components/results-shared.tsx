@@ -6,16 +6,15 @@ export function ResultsNavigation() {
   return (
     <nav className="results-nav" aria-label="Results sections">
       {[
-        { href: "/results/", label: "Result tables" },
-        { href: "/results/tables/", label: "Trajectory tables" },
+        { href: "/results/tables/", label: "ATE / RPE" },
         { href: "/results/current/", label: "Path coverage (SR)" },
-        { href: "/results/efficiency/", label: "Resource tables" },
+        { href: "/results/efficiency/", label: "Runtime & resources" },
       ].map((x) => (
         <Link
           href={x.href}
           key={x.href}
-          aria-current={path === x.href ? "page" : undefined}
-          className={path === x.href ? "active" : ""}
+          aria-current={path === x.href || (x.href === "/results/tables/" && ["/results/", "/results/accuracy/"].includes(path)) ? "page" : undefined}
+          className={path === x.href || (x.href === "/results/tables/" && ["/results/", "/results/accuracy/"].includes(path)) ? "active" : ""}
         >
           {x.label}
         </Link>

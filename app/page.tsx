@@ -1,6 +1,6 @@
 import Link from "next/link";
 import lessons from "@/data/tutorials.json";
-import accuracy from "@/public/data/current-results.json";
+import { DatasetGallery } from "@/components/dataset-gallery";
 
 export default function Home() {
   return (
@@ -16,25 +16,45 @@ export default function Home() {
           />
         </h1>
         <p className="project-abstract">
-          VIOVERSE is a project for studying, implementing, and evaluating
-          visual–inertial odometry (VIO). The site includes a tutorial series
-          in preparation and experimental
-          results across five datasets and three computing platforms.
+          VIOverse is a cross-domain benchmark of 11 open-source
+          visual–inertial odometry (VIO) systems on 98 selected sequences from
+          five public datasets. We evaluate trajectory error together with
+          valid reference-path coverage and profile processing time, CPU
+          utilization, and process memory on desktop and embedded platforms.
+          All results come from our own experiments and evaluations.
         </p>
         <nav className="project-links" aria-label="Project resources">
-          <Link href="/learn/">Tutorials</Link>
           <Link href="/results/">Benchmark results</Link>
+          <Link href="/learn/">Tutorials</Link>
         </nav>
       </header>
+      <section className="research-section" aria-labelledby="results-heading">
+        <div className="research-section-heading">
+          <h2 id="results-heading">Benchmark results</h2>
+          <Link href="/benchmark/">Benchmark design</Link>
+        </div>
+        <p>
+          Monocular and stereo configurations are evaluated separately, with
+          loop closure and global map optimization disabled. Computational
+          profiling uses selected inputs on Desktop, Jetson AGX Orin, and
+          Jetson Nano.
+        </p>
+        <nav className="project-links" aria-label="Benchmark result views">
+          <Link href="/results/tables/">Trajectory errors</Link>
+          <Link href="/results/current/">Path coverage (SR)</Link>
+          <Link href="/results/efficiency/">Runtime and resources</Link>
+        </nav>
+        <DatasetGallery showCounts />
+        <p className="dataset-image-note">Example scenes from the official dataset pages; select a dataset to view its results.</p>
+      </section>
       <section className="research-section" aria-labelledby="tutorials-heading">
         <div className="research-section-heading">
           <h2 id="tutorials-heading">Tutorials</h2>
           <Link href="/learn/">Tutorial overview</Link>
         </div>
         <p>
-          A tutorial series from notation and sensor
-          models to calibration, estimation, and evaluation. Chapter text is in
-          preparation.
+          A tutorial series from notation and sensor models to calibration,
+          estimation, and evaluation. Chapter text is in preparation.
         </p>
         <ol className="research-contents">
           {lessons.map((lesson) => (
@@ -43,54 +63,6 @@ export default function Home() {
             </li>
           ))}
         </ol>
-      </section>
-      <section className="research-section" aria-labelledby="results-heading">
-        <div className="research-section-heading">
-          <h2 id="results-heading">Benchmark results</h2>
-          <Link href="/benchmark/">Benchmark design</Link>
-        </div>
-        <p>
-          The current report contains 98 sequence headers and 18 accuracy
-          configurations. Resource tables cover Desktop, Orin, and Nano. Accuracy results are
-          organized by dataset, camera mode, and metric. Resource measurements
-          retain the profiling input and platform for each record.
-        </p>
-        <div className="table-scroll home-dataset-table">
-          <table>
-            <caption>Table 1. Dataset inventory in the published accuracy report.</caption>
-            <thead>
-              <tr><th scope="col">Dataset</th><th scope="col">Report sequences</th><th scope="col">Accuracy results</th></tr>
-            </thead>
-            <tbody>
-              {accuracy.datasets.map((dataset) => (
-                <tr key={dataset.id}>
-                  <th scope="row">{dataset.label}</th>
-                  <td>{dataset.sequenceCount}</td>
-                  <td><Link href={`/results/tables/?dataset=${dataset.id}`}>Result tables</Link></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="table-note">
-          Sequence counts describe the report inventory. The number of finite
-          contributors is reported separately for each result; these counts do
-          not establish the number of planned or successful runs.
-        </p>
-        <nav className="project-links" aria-label="Benchmark result views">
-          <Link href="/results/">Results overview</Link>
-          <Link href="/results/current/">Path coverage (SR)</Link>
-          <Link href="/results/efficiency/">Runtime and resources</Link>
-          <Link href="/results/tables/">Original result tables</Link>
-        </nav>
-      </section>
-      <section className="research-section research-maintenance" aria-labelledby="source-heading">
-        <h2 id="source-heading">Data and software</h2>
-        <p>
-          Results are published as versioned snapshots with downloadable data
-          and source metadata. Software and datasets linked from this site
-          retain their respective licenses.
-        </p>
       </section>
     </div>
   );

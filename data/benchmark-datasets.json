@@ -1,0 +1,58 @@
+[
+  {
+    "id": "euroc",
+    "domain": "Indoor aerial flight",
+    "description": "Micro-aerial flight requiring timely motion estimates under payload, power, and computing constraints.",
+    "scene": "Machine hall",
+    "cameraRateHz": 20,
+    "imuRateHz": 200,
+    "hours": "0.37",
+    "reference": "Vicon / laser",
+    "stereo": true
+  },
+  {
+    "id": "uzh-fpv",
+    "domain": "Aggressive flight",
+    "description": "Aggressive aerial motion with a compact camera–IMU payload on a racing quadrotor.",
+    "scene": "Indoor flight view",
+    "cameraRateHz": 30,
+    "imuRateHz": 500,
+    "hours": "0.20",
+    "reference": "Laser",
+    "stereo": true
+  },
+  {
+    "id": "aqualoc",
+    "domain": "Underwater navigation",
+    "description": "Underwater navigation without GNSS, using camera and inertial measurements to estimate motion.",
+    "scene": "Harbor seabed",
+    "cameraRateHz": 20,
+    "imuRateHz": 200,
+    "hours": "1.75",
+    "reference": "Offline poses",
+    "stereo": false
+  },
+  {
+    "id": "lamaria",
+    "domain": "Egocentric wearable sensing",
+    "description": "Wearable spatial computing with tight form-factor and power constraints.",
+    "scene": "Urban wearable view",
+    "cameraRateHz": 20,
+    "imuRateHz": 1000,
+    "hours": "4.97",
+    "reference": "Offline poses",
+    "stereo": false,
+    "note": "Evaluated in mono mode because the two cameras have limited visual overlap."
+  },
+  {
+    "id": "grandtour",
+    "domain": "Legged field robotics",
+    "description": "Legged field operation, where body-motion estimation shares onboard resources with perception and locomotion.",
+    "scene": "Outdoor legged mission",
+    "cameraRateHz": 10,
+    "imuRateHz": 100,
+    "hours": "3.77",
+    "reference": "Laser / GNSS–INS",
+    "stereo": true
+  }
+]

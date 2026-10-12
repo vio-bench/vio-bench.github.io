@@ -1,0 +1,123 @@
+[
+  {
+    "datasetId": "euroc",
+    "platform": "MAV recording platform",
+    "platformImage": {
+      "src": "/images/benchmark/hardware/euroc-platform.jpg",
+      "width": 400,
+      "height": 266,
+      "alt": "EuRoC micro-aerial vehicle with annotated camera and IMU frames",
+      "sourcePage": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+      "sourceImage": "https://projects.asl.ethz.ch/assets/datasets/euroc/platform.jpg",
+      "credit": "EuRoC MAV / ETH ASL"
+    },
+    "sensorImage": {
+      "src": "/images/benchmark/hardware/euroc-layout.png",
+      "width": 203,
+      "height": 167,
+      "alt": "Official EuRoC camera, IMU and reference-frame layout diagram",
+      "sourcePage": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+      "sourceImage": "https://projects.asl.ethz.ch/assets/datasets/euroc/sensor_setup2.png",
+      "credit": "EuRoC MAV / ETH ASL"
+    },
+    "sensorCaption": "Sensor and frame layout",
+    "camera": "2 × MT9V034",
+    "imu": "ADIS16448"
+  },
+  {
+    "datasetId": "uzh-fpv",
+    "platform": "FPV racing quadrotor",
+    "platformImage": {
+      "src": "/images/benchmark/hardware/uzh-platform.jpg",
+      "width": 1632,
+      "height": 1224,
+      "alt": "UZH-FPV recording quadrotor with its Snapdragon Flight camera–IMU payload and additional acquisition hardware",
+      "sourcePage": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
+      "sourceImage": "https://rpg.ifi.uzh.ch/docs/ICRA19_Delmerico.pdf",
+      "sourceFigure": "Figure 4, page 4; original embedded JPEG",
+      "credit": "Delmerico et al., ICRA 2019 / UZH RPG"
+    },
+    "sensorImage": null,
+    "sensorCaption": "Snapdragon Flight payload",
+    "camera": "2 × MD-102-A (OV7251)",
+    "imu": "MPU-9250",
+    "note": "The camera–IMU payload is mounted below the quadrotor."
+  },
+  {
+    "datasetId": "aqualoc",
+    "platform": "Dumbo ROV · harbor",
+    "platformImage": {
+      "src": "/images/benchmark/hardware/aqualoc-platform.jpg",
+      "width": 1600,
+      "height": 1200,
+      "alt": "Dumbo remotely operated underwater vehicle used for AQUALOC harbor recordings",
+      "sourcePage": "https://www.lirmm.fr/aqualoc/",
+      "sourceImage": "https://www.lirmm.fr/aqualoc/webiste_images/ROV_harbor.jpg",
+      "credit": "AQUALOC dataset"
+    },
+    "sensorImage": {
+      "src": "/images/benchmark/hardware/aqualoc-sensors.png",
+      "width": 414,
+      "height": 424,
+      "alt": "AQUALOC acquisition system A shown outside and inside its underwater enclosure",
+      "sourcePage": "https://www.lirmm.fr/aqualoc/",
+      "sourceImage": "https://www.lirmm.fr/aqualoc/webiste_images/sysAA.png",
+      "credit": "AQUALOC dataset"
+    },
+    "sensorCaption": "Acquisition unit A · harbor",
+    "camera": "uEye UI-1240SE / UI-3260CP",
+    "imu": "MPU-9250",
+    "note": "Camera models vary between acquisition rigs."
+  },
+  {
+    "datasetId": "lamaria",
+    "platform": "Project Aria glasses",
+    "platformImage": {
+      "src": "/images/benchmark/hardware/aria-device.jpg",
+      "width": 2496,
+      "height": 942,
+      "alt": "Official rendering of the Project Aria recording glasses used for egocentric data collection",
+      "sourcePage": "https://arxiv.org/html/2308.13561v3",
+      "sourceImage": "https://arxiv.org/html/2308.13561v3/images/sensors_aria_plain_cropped.jpg",
+      "credit": "Engel et al., Project Aria / Meta Reality Labs Research"
+    },
+    "sensorImage": {
+      "src": "/images/benchmark/hardware/aria-layout.png",
+      "width": 1509,
+      "height": 1039,
+      "alt": "Official exploded Project Aria hardware diagram showing cameras and integrated inertial sensors",
+      "sourcePage": "https://arxiv.org/html/2308.13561v3",
+      "sourceImage": "https://arxiv.org/html/2308.13561v3/images/aria_glasses_blowup2.png",
+      "credit": "Engel et al., Project Aria / Meta Reality Labs Research"
+    },
+    "sensorCaption": "Integrated sensor layout",
+    "camera": "2 × SLAM cameras",
+    "imu": "Integrated IMU",
+    "hardwareVerification": "https://lamaria.ethz.ch/slam_documentation"
+  },
+  {
+    "datasetId": "grandtour",
+    "platform": "ANYmal D + Boxi",
+    "platformImage": {
+      "src": "/images/benchmark/hardware/grandtour-platform.webp",
+      "width": 3840,
+      "height": 1797,
+      "alt": "GrandTour ANYmal D legged robot carrying the Boxi sensor payload",
+      "sourcePage": "https://grand-tour.leggedrobotics.com/setup",
+      "sourceImage": "https://grand-tour.leggedrobotics.com/imgs/robot_box_components_blur_webpage.webp",
+      "credit": "GrandTour / Robotic Systems Lab"
+    },
+    "sensorImage": {
+      "src": "/images/benchmark/hardware/grandtour-sensors.png",
+      "width": 831,
+      "height": 398,
+      "alt": "Sevensense CoreResearch camera module with its integrated inertial sensor",
+      "sourcePage": "https://grand-tour.leggedrobotics.com/setup#alphasense-core-research",
+      "sourceImage": "https://grand-tour.leggedrobotics.com/imgs/sevensense.png",
+      "credit": "GrandTour / Sevensense"
+    },
+    "sensorCaption": "CoreResearch camera–IMU module",
+    "camera": "CoreResearch stereo input",
+    "imu": "Bosch BMI085"
+  }
+]

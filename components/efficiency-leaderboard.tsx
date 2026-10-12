@@ -1,300 +1,221 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
-import Link from "next/link";
-import { Download, ChevronDown, ChevronUp } from "lucide-react";
+
+import { Fragment, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import source from "@/public/data/current-efficiency.json";
-import type {
-  EfficiencyData,
-  EfficiencyMetric,
-} from "@/lib/results-types";
+import type { EfficiencyData, EfficiencyMetric } from "@/lib/results-types";
 import {
-  allResources, resourceCsv, resourceMetricStatus,
-  resourceMetricDisplay, resourceRows, resourceStatusLabel,
-  type ResourceSelection,
+  resourceMetricDisplay,
+  resourceMetricStatus,
+  resourceStatusLabel,
 } from "@/lib/resource-results";
-import { downloadText, updateQuery } from "./results-shared";
+import { updateQuery } from "./results-shared";
+
 const data = source as unknown as EfficiencyData;
-const metrics: { id: EfficiencyMetric; label: string; unit: string }[] = [
-  { id: "nativeTotalMs", label: "Reported time", unit: "ms" },
-  { id: "reportedCpuPercent", label: "Reported CPU", unit: "%" },
-  { id: "reportedProcessMemoryMiB", label: "Process memory", unit: "MiB" },
+const platforms = ["Desktop", "Jetson Orin", "Jetson Nano"];
+const defaultInput = data.inputs.find((input) =>
+  input.dataset === "EuRoC MAV" && input.sequence === "V1_01_easy",
+)!.id;
+const defaults = { input: defaultInput, platform: "Desktop", mode: "mono", system: "" };
+const metrics: { id: EfficiencyMetric; label: string }[] = [
+  { id: "nativeTotalMs", label: "Time (ms)" },
+  { id: "reportedCpuPercent", label: "CPU (%)" },
+  { id: "reportedProcessMemoryMiB", label: "RAM (MiB)" },
 ];
 const extraLabels: Record<string, string> = {
   nativeTrackingMeanMs: "Tracking time · mean",
-  nativeTrackingMeanWithinRunPopulationSdMs:
-    "Tracking time · mean within-run SD",
+  nativeTrackingMeanWithinRunPopulationSdMs: "Tracking time · within-run SD",
   nativeEstimationMeanMs: "Estimation time · mean",
-  nativeEstimationMeanWithinRunPopulationSdMs:
-    "Estimation time · mean within-run SD",
-  nativeTotalMeanWithinRunPopulationSdMs:
-    "Native total time · mean within-run SD",
-  reportedCpuMeanWithinRunPopulationSdPercent: "Host CPU · mean within-run SD",
-  reportedCpuMeanRunP95Percent: "Host CPU · mean per-run p95",
-  reportedCpuMeanRunPeakPercent: "Host CPU · mean per-run peak",
-  reportedProcessMemoryMeanWithinRunPopulationSdMiB:
-    "Process memory · mean within-run SD",
-  reportedProcessMemoryMeanRunP95MiB: "Process memory · mean per-run p95",
-  reportedProcessMemoryMeanRunPeakMiB: "Process memory · mean per-run peak",
+  nativeEstimationMeanWithinRunPopulationSdMs: "Estimation time · within-run SD",
+  nativeTotalMeanWithinRunPopulationSdMs: "Total time · within-run SD",
+  reportedCpuMeanWithinRunPopulationSdPercent: "Host CPU · within-run SD",
+  reportedCpuMeanRunP95Percent: "Host CPU · per-run p95",
+  reportedCpuMeanRunPeakPercent: "Host CPU · per-run peak",
+  reportedProcessMemoryMeanWithinRunPopulationSdMiB: "Process memory · within-run SD",
+  reportedProcessMemoryMeanRunP95MiB: "Process memory · per-run p95",
+  reportedProcessMemoryMeanRunPeakMiB: "Process memory · per-run peak",
   reportedGpuMeanPercent: "GPU · mean",
-  reportedGpuMeanWithinRunPopulationSdPercent: "GPU · mean within-run SD",
-  reportedGpuMeanRunP95Percent: "GPU · mean per-run p95",
-  reportedGpuMeanRunPeakPercent: "GPU · mean per-run peak",
-  reportedGpuMemoryMeanRunBaselineMiB: "GPU memory · mean per-run baseline",
+  reportedGpuMeanWithinRunPopulationSdPercent: "GPU · within-run SD",
+  reportedGpuMeanRunP95Percent: "GPU · per-run p95",
+  reportedGpuMeanRunPeakPercent: "GPU · per-run peak",
+  reportedGpuMemoryMeanRunBaselineMiB: "GPU memory · per-run baseline",
   reportedGpuMemoryDeltaMeanMiB: "GPU memory change · mean",
-  reportedGpuMemoryDeltaMeanWithinRunPopulationSdMiB:
-    "GPU memory change · mean within-run SD",
-  reportedGpuMemoryDeltaMeanRunP95MiB: "GPU memory change · mean per-run p95",
-  reportedGpuMemoryDeltaMeanRunPeakMiB: "GPU memory change · mean per-run peak",
+  reportedGpuMemoryDeltaMeanWithinRunPopulationSdMiB: "GPU memory change · within-run SD",
+  reportedGpuMemoryDeltaMeanRunP95MiB: "GPU memory change · per-run p95",
+  reportedGpuMemoryDeltaMeanRunPeakMiB: "GPU memory change · per-run peak",
 };
+
+function systemName(name: string) {
+  return name === "sqrtVINS" ? "√VINS" : name;
+}
+
 export function EfficiencyLeaderboard() {
-  const [input, setInput] = useState(allResources.input),
-    [platform, setPlatform] = useState(allResources.platform),
-    [mode, setMode] = useState<ResourceSelection["mode"]>(allResources.mode),
-    [metric, setMetric] = useState<EfficiencyMetric>(allResources.metric),
-    [expanded, setExpanded] = useState<string | null>(null);
-  const platforms = ["Desktop", "Jetson Orin", "Jetson Nano"];
-  useEffect(() => {
-    const q = new URLSearchParams(window.location.search);
-    if (data.inputs.some((i) => i.id === q.get("input")))
-      setInput(q.get("input")!);
-    if (platforms.includes(q.get("platform")!)) setPlatform(q.get("platform")!);
-    if (q.get("mode") === "mono" || q.get("mode") === "stereo")
-      setMode(q.get("mode") as ResourceSelection["mode"]);
-    if (metrics.some((m) => m.id === q.get("metric")))
-      setMetric(q.get("metric") as EfficiencyMetric);
-  }, []);
-  function change(
-    changes: Partial<ResourceSelection>,
-  ) {
-    const next = { input, platform, mode, metric, ...changes };
-    setInput(next.input);
-    setPlatform(next.platform);
-    setMode(next.mode);
-    setMetric(next.metric);
+  const searchParams = useSearchParams();
+  const requestedInput = searchParams.get("input");
+  const requestedPlatform = searchParams.get("platform");
+  const requestedMode = searchParams.get("mode");
+  const input = requestedInput === "all" || data.inputs.some((item) => item.id === requestedInput)
+    ? requestedInput! : defaults.input;
+  const platform = requestedPlatform === "all" || platforms.includes(requestedPlatform!)
+    ? requestedPlatform! : defaults.platform;
+  const mode = requestedMode === "all" || requestedMode === "mono" || requestedMode === "stereo"
+    ? requestedMode : defaults.mode;
+  const system = searchParams.get("system") ?? defaults.system;
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const selected = data.inputs.find((item) => item.id === input);
+  const query = system.trim().toLowerCase();
+  const records = data.rows.filter((row) =>
+    (input === "all" || row.inputId === input) &&
+    (platform === "all" || row.platform === platform) &&
+    (mode === "all" || row.mode === mode) &&
+    (!query || row.system.toLowerCase().includes(query) ||
+      systemName(row.system).toLowerCase().includes(query)),
+  );
+  const showInput = input === "all";
+  const showPlatform = platform === "all";
+  const showMode = mode === "all";
+  const columnCount = 5 + Number(showInput) + Number(showPlatform) + Number(showMode);
+
+  function change(changes: Partial<typeof defaults>) {
+    updateQuery({ input, platform, mode, system, ...changes });
     setExpanded(null);
-    updateQuery(next);
   }
-  const selected = data.inputs.find((i) => i.id === input);
-  const metricInfo = metrics.find((m) => m.id === metric)!;
-  const selection = { input, platform, mode, metric };
-  const records = resourceRows(data, selection);
-  function download() {
-    downloadText(
-      resourceCsv(data, records),
-      `vioverse-resources-${input}-${platform.toLowerCase().replaceAll(" ", "-")}-${mode}.csv`,
-    );
-  }
+
   return (
-    <>
+    <div className="resource-browser">
       <div className="filters results-filters">
         <label className="field sequence-field">
-          Dataset / profiling sequence
-          <select
-            value={input}
-            onChange={(e) => change({ input: e.target.value })}
-          >
+          Profiling input
+          <select value={input} onChange={(event) => change({ input: event.target.value })}>
             <option value="all">All inputs</option>
-            {data.inputs.map((i) => (
-              <option key={i.id} value={i.id}>
-                {i.dataset} · {i.sequence}
+            {data.inputs.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.dataset} · {item.sequence}
+                {item.inputVariant !== "unspecified" ? ` · ${item.inputVariant}` : ""}
               </option>
             ))}
           </select>
         </label>
         <label className="field">
           Platform
-          <select
-            value={platform}
-            onChange={(e) => change({ platform: e.target.value })}
-          >
+          <select value={platform} onChange={(event) => change({ platform: event.target.value })}>
             <option value="all">All platforms</option>
-            {platforms.map((p) => (
-              <option key={p}>{p}</option>
-            ))}
+            {platforms.map((item) => <option key={item}>{item}</option>)}
           </select>
         </label>
         <label className="field">
-          Camera mode
-          <select
-            value={mode}
-            onChange={(e) => change({ mode: e.target.value as ResourceSelection["mode"] })}
-          >
-            <option value="all">All camera modes</option>
-            <option value="mono">Monocular</option>
+          Mode
+          <select value={mode} onChange={(event) => change({ mode: event.target.value })}>
+            <option value="all">All modes</option>
+            <option value="mono">Mono</option>
             <option value="stereo">Stereo</option>
           </select>
         </label>
         <label className="field">
-          Primary displayed metric
-          <select
-            value={metric}
-            onChange={(e) =>
-              change({ metric: e.target.value as EfficiencyMetric })
-            }
-          >
-            {metrics.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.label} ({m.unit})
-              </option>
-            ))}
-          </select>
+          System
+          <input value={system} placeholder="Search" onChange={(event) => change({ system: event.target.value })} />
         </label>
       </div>
+
       <div className="result-context">
-        <span role="status">
-          {records.length} of {data.rows.length} source rows ·{" "}
-          {records.filter((r) => r.value !== null).length} with{" "}
-          {metricInfo.label.toLowerCase()}
-        </span>
-        <button className="button secondary" onClick={download}>
-          <Download size={14} /> Export selected rows · all metrics
-        </button>
-        <button className="button secondary" onClick={() => change(allResources)}>
-          Show all resources
-        </button>
+        <span role="status">{records.length} record{records.length === 1 ? "" : "s"}</span>
+        <button className="button secondary" onClick={() => change(defaults)}>Reset</button>
       </div>
-      <p className="result-reading-note">
-        Rows follow the report order. Each record describes a fixed profiling input. Timing boundaries are listed
-        for each row. CPU normalization and process-memory definitions may differ
-        across platforms.
-      </p>
-      <p className="small">
-        Expand a row to see all reported timing, CPU, memory, and GPU statistics.
-        Downloads include all available metrics for the selected rows.
-      </p>
+
+      <div className="result-condition resource-condition">
+        <h2>{selected ? `${selected.dataset} · ${selected.sequence}` : "All profiling inputs"}</h2>
+        <p className="small">
+          {platform === "all" ? "All platforms" : platform} · {mode === "all" ? "All modes" : mode === "mono" ? "Mono" : "Stereo"}
+          {selected ? ` · Input variant: ${selected.inputVariant}` : ""}
+        </p>
+      </div>
+
+      <details className="result-reading-note">
+        <summary>Notes</summary>
+        <div>
+          <p>Time, CPU, and RAM are reported means for fixed profiling inputs, not dataset-wide averages. Rows retain source order and precision. A dash is a missing measurement, not zero or an execution failure.</p>
+          <p>Time retains each implementation’s native measurement boundary; it is not a common end-to-end latency. SVO totals are source-reported frontend + backend sums. Other missing totals are not reconstructed from stages.</p>
+          <p>CPU and process memory retain source accounting. Cross-platform CPU normalization and memory RSS/PSS identity are unverified; GPU readings do not establish total energy use.</p>
+          <p>Values average available per-selected-run summaries. Each source row lists five selected runs; per-metric contributing counts and total attempts are unreported. SD averages within-run population deviations, while p95 and peak values average per-run summaries. They are not pooled statistics, between-run variability, or confidence intervals.</p>
+          <p>GrandTour uses the reported standard input; other input variants are unspecified. This source is not a complete configuration/input/platform matrix and has no DM-VIO resource rows.</p>
+        </div>
+      </details>
+
       {records.length ? (
         <div className="table-scroll">
-          <table className="leaderboard">
+          <table className="leaderboard resource-table">
             <caption className="sr-only">
-              {selected ? `${selected.dataset} ${selected.sequence}` : "All profiling inputs"}, {platform}, {mode}.
-              Report order.
+              {selected ? `${selected.dataset} ${selected.sequence}, input variant ${selected.inputVariant}` : "All profiling inputs"}; {platform}; {mode}. Source order. Mean reported time, host CPU utilization, and process memory.
             </caption>
             <thead>
               <tr>
-                <th scope="col">SYSTEM</th>
-                <th scope="col">INPUT</th>
-                <th scope="col">PLATFORM</th>
-                <th scope="col">CAMERA MODE</th>
-                <th scope="col">TIMING BOUNDARY</th>
-                <th scope="col">
-                  {metricInfo.label.toUpperCase()} ({metricInfo.unit})
-                </th>
-                {metrics
-                  .filter((m) => m.id !== metric)
-                  .map((m) => (
-                    <th scope="col" key={m.id}>
-                      {m.label.toUpperCase()} ({m.unit})
-                    </th>
-                  ))}
-                <th scope="col">SELECTED RUNS</th>
-                <th scope="col">DETAILS</th>
+                <th scope="col">System</th>
+                {showInput && <th scope="col">Input</th>}
+                {showPlatform && <th scope="col">Platform</th>}
+                {showMode && <th scope="col">Mode</th>}
+                {metrics.map((metric) => <th scope="col" key={metric.id}>{metric.label}</th>)}
+                <th scope="col">Details</th>
               </tr>
             </thead>
             <tbody>
-              {records.map((r) => (
-                <Fragment key={r.sourceRecordId}>
+              {records.map((row) => (
+                <Fragment key={row.sourceRecordId}>
                   <tr>
-                    <th scope="row">{r.system}</th>
-                    <td>
-                      {r.dataset}<br />{r.sequence}<br />
-                      <span className="small">Variant: {r.inputVariant}</span>
-                    </td>
-                    <td>{r.platform}</td>
-                    <td>{r.mode === "mono" ? "Monocular" : "Stereo"}</td>
-                    <td>{r.timingDefinition === "frontend_plus_backend" ? "Frontend + backend" : r.nativeTotalMs === null ? "Not reported" : "Reported native total"}</td>
-                    <td className="score resource-score">
-                      {resourceMetricDisplay(r, metric)}
-                    </td>
-                    {metrics
-                      .filter((m) => m.id !== metric)
-                      .map((m) => (
-                        <td key={m.id}>{resourceMetricDisplay(r, m.id)}</td>
-                      ))}
-                    <td>
-                      {r.sourceSelectedRuns}
-                      {r.selectedRunException ? " †" : ""}
-                    </td>
+                    <th scope="row">{systemName(row.system)}</th>
+                    {showInput && <td>{row.dataset} · {row.sequence}<br /><span className="small">{row.inputVariant}</span></td>}
+                    {showPlatform && <td>{row.platform}</td>}
+                    {showMode && <td>{row.mode === "mono" ? "Mono" : "Stereo"}</td>}
+                    {metrics.map((metric) => <td className="resource-score" key={metric.id}>{resourceMetricDisplay(row, metric.id)}</td>)}
                     <td>
                       <button
                         className="details-toggle"
-                        aria-expanded={expanded === r.sourceRecordId}
-                        aria-controls={"detail-" + r.sourceRecordId}
-                        onClick={() =>
-                          setExpanded(
-                            expanded === r.sourceRecordId
-                              ? null
-                              : r.sourceRecordId,
-                          )
-                        }
+                        aria-expanded={expanded === row.sourceRecordId}
+                        aria-controls={`detail-${row.sourceRecordId}`}
+                        onClick={() => setExpanded(expanded === row.sourceRecordId ? null : row.sourceRecordId)}
                       >
-                        {expanded === r.sourceRecordId ? (
-                          <ChevronUp size={16} />
-                        ) : (
-                          <ChevronDown size={16} />
-                        )}{" "}
-                        Inspect
+                        {expanded === row.sourceRecordId ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                        Details
                       </button>
                     </td>
                   </tr>
-                  {expanded === r.sourceRecordId && (
-                    <tr
-                      id={"detail-" + r.sourceRecordId}
-                      className="expanded-result"
-                    >
-                      <td colSpan={10}>
+                  {expanded === row.sourceRecordId && (
+                    <tr id={`detail-${row.sourceRecordId}`} className="expanded-result">
+                      <td colSpan={columnCount}>
                         <div className="record-metadata">
-                          <strong>
-                            {r.system} · {r.platform} · {r.sequence}
-                          </strong>
-                          <p>
-                            Input variant: {r.inputVariant}. Source row:{" "}
-                            {r.sourceSelectedRuns} selected run
-                            {r.sourceSelectedRuns === 1 ? "" : "s"}. The
-                            contributing run count for each metric and the total
-                            number of attempts are unreported.
-                          </p>
-                          <p>
-                            Extended statistics are averages of per-run
-                            summaries. Within-run SD does not measure
-                            between-run variability; p95 and peaks are not
-                            computed from pooled samples. GPU data are sparse
-                            and do not support a general GPU comparison.
-                          </p>
-                          <p>
-                            Record ID: <code>{r.sourceRecordId}</code> · Results
-                            revision:{" "}
-                            <code>
-                              {data.release.sourceRevision.slice(0, 12)}
-                            </code>
-                          </p>
+                          <strong>{systemName(row.system)} · {row.platform} · {row.mode === "mono" ? "Mono" : "Stereo"}</strong>
+                          <p>{row.dataset} · {row.sequence} · Input variant: {row.inputVariant}.</p>
+                          <p>{row.sourceSelectedRuns} selected runs in the source row{row.selectedRunException ? " (source exception flagged)" : ""}; contributing runs for individual metrics and total attempts are unreported.</p>
+                          <p>Timing: {row.timingDefinition === "frontend_plus_backend" ? "source-reported frontend + backend sum" : row.nativeTotalMs === null ? "native total unavailable" : "implementation-reported native total"}. SD, p95, and peak entries average per-run summaries.</p>
+                          <p className="small">Source record: <code>{row.sourceRecordId}</code> · Revision: <code>{row.sourceRevision.slice(0, 12)}</code></p>
                         </div>
                         <div className="table-scroll detail-table">
                           <table>
                             <thead>
                               <tr>
-                                <th scope="col">REPORTED STATISTIC</th>
-                                <th scope="col">VALUE</th>
-                                <th scope="col">SOURCE STATE</th>
-                                <th scope="col">UNIT</th>
-                                <th scope="col">DEFINITION</th>
+                                <th scope="col">Statistic</th>
+                                <th scope="col">Value</th>
+                                <th scope="col">Unit</th>
+                                <th scope="col">Source token</th>
+                                <th scope="col">Source state</th>
                               </tr>
                             </thead>
                             <tbody>
-                              {Object.entries(data.metricDefinitions).map(
-                                ([key, definition]) => (
+                              {Object.entries(data.metricDefinitions).map(([key, definition]) => {
+                                const sourceValue = row.sourceValues?.[key];
+                                const status = resourceMetricStatus(row, key);
+                                return (
                                   <tr key={key}>
-                                    <th scope="row" style={{ position: "static", whiteSpace: "normal", minWidth: 180 }}>
-                                      {key === "nativeTotalMs" && r.timingDefinition === "frontend_plus_backend" ? "Frontend + backend time" : definition.label ?? extraLabels[key] ?? key}
+                                    <th scope="row" style={{ position: "static", whiteSpace: "normal" }} title={`${definition.statistic}. ${definition.scope}`}>
+                                      {key === "nativeTotalMs" && row.timingDefinition === "frontend_plus_backend" ? "Frontend + backend time · mean" : definition.label ?? extraLabels[key] ?? key}
                                     </th>
-                                    <td>{resourceMetricDisplay(r, key)}</td>
-                                    <td>{resourceStatusLabel(resourceMetricStatus(r, key))}</td>
+                                    <td>{resourceMetricDisplay(row, key)}</td>
                                     <td>{definition.unit}</td>
-                                    <td style={{ whiteSpace: "normal", minWidth: 300 }}>
-                                      {key === "nativeTotalMs" && r.timingDefinition === "frontend_plus_backend" ? "Sum of the reported frontend and backend means." : <>{definition.statistic}. {definition.scope}</>}
-                                    </td>
+                                    <td><code>{sourceValue?.rawToken ?? "—"}</code></td>
+                                    <td>{resourceStatusLabel(status)}{sourceValue && sourceValue.sourceStatus !== status ? ` · ${resourceStatusLabel(sourceValue.sourceStatus)}` : ""}</td>
                                   </tr>
-                                ),
-                              )}
+                                );
+                              })}
                             </tbody>
                           </table>
                         </div>
@@ -308,30 +229,10 @@ export function EfficiencyLeaderboard() {
         </div>
       ) : (
         <div className="empty">
-          <h2>No source rows for this selection.</h2>
-          <p>
-            The report has no matching input, platform, and camera-mode records.
-            This does not establish an execution failure or unsupported
-            operation.
-          </p>
-          <button
-            className="button secondary"
-            onClick={() => change(allResources)}
-          >
-            Show all resources
-          </button>
+          <p>No source records for this selection. This does not establish failure or unsupported operation.</p>
+          <button className="button secondary" onClick={() => change({ input: "all", platform: "all", mode: "all", system: "" })}>Show all records</button>
         </div>
       )}
-      <p className="note-line">
-        Missing measurements remain blank. A frontend + backend total is labeled
-        separately from an implementation-reported native total.{" "}
-        <Link href="/results/#calculation">Read measurement definitions →</Link>
-      </p>
-      <div className="data-links">
-        <a href="/data/current-efficiency.json" download>
-          All {data.rows.length} resource records (JSON)
-        </a>
-      </div>
-    </>
+    </div>
   );
 }

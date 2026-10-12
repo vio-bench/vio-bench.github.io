@@ -6,14 +6,14 @@ import { Menu, X } from "lucide-react";
 
 const sections = [
   {
-    label: "Tutorials",
-    href: "/learn/",
-    routes: ["/learn", "/run", "/references"],
-  },
-  {
     label: "Benchmark",
     href: "/benchmark/",
     routes: ["/benchmark", "/results"],
+  },
+  {
+    label: "Tutorials",
+    href: "/learn/",
+    routes: ["/learn", "/run", "/references"],
   },
 ];
 

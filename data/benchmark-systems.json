@@ -1,0 +1,13 @@
+[
+  { "id": "ROVIO", "name": "ROVIO", "year": 2015, "frontend": "Direct", "estimator": "Robocentric EKF", "paperEstimator": "Robocentric EKF", "github": "https://github.com/ethz-asl/rovio" },
+  { "id": "SVO Pro", "name": "SVO Pro", "year": 2017, "frontend": "Direct", "estimator": "Sliding-window optimization", "paperEstimator": "SW opt.", "github": "https://github.com/uzh-rpg/rpg_svo_pro_open" },
+  { "id": "VINS-Fusion", "name": "VINS-Fusion", "year": 2019, "frontend": "Shi–Tomasi + KLT", "estimator": "Sliding-window optimization", "paperEstimator": "SW opt.", "github": "https://github.com/HKUST-Aerial-Robotics/VINS-Fusion" },
+  { "id": "Basalt", "name": "BASALT", "year": 2020, "frontend": "FAST + KLT", "estimator": "Square-root optimization", "paperEstimator": "Square-root opt.", "github": "https://github.com/VladyslavUsenko/basalt" },
+  { "id": "OpenVINS", "name": "OpenVINS", "year": 2020, "frontend": "FAST + KLT", "estimator": "MSCKF", "paperEstimator": "MSCKF", "github": "https://github.com/rpng/open_vins" },
+  { "id": "Kimera-VIO", "name": "Kimera-VIO", "year": 2020, "frontend": "Shi–Tomasi + KLT", "estimator": "Fixed-lag optimization", "paperEstimator": "Fixed-lag opt.", "github": "https://github.com/MIT-SPARK/Kimera-VIO" },
+  { "id": "ORB-SLAM3", "name": "ORB-SLAM3", "year": 2021, "frontend": "ORB features", "paperFrontend": "ORB", "estimator": "Keyframe optimization", "paperEstimator": "Keyframe opt.", "github": "https://github.com/UZ-SLAMLab/ORB_SLAM3" },
+  { "id": "DM-VIO", "name": "DM-VIO", "year": 2022, "frontend": "Direct", "estimator": "Sliding-window optimization", "paperEstimator": "SW opt.", "github": "https://github.com/lukasvst/dm-vio" },
+  { "id": "AirSLAM", "name": "AirSLAM", "year": 2025, "frontend": "PLNet + LightGlue", "estimator": "Keyframe optimization", "paperEstimator": "Keyframe opt.", "github": "https://github.com/sair-lab/AirSLAM" },
+  { "id": "OKVIS2-X", "name": "OKVIS2-X", "year": 2025, "frontend": "BRISK features", "paperFrontend": "BRISK", "estimator": "Keyframe optimization", "paperEstimator": "Keyframe opt.", "github": "https://github.com/ethz-mrl/OKVIS2-X" },
+  { "id": "sqrtVINS", "name": "√VINS", "year": 2025, "frontend": "FAST + KLT", "estimator": "Square-root filter", "paperEstimator": "Square-root filter", "github": "https://github.com/rpng/sqrtVINS" }
+]

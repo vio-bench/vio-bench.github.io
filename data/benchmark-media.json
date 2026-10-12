@@ -1,0 +1,72 @@
+[
+  {
+    "datasetId": "euroc",
+    "domain": "Indoor aerial flight",
+    "image": "/images/benchmark/euroc.jpg",
+    "alt": "Machine hall environment shown on the official EuRoC MAV dataset page",
+    "width": 230,
+    "height": 153,
+    "sourcePage": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+    "sourceImage": "https://projects.asl.ethz.ch/assets/datasets/euroc/overview_ml.jpg",
+    "credit": "EuRoC MAV / ETH ASL",
+    "crop": null,
+    "objectPosition": "50% 50%"
+  },
+  {
+    "datasetId": "uzh-fpv",
+    "domain": "Aggressive flight",
+    "image": "/images/benchmark/uzh-fpv.png",
+    "alt": "Indoor camera view from the official UZH-FPV dataset teaser",
+    "width": 1024,
+    "height": 666,
+    "sourcePage": "https://fpv.ifi.uzh.ch/",
+    "sourceImage": "https://fpv.ifi.uzh.ch/wp-content/uploads/2020/11/teaser-1024x666.png",
+    "credit": "UZH-FPV / Robotics and Perception Group",
+    "license": "CC BY-NC-SA 3.0",
+    "crop": [8, 358, 335, 262],
+    "objectPosition": "50% 50%"
+  },
+  {
+    "datasetId": "aqualoc",
+    "domain": "Underwater navigation",
+    "image": "/images/benchmark/aqualoc.png",
+    "alt": "Seabed camera view from an official AQUALOC harbor sequence example",
+    "width": 640,
+    "height": 512,
+    "sourcePage": "https://www.lirmm.fr/aqualoc/",
+    "sourceImage": "https://www.lirmm.fr/aqualoc/webiste_images/harbor_1.png",
+    "credit": "AQUALOC dataset",
+    "crop": null,
+    "objectPosition": "50% 65%"
+  },
+  {
+    "datasetId": "lamaria",
+    "domain": "Wearable sensing",
+    "image": "/images/benchmark/lamaria.jpg",
+    "alt": "City street and tram from the official LaMAria egocentric dataset teaser",
+    "width": 4472,
+    "height": 1419,
+    "sourcePage": "https://lamaria.ethz.ch/",
+    "sourceImage": "https://lamaria.ethz.ch/img/teaser_final.jpg",
+    "credit": "LaMAria dataset",
+    "license": "CC BY 4.0",
+    "licenseSource": "https://github.com/cvg/lamaria#license",
+    "crop": [3766, 18, 629, 622],
+    "objectPosition": "50% 50%"
+  },
+  {
+    "datasetId": "grandtour",
+    "domain": "Legged field robotics",
+    "image": "/images/benchmark/grandtour.jpg",
+    "alt": "ANYmal robot on an outdoor path in the official GrandTour dataset banner",
+    "width": 4669,
+    "height": 1552,
+    "sourcePage": "https://grand-tour.leggedrobotics.com/dataset",
+    "sourceImage": "https://grand-tour.leggedrobotics.com/imgs/webpage_banner2.jpg",
+    "credit": "GrandTour / Robotic Systems Lab",
+    "license": "CC BY-SA 4.0",
+    "licenseSource": "https://grand-tour.leggedrobotics.com/",
+    "crop": null,
+    "objectPosition": "70% 60%"
+  }
+]
