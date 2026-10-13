@@ -94,7 +94,7 @@ def draw(output_dir):
                frameon=False, ncol=2, fontsize=17, handletextpad=0.5,
                columnspacing=1.4)
     for extension in ("svg", "pdf", "png"):
-        fig.savefig(output_dir / f"camera_distortion.{extension}", dpi=220,
+        fig.savefig(output_dir / f"camera-distortion.{extension}", dpi=220,
                     facecolor="white")
     plt.close(fig)
 
