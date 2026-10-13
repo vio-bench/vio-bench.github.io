@@ -90,6 +90,12 @@ a.button, a.button:hover {
 .prose .reading-introduction { font-size: 17px; }
 .tutorial-body { margin-block: 8px 32px; }
 .tutorial-body > section { scroll-margin-top: 100px; }
+.tutorial-section-contents { margin: 0 0 28px; padding: 12px 0; border-block: 1px solid var(--line); }
+.tutorial-section-contents summary { color: var(--blue); font-size: 14px; cursor: pointer; }
+.tutorial-section-contents ol { list-style: none; padding: 0; margin: 12px 0 0; }
+.tutorial-section-contents li { margin: 6px 0; font-size: 15px; line-height: 1.5; }
+.tutorial-section-contents a { text-decoration: none; }
+.tutorial-section-contents a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .tutorial-status, .prose .tutorial-status { font-size: 17px; color: var(--muted); margin-bottom: 28px; }
 .tutorial-index .container { max-width: 1040px; }
 .tutorial-index .page-intro { padding-bottom: 12px; }

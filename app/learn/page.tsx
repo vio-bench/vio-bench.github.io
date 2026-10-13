@@ -9,10 +9,10 @@ export default function Learn() {
       <PageIntro
         eyebrow="TUTORIALS"
         title="Visual–inertial odometry tutorials"
-        description="Notation, sensor models, calibration, estimation, and evaluation."
+        description="Notation, sensor models, calibration, and initialization."
       />
       <div className="container page-content">
-        <p className="tutorial-status">Notation and camera and IMU measurement models are available below. Further chapters are in preparation.</p>
+        <p className="tutorial-status">Chapters 1–4 are available. Chapters 5–8: To be added.</p>
         <TutorialContents />
       </div>
     </div>

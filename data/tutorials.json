@@ -33,11 +33,21 @@
           },
           {
             "type": "equation",
-            "latex": "\\mathbf{x}_I=\\left({}^{I}_{G}\\mathbf{R},\\ {}^{G}\\mathbf{p}_{I},\\ {}^{G}\\mathbf{v}_{I},\\ \\mathbf{b}_{g},\\ \\mathbf{b}_{a}\\right)."
+            "latex": "\\mathbf x_I=\\begin{bmatrix}{}^{I}_{G}\\bar q\\\\{}^{G}\\mathbf p_I\\\\{}^{G}\\mathbf v_I\\\\\\mathbf b_g\\\\\\mathbf b_a\\end{bmatrix}."
           },
           {
             "type": "paragraph",
-            "text": "Here, \\({}^{G}\\mathbf{p}_{I}\\) and \\({}^{G}\\mathbf{v}_{I}\\) are the IMU position and velocity expressed in the global frame. The rotation matrix \\({}^{I}_{G}\\mathbf{R}\\) maps vector coordinates from the global frame into the IMU frame. The vectors \\(\\mathbf{b}_{g}\\) and \\(\\mathbf{b}_{a}\\) are the gyroscope and accelerometer biases. Velocity and biases are estimated alongside pose because they affect the integration of inertial measurements."
+            "text": "The unit quaternion \\({}^{I}_{G}\\bar q\\) represents the global-to-IMU rotation \\({}^{I}_{G}\\mathbf R\\). We use the JPL convention: its three-vector part comes first and its scalar part last. Position \\({}^{G}\\mathbf p_I\\) and velocity \\({}^{G}\\mathbf v_I\\) use global axes; \\(\\mathbf b_g,\\mathbf b_a\\) are IMU biases. This state stores sixteen entries, with one quaternion unit-norm constraint; its local error has fifteen coordinates.",
+            "references": [
+              {
+                "title": "VIO state and measurement conventions",
+                "url": "https://arxiv.org/abs/1906.02650"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "A hat marks an estimate, such as \\({}^{I}_{G}\\hat{\\bar q}\\); a bar on \\(\\bar q\\) denotes the quaternion. Rotation matrices express coordinate mappings, while the quaternion provides a constrained four-component representation of the same orientation. Time labels appear on moving frames when needed: \\(I_k\\) and \\(C_k\\) denote the IMU and camera frames at \\(t_k\\)."
           },
           {
             "type": "paragraph",
@@ -68,7 +78,7 @@
             "text": "A rigid-body coordinate transformation combines rotation and translation in one matrix. We write \\({}^{A}_{B}\\mathbf{T}\\) for the transform that maps point coordinates from frame \\(\\{B\\}\\) into frame \\(\\{A\\}\\). Appending a 1 to a three-dimensional point gives its homogeneous coordinates. These operations change how the same point is expressed in different frames.",
             "references": [
               {
-                "title": "Modern Robotics, Sec. 3.3.1",
+                "title": "Rigid coordinate transformations",
                 "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
               }
             ]
@@ -137,13 +147,7 @@
         "content": [
           {
             "type": "paragraph",
-            "text": "A camera records an array of pixel intensities or colors at each image timestamp. Feature detection and tracking extract two-dimensional point coordinates from these images. A projection model relates those coordinates to the three-dimensional geometry viewed by the camera. We use point coordinates as a representative observation; direct methods can instead compare image intensities.",
-            "references": [
-              {
-                "title": "Direct visual–inertial estimation",
-                "url": "https://arxiv.org/abs/1804.05625"
-              }
-            ]
+            "text": "A camera records an array of pixel intensities or colors at each image timestamp. Feature detection and tracking extract two-dimensional point coordinates from these images. A projection model relates those coordinates to the three-dimensional geometry viewed by the camera. We use point coordinates as a representative observation; direct methods can instead compare image intensities."
           },
           {
             "type": "paragraph",
@@ -158,7 +162,7 @@
             "text": "The focal lengths \\(f_x,f_y\\) and principal-point coordinates \\(c_x,c_y\\) are expressed in pixels. The principal point is where the optical axis meets the ideal image plane. The point coordinates \\(X,Y,Z\\) use a common length unit; in VIO we express them in meters. Here \\(Z\\) is depth along the optical axis. The term \\(\\mathbf{n}_c\\) represents error in the extracted pixel coordinates, not noise in pixel intensity. This example assumes ideal or undistorted observations.",
             "references": [
               {
-                "title": "Pinhole camera model",
+                "title": "Camera projection model",
                 "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
               }
             ]
@@ -184,7 +188,7 @@
             "text": "Thus, under this calibrated model, a single point observation determines a viewing ray, but does not determine the point's distance along it. The two hollow locations in the figure show different possible depths for one observation. Additional views or other information are needed to resolve that ambiguity.",
             "references": [
               {
-                "title": "Multiple View Geometry, Chapter 1",
+                "title": "Image geometry",
                 "url": "https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf"
               }
             ]
@@ -223,27 +227,15 @@
           },
           {
             "type": "equation",
-            "latex": "{}^{I}_{G}\\dot{\\mathbf{R}}=-\\left[{}^{I}\\boldsymbol{\\omega}\\right]_{\\times}\\,{}^{I}_{G}\\mathbf{R}."
+            "latex": "{}^{I}_{G}\\dot{\\mathbf R}=-\\lfloor{}^{I}\\boldsymbol\\omega\\rfloor\\,{}^{I}_{G}\\mathbf R."
           },
           {
             "type": "paragraph",
-            "text": "A dot denotes a time derivative, and \\([\\mathbf{u}]_{\\times}\\mathbf{v}=\\mathbf{u}\\times\\mathbf{v}\\) defines the cross-product matrix. The minus sign follows the global-to-IMU coordinate convention. Integration requires an initial orientation relative to the chosen \\(\\{G\\}\\); the gyroscope does not supply it. Integrating the three components independently does not generally give roll, pitch, and yaw.",
-            "references": [
-              {
-                "title": "Inertial measurements and orientation integration",
-                "url": "https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-696.pdf"
-              }
-            ]
+            "text": "A dot denotes a time derivative. The skew-symmetric operator satisfies \\(\\lfloor\\mathbf u\\rfloor\\mathbf v=\\mathbf u\\times\\mathbf v\\); the floor-shaped brackets do not mean rounding. The minus sign follows the global-to-IMU convention. Integration requires an initial orientation relative to \\(\\{G\\}\\); the gyroscope does not supply it. Integrating three components independently does not generally give roll, pitch, and yaw."
           },
           {
             "type": "paragraph",
-            "text": "Bias and noise play different roles. We model bias as an unknown offset that may change slowly, and noise as zero-mean random measurement error. An estimator subtracts an estimated bias before integration; the true bias and individual noise samples remain unknown. Bias errors and noise both affect the integrated state. Zero-mean noise need not cancel over a finite interval.",
-            "references": [
-              {
-                "title": "IMU bias and noise model",
-                "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
-              }
-            ]
+            "text": "Bias and noise play different roles. We model bias as an unknown offset that may change slowly, and noise as zero-mean random measurement error. An estimator subtracts an estimated bias before integration; the true bias and individual noise samples remain unknown. Bias errors and noise both affect the integrated state. Zero-mean noise need not cancel over a finite interval."
           },
           {
             "type": "paragraph",
@@ -269,13 +261,7 @@
           },
           {
             "type": "paragraph",
-            "text": "For a stationary, bias-free, noiseless sensor with aligned global and IMU axes and \\(+z\\) upward, \\({}^{G}\\mathbf{a}_I=\\mathbf{0}\\) and \\({}^{G}\\mathbf{g}=(0,0,-g)^\\top\\), with \\(g>0\\). Its accelerometer reads \\((0,0,g)^\\top\\): the table supports it against gravity. In ideal, non-rotating free fall it reads zero, even though the sensor accelerates under gravity.",
-            "references": [
-              {
-                "title": "Accelerometer specific force",
-                "url": "https://www.vectornav.com/resources/inertial-navigation-primer/theory-of-operation/theory-mems"
-              }
-            ]
+            "text": "For a stationary, bias-free, noiseless sensor with aligned global and IMU axes and \\(+z\\) upward, \\({}^{G}\\mathbf{a}_I=\\mathbf{0}\\) and \\({}^{G}\\mathbf{g}=(0,0,-g)^\\top\\), with \\(g>0\\). Its accelerometer reads \\((0,0,g)^\\top\\): the table supports it against gravity. In ideal, non-rotating free fall it reads zero, even though the sensor accelerates under gravity."
           }
         ]
       }
@@ -312,13 +298,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Here, \\(\\mathbf{z}_f\\) is a feature coordinate in the original, distorted image, and \\(\\mathbf{d}\\) contains the coefficients of the selected distortion model. The projection \\(\\pi\\) now includes this distortion. For this model, \\(\\mathbf{d}=\\mathbf{0}\\) recovers the ideal projection in Section 2.1. Other camera models use different parameterizations.",
-            "references": [
-              {
-                "title": "Camera models and distortion",
-                "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
-              }
-            ]
+            "text": "Here, \\(\\mathbf{z}_f\\) is a feature coordinate in the original, distorted image, and \\(\\mathbf{d}\\) contains the coefficients of the selected distortion model. The projection \\(\\pi\\) now includes this distortion. For this model, \\(\\mathbf{d}=\\mathbf{0}\\) recovers the ideal projection in Section 2.1. Other camera models use different parameterizations."
           },
           {
             "type": "figure",
@@ -333,20 +313,14 @@
             "text": "One common calibration method observes a target with known geometry from several positions and orientations. The solver estimates camera parameters that explain the detected target points across images. It also estimates the target pose relative to the camera in each image: knowing the target geometry does not make these poses known. Views that cover different image regions and inclinations provide more useful constraints than repeated central, front-facing views.",
             "references": [
               {
-                "title": "Planar-target camera calibration",
+                "title": "Camera calibration",
                 "url": "https://www.microsoft.com/en-us/research/publication/a-flexible-new-technique-for-camera-calibration/"
               }
             ]
           },
           {
             "type": "paragraph",
-            "text": "The parameters must match the images used by the estimator. Original distorted images require the corresponding distortion model; undistorted images require the output camera model and should not be distorted again in prediction. Resizing scales focal lengths and principal-point coordinates; cropping shifts the principal point. These updates must follow the actual pixel-coordinate mapping. A known resize does not automatically require recalibration. Focus or lens-setting changes may require new parameters.",
-            "references": [
-              {
-                "title": "Using calibrated image coordinates",
-                "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
-              }
-            ]
+            "text": "The parameters must match the images used by the estimator. Original distorted images require the corresponding distortion model; undistorted images require the output camera model and should not be distorted again in prediction. Resizing scales focal lengths and principal-point coordinates; cropping shifts the principal point. These updates must follow the actual pixel-coordinate mapping. A known resize does not automatically require recalibration. Focus or lens-setting changes may require new parameters."
           }
         ]
       },
@@ -366,13 +340,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Here, \\(\\mathbf{s}\\) is the true angular velocity or specific force expressed in the chosen IMU frame, and \\(\\mathbf{y}\\) is the corresponding reported reading, in the same physical units. The dimensionless matrix \\(\\mathbf{M}\\) describes scale and axis errors; \\(\\mathbf{b}_{\\mathrm{raw}}\\) and \\(\\mathbf{n}_{\\mathrm{raw}}\\) are additive bias and noise in the reported readings. The gyroscope and accelerometer generally have different calibration matrices.",
-            "references": [
-              {
-                "title": "IMU intrinsic calibration models",
-                "url": "https://github.com/ethz-asl/kalibr/wiki/Multi-IMU-and-IMU-intrinsic-calibration"
-              }
-            ]
+            "text": "Here, \\(\\mathbf{s}\\) is the true angular velocity or specific force expressed in the chosen IMU frame, and \\(\\mathbf{y}\\) is the corresponding reported reading, in the same physical units. The dimensionless matrix \\(\\mathbf{M}\\) describes scale and axis errors; \\(\\mathbf{b}_{\\mathrm{raw}}\\) and \\(\\mathbf{n}_{\\mathrm{raw}}\\) are additive bias and noise in the reported readings. The gyroscope and accelerometer generally have different calibration matrices."
           },
           {
             "type": "paragraph",
@@ -380,33 +348,37 @@
           },
           {
             "type": "paragraph",
-            "text": "Intrinsic calibration identifies or verifies these scale and axis corrections. For invertible \\(\\mathbf{M}\\), applying \\(\\mathbf{M}^{-1}\\) to the readings also maps bias and noise into the corrected axes. Factory corrections may already be applied, so the actual output convention must be checked before applying another correction. Corrected gyro and accelerometer readings must use the same IMU axes as the camera–IMU extrinsic transform. The biases \\(\\mathbf{b}_g,\\mathbf{b}_a\\) in Section 2.2 are expressed in those corrected axes. They can change during operation and are often estimated with the navigation state; a calibration-time bias estimate is not necessarily valid for every later run.",
-            "references": [
-              {
-                "title": "Calibrated IMU inputs",
-                "url": "https://github.com/ethz-asl/kalibr/wiki/camera-imu-calibration"
-              }
-            ]
+            "text": "For an invertible \\(\\mathbf M\\), apply the scale and axis correction to the entire reading:"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}\\mathbf y_{\\mathrm{corr}}&=\\mathbf M^{-1}\\mathbf y\\\\&=\\mathbf s+\\mathbf b_{\\mathrm{corr}}+\\mathbf n_{\\mathrm{corr}},\\\\[3pt]\\mathbf b_{\\mathrm{corr}}&=\\mathbf M^{-1}\\mathbf b_{\\mathrm{raw}},\\\\\\mathbf n_{\\mathrm{corr}}&=\\mathbf M^{-1}\\mathbf n_{\\mathrm{raw}},\\\\\\boldsymbol\\Sigma_{\\mathrm{corr}}&=\\mathbf M^{-1}\\boldsymbol\\Sigma_{\\mathrm{raw}}\\mathbf M^{-\\mathsf T}.\\end{aligned}"
           },
           {
             "type": "paragraph",
-            "text": "Noise parameters describe statistical variation, rather than a correction to subtract from each sample. In the common white-noise and bias-random-walk model, measurement-noise density describes rapid fluctuations; a bias random-walk parameter describes the assumed strength of changes in bias over time. Neither is the current bias value. Gyroscope noise density, for example, can have units \\((\\mathrm{rad}/\\mathrm{s})/\\sqrt{\\mathrm{Hz}}\\), whereas a sampled reading has units rad/s. Converting density to sample variance depends on sampling and filtering assumptions.",
+            "text": "The subscript corr means corrected. Treat \\(\\mathbf M\\) as a fixed, nonsingular calibration matrix. Its inverse corrects gain and axis mapping; it does not remove unknown bias or individual reading noise. Here \\(\\boldsymbol\\Sigma_{\\mathrm{raw}}=\\operatorname{Cov}(\\mathbf n_{\\mathrm{raw}})\\) and \\(\\boldsymbol\\Sigma_{\\mathrm{corr}}=\\operatorname{Cov}(\\mathbf n_{\\mathrm{corr}})\\) are reading-noise covariances. The corrected covariance is conditional on this calibration and excludes uncertainty in \\(\\mathbf M\\). Corrected components can be correlated even when raw noise is independent. Factory corrections may already be applied. Use the same corrected IMU axes for both sensors and the extrinsic transform; the biases \\(\\mathbf b_g,\\mathbf b_a\\) in Section 2.2 use those axes."
+          },
+          {
+            "type": "paragraph",
+            "text": "For one corrected sensor component, use a zero-mean continuous white-noise model with \\(\\mathbb E[n(t)n(t')]=\\sigma_n^2\\delta(t-t')\\), where \\(\\delta\\) is the Dirac delta. Let \\(n_k\\) be this noise averaged over a uniform interval \\(\\Delta t>0\\), in seconds. Separately, model the bias as a random walk driven by white noise of strength \\(\\sigma_b\\):"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}n_k&\\sim\\mathcal N\\!\\left(0,\\frac{\\sigma_n^2}{\\Delta t}\\right),\\\\[3pt]b_{k+1}&=b_k+w_k,\\\\w_k&\\sim\\mathcal N\\!\\left(0,\\sigma_b^2\\Delta t\\right).\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "Here \\(n_k\\) is reading noise, while \\(w_k\\) changes the bias over one interval. The two driving processes are independent in this example; the scalar model does not require independent corrected sensor axes. For gyro readings, \\(n_k,b_k,w_k\\) have units rad/s; \\(\\sigma_n\\) has units \\((\\mathrm{rad}/\\mathrm{s})/\\sqrt{\\mathrm{Hz}}\\), and \\(\\sigma_b\\) has units \\((\\mathrm{rad}/\\mathrm{s})/\\sqrt{\\mathrm{s}}\\). For accelerometer readings, replace rad/s by m/s². The first variance describes reading variation; the second describes a bias increment, not the current bias value. These conversions depend on the noise and sampling model. Changing bandwidth, filtering, or subsampling can change sample variance and time correlation, so a new output rate alone does not justify the conversion.",
             "references": [
               {
-                "title": "IMU noise parameters and units",
+                "title": "IMU noise model",
                 "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
               }
             ]
           },
           {
             "type": "paragraph",
-            "text": "Applicable sensor specifications or stationary recordings can help determine noise parameters. Allan deviation examines how fluctuations change with averaging time and can help fit the selected stochastic model. A stationary average can estimate gyro bias under the assumptions of Section 2.2, but an accelerometer also measures the gravity-related specific force at rest; its mean is not simply its bias. Parameter values must match the sensor settings, units, and model used by the estimator.",
-            "references": [
-              {
-                "title": "Obtaining IMU noise parameters",
-                "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
-              }
-            ]
+            "text": "Applicable sensor specifications or stationary recordings can help determine noise parameters. Allan deviation examines how fluctuations change with averaging time and can help fit the selected stochastic model. A stationary average can estimate gyro bias under the assumptions of Section 2.2, but an accelerometer also measures the gravity-related specific force at rest; its mean is not simply its bias. Parameter values must match the sensor settings, units, and model used by the estimator."
           }
         ]
       },
@@ -426,13 +398,7 @@
           },
           {
             "type": "paragraph",
-            "text": "Here, \\({}^{I}\\mathbf{p}_{f}\\) comes from the scene geometry and IMU pose, not an IMU point measurement. The rotation \\({}^{C}_{I}\\mathbf{R}\\) describes the IMU-axis directions relative to the camera axes: its columns are the IMU unit axes expressed in \\(\\{C\\}\\). Applying it re-expresses coordinates; it does not rotate the physical platform. The translation \\({}^{C}\\mathbf{p}_{I}\\) points from the camera origin to the IMU origin, expressed in camera coordinates, in meters. Setting \\({}^{I}\\mathbf{p}_{f}=\\mathbf{0}\\) leaves exactly this translation.",
-            "references": [
-              {
-                "title": "Rotation-matrix columns",
-                "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-2-1-rotation-matrices-part-1-of-2/"
-              }
-            ]
+            "text": "Here, \\({}^{I}\\mathbf{p}_{f}\\) comes from the scene geometry and IMU pose, not an IMU point measurement. The rotation \\({}^{C}_{I}\\mathbf{R}\\) describes the IMU-axis directions relative to the camera axes: its columns are the IMU unit axes expressed in \\(\\{C\\}\\). Applying it re-expresses coordinates; it does not rotate the physical platform. The translation \\({}^{C}\\mathbf{p}_{I}\\) points from the camera origin to the IMU origin, expressed in camera coordinates, in meters. Setting \\({}^{I}\\mathbf{p}_{f}=\\mathbf{0}\\) leaves exactly this translation."
           },
           {
             "type": "paragraph",
@@ -456,10 +422,6 @@
             "references": [
               {
                 "title": "Camera–IMU calibration",
-                "url": "https://github.com/ethz-asl/kalibr/wiki/camera-imu-calibration"
-              },
-              {
-                "title": "Motion and calibration estimation",
                 "url": "https://arxiv.org/html/1901.07242v1"
               }
             ]
@@ -469,10 +431,94 @@
             "text": "When using calibration parameters, check the mapping direction, translation units, and sensor axes. Kalibr's \\(\\texttt{T\\_cam\\_imu}\\) matches our \\({}^{C}_{I}\\mathbf{T}\\). Invert the complete transform when the reverse direction is required, and use the corrected IMU axes from Section 3.2. Data collection and validation will be discussed in Section 3.5.",
             "references": [
               {
-                "title": "Kalibr extrinsic-transform convention",
+                "title": "Kalibr parameter conventions",
                 "url": "https://github.com/ethz-asl/kalibr/wiki/yaml-formats"
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "timestamps-and-time-alignment",
+        "title": "3.4 Timestamps and Time Alignment",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A timestamp should identify when a measurement was acquired, not when a program received it. For an image, determine whether the timestamp refers to exposure start, midpoint, or end. Our projection model approximates the exposure interval by one reference time. Record this choice, especially when exposure duration changes. Converting exposure-start timestamps to mid-exposure requires each image's exposure duration. IMU timestamps likewise need a defined sampling reference."
+          },
+          {
+            "type": "paragraph",
+            "text": "After establishing these references, let \\(t_C\\) and \\(t_I\\) denote the camera-clock and IMU-clock labels for the same physical event. We use the IMU time axis as the common reference and define"
+          },
+          {
+            "type": "equation",
+            "latex": "t_I=t_C+\\tau."
+          },
+          {
+            "type": "figure",
+            "src": "/images/tutorials/clock-and-host-timing.svg",
+            "width": 660,
+            "height": 420,
+            "alt": "Three aligned timelines distinguish clock labels from output delay. One event at physical time zero has camera label 10.000 seconds and IMU label 10.005 seconds. Image exposure spans minus 2 to plus 2 milliseconds. Host reception is at 6 milliseconds, queueing from 6 to 11, processing from 11 to 19, and output at 20. Processing is 8 milliseconds; full latency is 20 milliseconds.",
+            "caption": "Clock labels and host timing for the same event, with image exposure referenced to its midpoint. The camera–IMU offset changes the event's clock label; it is not transport time. Host times use a common physical time basis. Processing takes 8 ms; full latency is 20 ms. All values are schematic, not benchmark measurements."
+          },
+          {
+            "type": "paragraph",
+            "text": "All three quantities are in seconds. With \\(\\tau=+0.005\\,\\mathrm{s}\\), an image timestamped \\(10.000\\,\\mathrm{s}\\) corresponds to \\(10.005\\,\\mathrm{s}\\) on the IMU time axis. This specifies a mapping of time labels, not an image-delivery delay. Check whether this correction has already been applied before shifting timestamps again."
+          },
+          {
+            "type": "paragraph",
+            "text": "Arrival latency is the delay before data reach the receiving program; processing adds another delay before a result becomes available. Neither changes the acquisition time when that timestamp is preserved. If reception times replace acquisition timestamps, variable transport delays contaminate the measurement-time record. An estimated \\(\\tau\\) can include fixed timing delays and therefore need not identify a clock difference alone."
+          },
+          {
+            "type": "paragraph",
+            "text": "The constant-offset model assumes negligible relative clock-rate error over the recording and stable timestamp definitions. Timestamp jitter is sample-to-sample timing error. Clock drift produces a changing relative offset. One constant shift cannot remove either effect. Uneven sampling intervals are not automatically jitter: genuinely nonuniform sampling can still be correctly timestamped."
+          },
+          {
+            "type": "paragraph",
+            "text": "Time alignment does not require matching camera and IMU rates or simultaneous triggering. An image time can fall between IMU sample times. The estimator must use the recorded times to integrate the inertial motion model over the relevant intervals, with interpolation where needed. Pairing samples by array index, or rewriting timestamps to impose a nominal rate, does not establish synchronization."
+          },
+          {
+            "type": "paragraph",
+            "text": "For a rolling-shutter camera, different image rows are exposed at different times. A single offset for the entire image cannot account for this variation; a suitable model also needs row timing. Likewise, shifting an exposure timestamp does not undo motion blur. Time alignment corrects when measurements enter the motion model, not all effects of motion during image formation."
+          }
+        ]
+      },
+      {
+        "id": "obtaining-and-checking-calibration",
+        "title": "3.5 Obtaining and Checking a Calibration",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Start by recording which calibration parameters are supplied and which will be estimated. The camera model must match the image resolution and preprocessing used in the fit and in VIO; known resizing requires corresponding intrinsic updates. Matching image dimensions alone is insufficient if images were cropped or rectified differently. Use physical IMU units and either apply the intrinsic corrections from Section 3.2 or include the remaining errors in the calibration model."
+          },
+          {
+            "type": "paragraph",
+            "text": "In a representative target-based procedure, keep the target fixed and move the rigid camera–IMU platform. Verify the target geometry and metric dimensions. Include observations at different image positions, distances, and tilts, covering the center and edges rather than repeating one central view. Good illumination and short exposures help preserve sharp target detections."
+          },
+          {
+            "type": "paragraph",
+            "text": "Include rotations about different axes and changes in translational acceleration while keeping the target visible. Varying motion helps distinguish spatial and timing parameters. Avoid impacts, sensor saturation, and heavy blur. More samples of the same limited motion need not resolve missing information, and these recommendations do not guarantee that every parameter is identifiable."
+          },
+          {
+            "type": "paragraph",
+            "text": "During joint spatial and temporal calibration, the platform motion is also unknown. The solver adjusts the selected calibration parameters, a representation of the motion, and usually bias variables so that predicted image and inertial measurements agree with the data. Other supplied parameters may remain fixed. Estimating additive biases does not replace the intrinsic corrections above."
+          },
+          {
+            "type": "paragraph",
+            "text": "Use a separate recording for validation, holding calibration parameters fixed while estimating that recording's motion and biases if needed. Inspect reprojection errors across the image and over time, not only their average. Compare image-inferred orientation changes with gyroscope-based predictions over the same time-aligned intervals and in consistent axes. This check primarily tests rotational and temporal consistency; it does not independently validate translation or accelerometer calibration. An independent motion reference, when available, provides an additional check."
+          },
+          {
+            "type": "paragraph",
+            "text": "Repeat calibration with independently collected motion and unchanged mounting. Compare time offsets only when the clock relationship and timestamp definitions are unchanged. Agreement supports repeatability, not freedom from systematic error. A small fitting residual neither proves that parameters were uniquely determined nor guarantees reliable VIO; no universal residual threshold establishes validity."
+          },
+          {
+            "type": "paragraph",
+            "text": "Before use, check transform direction, translation units, corrected IMU axes, and the sign of \\(\\tau\\), including whether the offset has already been applied. Retain the recordings, sensor settings, calibration configuration, and reports so that others can reproduce the result."
           }
         ]
       }
@@ -488,15 +534,198 @@
     ],
     "readings": [],
     "related": [],
-    "sections": []
+    "sections": [
+      {
+        "id": "what-must-be-initialized",
+        "title": "4.1 What Must Be Initialized",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "An IMU reports angular velocity and specific force. Integrating them requires an initial orientation, velocity, position, and bias estimates. VIO initialization obtains a state from which inertial propagation and visual constraints can be combined. If monocular images first provide an up-to-scale reconstruction, its metric scale must also be determined. Calibrated stereo observations can constrain metric depth, but do not directly provide initial velocity or IMU biases.",
+            "references": [
+              {
+                "title": "VIO initialization",
+                "url": "https://arxiv.org/abs/2103.03389"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Some initial values define the reference frame rather than physical information recovered from measurements. For ordinary VIO with fixed calibration, informative motion, and no absolute reference, global translation and heading about gravity remain unobservable. We may choose an initial position and heading to define the global frame. This choice is different from estimating tilt relative to gravity, velocity, or biases; setting those unknowns to zero does not make them correct."
+          },
+          {
+            "type": "paragraph",
+            "text": "The initial quantities interact. A tilt error rotates the measured specific force into the wrong global direction. At rest, the rotated specific force and the added gravity vector then fail to cancel. With correct biases and a pure \\(1^{\\circ}\\) tilt error, the horizontal acceleration error is \\(9.81\\sin(1^{\\circ})\\approx0.17\\,\\mathrm{m/s^2}\\). Incorrect bias or velocity also changes the subsequently integrated motion. Visual updates may correct some errors, but successful later correction should not be assumed."
+          },
+          {
+            "type": "paragraph",
+            "text": "Initialization should therefore provide both initial estimates and an appropriate description of their uncertainty or prior strength. In a filter, an unjustifiably small initial covariance can give excessive weight to a poor state. In an optimizer, an overly strong prior has a similar effect. The initial state need not be exact, but it must be compatible with the measurements and with the assumptions of the estimator that follows."
+          }
+        ]
+      },
+      {
+        "id": "starting-at-rest",
+        "title": "4.2 Starting at Rest",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A stationary start supplies additional assumptions: zero angular velocity and zero linear velocity. Under Section 2.2's calibrated model, neglecting Earth rotation and assuming approximately constant biases during averaging,"
+          },
+          {
+            "type": "equation",
+            "latex": "\\overline{\\boldsymbol{\\omega}}_m\\approx\\mathbf{b}_g,\\qquad\\overline{\\mathbf{a}}_m\\approx-{}^{I}_{G}\\mathbf{R}\\,{}^{G}\\mathbf{g}+\\mathbf{b}_a."
+          },
+          {
+            "type": "paragraph",
+            "text": "An overbar denotes a mean over the stationary interval. The gyro mean can estimate bias. The accelerometer mean contains both gravity-related specific force and bias; one stationary orientation does not separate them. If accelerometer bias is already corrected, negligible, or constrained by a justified prior, gravity gives the initial tilt. It does not determine heading about gravity."
+          },
+          {
+            "type": "paragraph",
+            "text": "Stationarity must be checked rather than inferred from low IMU variance alone. Straight motion at constant velocity and fixed orientation can have the same ideal IMU readings as rest. Image observations or other information can help distinguish these cases. Applying zero velocity while the platform is actually moving supplies an incorrect constraint."
+          },
+          {
+            "type": "paragraph",
+            "text": "A stationary initializer can set initial velocity to zero only while that condition is supported. Choosing initial position and heading defines the reference frame as in Section 4.1. These operations do not provide monocular scene depth: a single image still gives viewing rays. Subsequent visual tracking and motion are needed to establish the scene constraints used by the estimator."
+          },
+          {
+            "type": "paragraph",
+            "text": "Average readings over the verified stationary interval using the corrected IMU axes and units. Averaging can reduce independent zero-mean measurement noise, but it does not remove an unknown bias. Supply a justified accelerometer-bias estimate or prior, and retain uncertainty in the resulting tilt and bias values."
+          },
+          {
+            "type": "paragraph",
+            "text": "When the platform starts moving, stop imposing a stationary velocity constraint unless stationarity is detected again. Record the selected startup interval and the evidence used to accept it. A known stationary start is useful information; a falsely assumed stationary start can initialize the estimator with an incorrect state."
+          }
+        ]
+      },
+      {
+        "id": "starting-in-motion",
+        "title": "4.3 Starting in Motion",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Dynamic initialization uses an interval of motion. A common approach reconstructs camera motion and scene structure from images, then relates this motion to integrated IMU measurements to estimate scale, gravity direction, velocities, and biases. Joint approaches instead solve coupled visual and inertial unknowns together. These are different ways to obtain starting estimates; they do not make every motion informative.",
+            "references": [
+              {
+                "title": "Visual–inertial initialization",
+                "url": "https://arxiv.org/abs/1708.03852"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "To make the coupling explicit, consider a monocular initializer with known spatial and temporal calibration. Use the visual reconstruction’s axes and origin as \\(\\{G\\}\\); these axes need not align with gravity. Camera-center coordinates \\({}^{G}\\bar{\\mathbf p}_{C_i}\\) at \\(t_i\\) use arbitrary reconstruction units, and \\(s>0\\) converts them to meters. The rotation \\({}^{I_i}_{G}\\mathbf R\\) maps global coordinates into the IMU axes at that time. Use the visual camera orientation and calibrated mounting rotation to obtain this IMU orientation. The known \\({}^{I}\\mathbf p_C\\) is the camera origin expressed in IMU axes. The metric IMU position is"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}{}^{G}\\mathbf p_{I_i}(s)&=s\\,{}^{G}\\bar{\\mathbf p}_{C_i}\\\\&\\quad-\\left({}^{I_i}_{G}\\mathbf R\\right)^{\\mathsf T}{}^{I}\\mathbf p_C.\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "Set \\(\\Delta t_{ij}=t_j-t_i>0\\). Assume constant gravity and approximately constant biases over this interval. The velocity \\({}^{G}\\mathbf v_{I_i}\\) belongs to the IMU origin and uses global axes. The inertial terms \\({}^{I_i}\\Delta\\mathbf v_{ij}\\) and \\({}^{I_i}\\Delta\\mathbf p_{ij}\\), defined below, use the initial IMU axes. Ideal motion consistency requires"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}&s({}^{G}\\bar{\\mathbf p}_{C_j}-{}^{G}\\bar{\\mathbf p}_{C_i})\\\\&\\quad={}^{G}\\mathbf v_{I_i}\\Delta t_{ij}+\\tfrac12{}^{G}\\mathbf g\\Delta t_{ij}^{2}\\\\&\\qquad+\\left({}^{I_i}_{G}\\mathbf R\\right)^{\\mathsf T}{}^{I_i}\\Delta\\mathbf p_{ij}\\\\&\\qquad+\\left[\\left({}^{I_j}_{G}\\mathbf R\\right)^{\\mathsf T}-\\left({}^{I_i}_{G}\\mathbf R\\right)^{\\mathsf T}\\right]{}^{I}\\mathbf p_C,\\\\[5pt]&{}^{G}\\mathbf v_{I_j}={}^{G}\\mathbf v_{I_i}+{}^{G}\\mathbf g\\Delta t_{ij}\\\\&\\qquad+\\left({}^{I_i}_{G}\\mathbf R\\right)^{\\mathsf T}{}^{I_i}\\Delta\\mathbf v_{ij}.\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "All position terms are in meters and velocity terms in m/s. The final position term accounts for the separated camera and IMU origins; the metric lever arm is not multiplied by visual scale. To form the inertial terms, first express every bias-corrected specific-force reading in the initial IMU axes:",
+            "references": [
+              {
+                "title": "Integrated inertial constraints",
+                "url": "https://arxiv.org/abs/1512.02363"
+              }
+            ]
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}{}^{I_i}\\mathbf f(t)&={}^{I_i}_{I(t)}\\mathbf R\\left(\\mathbf a_m(t)-\\mathbf b_a\\right),\\\\[4pt]{}^{I_i}_{I(t)}\\mathbf R&={}^{I_i}_{G}\\mathbf R\\left({}^{I(t)}_{G}\\mathbf R\\right)^{\\mathsf T}.\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "The product \\({}^{I_i}_{G}\\mathbf R({}^{I(t)}_{G}\\mathbf R)^{\\mathsf T}\\) maps the changing axes at \\(t\\) into the fixed axes at \\(t_i\\). It follows gyroscope integration and depends on the assumed gyro bias. In an ideal noise-free model,"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}{}^{I_i}\\Delta\\mathbf v_{ij}&=\\int_{t_i}^{t_j}{}^{I_i}\\mathbf f(t)\\,dt,\\\\[5pt]{}^{I_i}\\Delta\\mathbf p_{ij}&=\\int_{t_i}^{t_j}(t_j-t){}^{I_i}\\mathbf f(t)\\,dt.\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "The terms have units m/s and m. The time weight \\(t_j-t\\) implements the second integration. They are not the complete physical velocity or position changes: initial velocity and added global gravity are explicit in the motion relations above. The accelerometer still measures gravity-related specific force, so these terms can be nonzero at rest and cancel the explicit gravity contributions."
+          },
+          {
+            "type": "paragraph",
+            "text": "Across multiple intervals, the same scale, gravity vector, and consistent bias assumptions must explain both streams. With noisy data, the integrated terms are uncertain, bias-dependent quantities in a weighted fit. One interval does not determine all unknowns, and every initializer need not estimate all biases simultaneously."
+          },
+          {
+            "type": "paragraph",
+            "text": "A refinement step can then improve the initial state by explaining both measurement streams with the same motion and calibrated sensor relation. Bias assumptions differ between methods: some estimate both biases at startup, while others constrain or defer weakly determined quantities. State which quantities were estimated, fixed, or initialized from a prior. A dynamic start should not be processed using a stationary-start assumption merely because it is easier."
+          },
+          {
+            "type": "paragraph",
+            "text": "More samples are useful only when they constrain the unknowns. Observability asks whether different states can produce the same ideal measurements. Even when a state is observable in principle, a short or weakly informative interval can make its numerical estimate poorly determined. The conditions depend on the sensor configuration, motion, scene geometry, and parameters being estimated."
+          },
+          {
+            "type": "paragraph",
+            "text": "For monocular images, translational parallax helps determine scene structure. Image rotation without translational parallax does not determine feature depth from the images alone. Distant features and small translations can also provide weak depth information. The IMU contributes additional motion constraints; the information in the image stream and the inertial stream must be considered together."
+          },
+          {
+            "type": "paragraph",
+            "text": "As a simple scale-degenerate case, consider an ideal monocular rig traveling in a straight line at constant velocity and fixed orientation, with no known scene distances. Scaling the scene and the traveled distances preserves the images. The motion acceleration is zero, so the accelerometer does not distinguish those scales. Repeating that motion for longer does not supply the missing metric information. This example assumes the stated motion and sensor model; it is not a claim that all nearly straight trajectories are unusable."
+          },
+          {
+            "type": "paragraph",
+            "text": "Changing acceleration and rotation can help separate scale, gravity, and bias effects, but large motion alone is not a guarantee. Useful initialization also requires trackable observations, correct calibration, and reliable timestamps. An initialization method can inspect residuals, sensitivity, or uncertainty before accepting a state, and wait for additional information when needed. The required motion and acceptance criteria should follow the method's model rather than an arbitrary fixed waiting time.",
+            "references": [
+              {
+                "title": "Inertial initialization",
+                "url": "https://arxiv.org/abs/2003.05766"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "checking-initialization-and-recovering",
+        "title": "4.4 Checking Initialization and Recovering",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A finite pose output is not sufficient evidence that initialization is reliable. Check whether the accepted state explains both image and inertial observations, whether estimated biases and velocities are physically plausible, and whether any estimated monocular scale is positive and well constrained. Numerical convergence says that a stopping condition was reached; it does not by itself establish that the state is correct."
+          },
+          {
+            "type": "paragraph",
+            "text": "These checks must match the quantities actually estimated. If gravity magnitude is fixed by the model, reproducing that value is not an independent validation of initialization. If it is estimated, compare it with a justified local reference or physical range. Bias bounds must match the sensor and units. For monocular images with unknown scene scale, small reprojection residuals do not by themselves validate metric scale. Use several complementary checks and retain uncertainty in weakly constrained quantities."
+          },
+          {
+            "type": "paragraph",
+            "text": "After startup, initialization is followed by ongoing estimation. New observations can refine the state, while tracking losses or inconsistent measurements may require rejection, recovery, or reinitialization. A restart can define a new local frame; its poses cannot be treated as continuous with the previous trajectory unless their relationship is established. Reinitialization restores a starting state, not estimates for the preceding unobserved interval."
+          },
+          {
+            "type": "paragraph",
+            "text": "Record the time of the first accepted estimate, rejected initialization attempts, resets, and the identity of each output segment. Keep initialization delay separate from processing delay after startup. This makes it possible to distinguish late startup, interrupted tracking, and a continuously available trajectory without guessing from a nonempty output file."
+          },
+          {
+            "type": "paragraph",
+            "text": "For a repeatable test, run startup from several points in a recording under the same documented settings. Check both acceptance time and estimation quality after acceptance. A method that initializes in one favorable interval may behave differently under another motion or visual condition. Initialization should be tested as part of the estimation process, including how the system detects and handles an unreliable start."
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "filtering-and-optimization",
-    "title": "Filtering and optimization",
-    "summary": "Filtering, optimization, feature elimination, marginalization, observability, and consistency.",
-    "prerequisites": [
-      "initialization"
-    ],
+    "title": "State Estimation Algorithms",
+    "summary": "To be added.",
+    "prerequisites": [],
     "readings": [],
     "related": [],
     "sections": []
@@ -504,10 +733,8 @@
   {
     "slug": "trajectory-evaluation",
     "title": "Trajectory evaluation",
-    "summary": "Trajectory conventions, association, alignment, error metrics, and coverage.",
-    "prerequisites": [
-      "notation"
-    ],
+    "summary": "To be added.",
+    "prerequisites": [],
     "readings": [],
     "related": [],
     "sections": []
@@ -515,11 +742,8 @@
   {
     "slug": "runtime-and-platform",
     "title": "Runtime and platform measurements",
-    "summary": "Processing time, computational resources, profiling procedures, and platform-dependent measurements.",
-    "prerequisites": [
-      "filtering-and-optimization",
-      "trajectory-evaluation"
-    ],
+    "summary": "To be added.",
+    "prerequisites": [],
     "readings": [],
     "related": [],
     "sections": []
@@ -527,12 +751,8 @@
   {
     "slug": "your-own-data",
     "title": "Working with your own sensor data",
-    "summary": "Sensor preparation, calibration, configuration, data recording, and trajectory export.",
-    "prerequisites": [
-      "calibration-and-time",
-      "initialization",
-      "trajectory-evaluation"
-    ],
+    "summary": "To be added.",
+    "prerequisites": [],
     "readings": [],
     "related": [],
     "sections": []

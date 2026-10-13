@@ -41,10 +41,18 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
             <summary>Chapter {String(index + 1).padStart(2, "0")} of {chapters.length} · All chapters</summary>
             <TutorialChapterLinks activeSlug={slug} />
           </details>
+          {chapter.sections.length > 2 && <details className="tutorial-section-contents">
+            <summary>In this chapter</summary>
+            <nav aria-label="Sections in this chapter">
+              <ol>
+                {chapter.sections.map((section) => (
+                  <li key={section.id}><Link href={`#${section.id}`}>{section.title}</Link></li>
+                ))}
+              </ol>
+            </nav>
+          </details>}
           <div className="tutorial-body">
-            {chapter.sections.length === 0 ? (
-              <p className="tutorial-status">Chapter text is in preparation.</p>
-            ) : chapter.sections.map((section) => (
+            {chapter.sections.map((section) => (
               <section id={section.id} key={section.id}>
                 <h2>{section.title}</h2>
                 {section.content ? section.content.map((block, i) => {

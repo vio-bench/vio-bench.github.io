@@ -1,66 +1,65 @@
-# Learning coverage and source policy
+# Tutorial publication scope
 
-The learning section is a planned tutorial series. Chapter text, rather than
-a list of external readings, will be the main content.
+`data/tutorials.json` retains the eight-chapter directory. Chapters 1–4
+contain 13 sections. Chapters 5–8 retain their titles and routes, but have
+no chapter text, readings or related links and display “To be added.”
+The withdrawn drafts are preserved locally outside the published source.
+Do not restore them without an author request.
 
-## Chapter outline and writing status
+## Published chapters
 
-`data/tutorials.json` contains eight chapter outlines. Their `sections` arrays
-retain requested and reviewed author text. Chapter 1 contains 1.1 VIO State
-and Coordinate Frames, with the reviewed diagram, and 1.2 Coordinate
-Transformations. The former standalone coordinate-frame chapter is merged
-into Notation. Chapter 2 contains 2.1 Camera Images and Projection, with its
-reproducible projection figure, and a single combined 2.2 IMU Measurements
-section. Chapter 3 contains 3.1 Camera Intrinsics and Distortion, with its
-reproducible radial-distortion schematic, 3.2 IMU Calibration and Noise, and
-3.3 Camera–IMU Extrinsics. Its later sections and the remaining chapters
-are in preparation. Reading recommendations
-and implementation guides are temporarily withdrawn; do not replace them
-until the user supplies or requests new material:
+1. Notation — VIO state, frames and coordinate transformations (2 sections).
+2. Camera and IMU measurement models — projection and inertial readings (2).
+3. Camera–IMU calibration and synchronization — intrinsics, IMU calibration,
+   extrinsics, temporal offset and exposure timing (5).
+4. VIO initialization — initial quantities, stationary and dynamic startup,
+   and checking initialization (4).
 
-1. Notation
-2. Camera and IMU measurement models
-3. Camera–IMU calibration and synchronization
-4. VIO initialization
-5. Filtering and optimization
-6. Trajectory evaluation
-7. Runtime and platform measurements
-8. Working with your own sensor data
+The current text uses Chen–Huang–Patrick/RPNG frame notation and scalar-last
+JPL quaternions. It includes corrected IMU readings and noise covariances,
+white-noise and bias-random-walk sampling models, and visual–inertial startup
+constraints with the metric camera–IMU lever arm. Keep frame, unit, motion
+and sampling assumptions attached to the equations.
 
-The outline does not establish that VIO is fully covered. The References page
-remains a preparation notice.
+## Pending chapters
 
-Preserve the current author-approved chapter order, with Notation first.
-The homepage, contents, sidebar, numbering, and previous/next navigation use
-this eight-chapter directory from the same source. Camera 2.1 refers back to
-Notation 1.2; calibration and trajectory evaluation depend on Notation rather
-than the removed chapter. On mobile, the chapter sidebar is a collapsed
-directory so it does not displace the current chapter body.
+5. State Estimation Algorithms — To be added.
+6. Trajectory evaluation — To be added.
+7. Runtime and platform measurements — To be added.
+8. Working with your own sensor data — To be added.
 
-Other chapter text and reading recommendations remain empty until the user
-supplies or requests new material; do not fill these gaps automatically.
+Homepage, contents and chapter navigation share the directory in
+`data/tutorials.json`. Keep Notation first. Collapsible section navigation
+supports Chapters 3–4. Existing coordinate, projection and distortion
+figures and the bundled KaTeX math fonts are retained.
 
-## Areas for further source organization
+## References and illustrations
 
-The manuscript identifies several areas that need further chapter planning:
+Use primary papers or official documentation to check technical content.
+Keep only references supporting key definitions or method-specific claims,
+without repeating a paper in every paragraph. The retained chapters contain
+13 inline reference occurrences and no OpenVINS documentation links.
+The separate References page remains a preparation notice.
 
-- Mathematical prerequisites: probability, linear algebra, and 3D geometry.
-- Observability and consistency, including error coordinates and consistency
-  evaluation.
-- Inertial propagation and preintegration, including their model assumptions.
-- Inertial-only odometry and its limitations.
-- Visual front ends, feature representations, and state maintenance.
-- Learning in visual–inertial estimation.
-- Persistent mapping, loop closure, and visual–inertial SLAM.
-- Application domains, deployment, and current research questions.
+The clock-and-host timing schematic in Section 3.4 is an original explanatory
+figure, not a benchmark measurement. Regenerate it with:
 
-An additional paper link does not constitute a tutorial. Publish chapter text
-from the project authors' manuscript, preserving its attribution and technical
-conventions. Explanations, derivations, figures, and examples belong in the body;
-citations support the relevant text and supplementary reading follows it. Follow
-[`technical-conventions.md`](technical-conventions.md) when editing.
+```sh
+python3 scripts/draw_clock_timing.py --output-dir public/images/tutorials
+```
 
-Third-party recordings and notes stay at their original locations. Only describe
-lectures as available when the source provides the material. Optional courses
-are supplementary resources; they do not determine the site's learning sequence.
-Benchmark claims remain governed by the published result snapshot and protocol.
+The retained-state and reference-path coverage draft figures are not published.
+Tutorial revisions do not alter benchmark result values or aggregation rules.
+
+## Validation
+
+Build, check types, run the existing result-data tests and validate the export.
+Inspect desktop and mobile equations, figures, navigation and pending pages.
+Rendering checks do not replace mathematical and source review.
+
+```sh
+npm test
+npm run build
+npm run check
+npm run validate
+```

@@ -15,12 +15,14 @@ project authors. Structure and typeset the supplied manuscript, preserving its
 meaning, notation, authorship, and provenance. A reference list appended to
 generated prose does not establish that the authors supplied or reviewed it.
 
-Store author-provided chapter sections in `data/tutorials.json`. Until chapter
-text is supplied, leave `sections` empty and show the preparation notice.
+Store supplied or explicitly requested chapter sections in `data/tutorials.json`.
+Do not fill an unrequested chapter. Chapters 1–4 are retained for publication;
+Chapters 5–8 have been withdrawn and show “To be added.” See
+`learning-coverage.md` for current scope.
 Keep `readings` and `related` empty while the tutorial material is withdrawn. Do not assign the paper's complete
 author list to individual chapters without chapter-specific attribution.
-Use the long project manuscript to inform subject coverage, and do not present
-the current outline as a completed course.
+Use the long project manuscript to inform subject coverage. State the tutorial
+scope accurately; eight introductory chapters do not exhaust VIO research.
 Keep Notation first in the chapter sequence, before sensor models and the other
 technical chapters. The homepage, tutorial index, and chapter navigation share
 the order in `data/tutorials.json`.
@@ -30,9 +32,9 @@ course links are omitted from the anonymous review version.
 
 ## Primary references
 
-Tutorial text and reading recommendations are temporarily withdrawn. Keep chapter
-outlines, but do not add replacement teaching text or references until the user
-supplies or requests them. For future authored content, cite the particular
+The author has requested original tutorial text for the existing chapter sequence.
+Keep supporting references near the claims; do not replace the text with a reading
+list or restore withdrawn personal course material. Cite the particular
 primary paper or documentation section that supports a statement. An author's name or a
 general project link alone is not evidence for a technical claim.
 
@@ -42,6 +44,18 @@ and the evaluated package version for evaluation behavior. The site's notation
 does not imply that every external implementation uses the same convention.
 
 ## Notation and model
+
+The author requires Chen–Huang–Patrick/RPNG conventions for this tutorial.
+Use the scalar-last JPL nominal quaternion `^I_G qbar`, representing
+Global→IMU rotation, with position/velocity `^G p_I`, `^G v_I`.
+The left multiplicative error is `delta qbar=qbar⊗qhatbar^-1`;
+its small-angle matrix relation is `R≈(I−floor(delta theta))Rhat`.
+Do not restore the opposite-sign local error parameterization without changing
+and declaring the full convention. Use moving-frame time labels such as
+`I_k`, `C_k`, and the floor-shaped skew operator. Keep the declared physical
+gravity and specific-force signs; papers may use different gravity symbols.
+References support this notation but should not be repeated in every paragraph.
+
 
 - Write `six-degree-of-freedom (6-DoF)` at first use. Pose has six degrees of
   freedom; the basic IMU error state has 15 coordinates. A nominal state storing a
