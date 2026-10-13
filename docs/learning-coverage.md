@@ -6,7 +6,7 @@ a list of external readings, will be the main content.
 ## Chapter outline and writing status
 
 `data/tutorials.json` contains nine planned chapter outlines. Their `sections`
-arrays are currently empty, awaiting author-provided text. Reading recommendations
+arrays retain requested and reviewed author text. Chapter 1 now contains VIO state and coordinate frames, with the reviewed coordinate-frame diagram. The remaining chapters are empty. Reading recommendations
 and implementation guides are temporarily withdrawn; do not replace them until
 the user supplies or requests new material:
 
@@ -30,7 +30,7 @@ from the same source. Chapter navigation uses that source too, with a current
 chapter indicator and named previous/next links. On mobile, the chapter sidebar
 is a collapsed directory so it does not displace the current chapter body.
 
-All chapter text and reading recommendations remain empty until the user
+Other chapter text and reading recommendations remain empty until the user
 supplies or requests new material; do not fill these gaps automatically.
 
 ## Areas for further source organization

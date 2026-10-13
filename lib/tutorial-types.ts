@@ -1,10 +1,16 @@
 export type TechnicalSource = { title: string; url: string };
 
+export type TutorialBlock =
+  | { type: "paragraph"; text: string; references?: TechnicalSource[] }
+  | { type: "equation"; latex: string }
+  | { type: "figure"; src: string; alt: string; caption: string; width: number; height: number };
+
 export interface TutorialSection {
   id: string;
   title: string;
   paragraphs: string[];
   equationLatex?: string;
+  content?: TutorialBlock[];
   references: TechnicalSource[];
 }
 

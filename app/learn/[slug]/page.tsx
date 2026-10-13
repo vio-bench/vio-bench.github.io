@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 import tutorialData from "@/data/tutorials.json";
 import type { TutorialChapter } from "@/lib/tutorial-types";
 import { PageIntro, SourceList } from "@/components/ui";
-import { MathBlock } from "@/components/math-block";
+import { MathBlock, MathText } from "@/components/math-block";
 import { TutorialChapterLinks } from "@/components/tutorial-contents";
 
-const chapters: TutorialChapter[] = tutorialData;
+const chapters = tutorialData as TutorialChapter[];
 
 export function generateStaticParams() {
   return chapters.map((chapter) => ({ slug: chapter.slug }));
@@ -36,7 +36,7 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
           <strong>Tutorial chapters</strong>
           <TutorialChapterLinks activeSlug={slug} />
         </aside>
-        <article className="prose">
+        <article className="prose tutorial-article">
           <details className="tutorial-mobile-contents">
             <summary>Chapter {String(index + 1).padStart(2, "0")} of {chapters.length} · All chapters</summary>
             <TutorialChapterLinks activeSlug={slug} />
@@ -47,7 +47,23 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
             ) : chapter.sections.map((section) => (
               <section id={section.id} key={section.id}>
                 <h2>{section.title}</h2>
-                {section.paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+                {section.content ? section.content.map((block, i) => {
+                  if (block.type === "equation") return <MathBlock key={i} latex={block.latex} />;
+                  if (block.type === "figure") return (
+                    <figure className="tutorial-figure" key={i}>
+                      <img src={block.src} alt={block.alt} width={block.width} height={block.height} />
+                      <figcaption><MathText text={block.caption} /></figcaption>
+                    </figure>
+                  );
+                  return <p key={i}>
+                    <MathText text={block.text} />
+                    {block.references && <span className="tutorial-citations">{" "}
+                      {block.references.map((source, j) => <span key={source.url}>
+                        {j > 0 && "; "}<a href={source.url}>{source.title}</a>
+                      </span>)}.
+                    </span>}
+                  </p>;
+                }) : section.paragraphs.map((paragraph, i) => <p key={i}><MathText text={paragraph} /></p>)}
                 {section.equationLatex && <MathBlock latex={section.equationLatex} />}
                 {section.references.length > 0 && <SourceList sources={section.references} />}
               </section>

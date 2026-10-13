@@ -12,7 +12,7 @@ export default function Learn() {
         description="Notation, sensor models, calibration, estimation, and evaluation."
       />
       <div className="container page-content">
-        <p className="tutorial-status">Chapter text is in preparation.</p>
+        <p className="tutorial-status">Chapter 1 introduces VIO state and coordinate frames. Further sections are in preparation.</p>
         <TutorialContents />
       </div>
     </div>

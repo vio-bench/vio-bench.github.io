@@ -64,6 +64,15 @@ a.button, a.button:hover {
 .math-block { overflow-x: auto; padding: 12px 8px; margin-block: 20px; border-block: 1px solid var(--line); }
 .math-block .katex-display { margin: .45em 0; }
 .math-block .katex { font-size: 1.08em; }
+.math-inline { font-weight: 400; }
+.math-inline > .katex { font-size: 1.04em; }
+.tutorial-article .math-block { border: 0; padding: 4px 0; margin-block: 22px; font-weight: 400; }
+.tutorial-article .math-block .katex-display { margin: .5em 0; }
+.tutorial-article .tutorial-body > section:first-child > h2 { margin-top: 0; }
+.tutorial-figure { margin: 28px auto; max-width: 660px; }
+.tutorial-figure img { display: block; width: 100%; height: auto; }
+.tutorial-figure figcaption { margin-top: 14px; font-size: 14px; line-height: 1.65; color: var(--muted); }
+.tutorial-citations { font-size: .8em; color: var(--muted); }
 .prose .sources { font-size: 15px; margin-bottom: 24px; }
 .reference-list { padding-left: 24px; }
 .reference-list > li { padding-left: 5px; margin-block: 22px; scroll-margin-top: 95px; }

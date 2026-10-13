@@ -4,7 +4,60 @@
     "title": "Notation",
     "summary": "Symbols, coordinate frames, rotation and pose conventions, and state definitions.",
     "prerequisites": [],
-    "sections": [],
+    "sections": [
+      {
+        "id": "vio-state-and-frames",
+        "title": "1.1 VIO State and Coordinate Frames",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Visual–inertial odometry (VIO) combines camera and inertial measurements to estimate the metric six-degree-of-freedom (6-DoF) motion of a sensing platform: three-dimensional position and orientation. Images constrain motion through observations of the surrounding scene, while IMU measurements constrain motion between image timestamps."
+          },
+          {
+            "type": "paragraph",
+            "text": "We describe the platform motion using three coordinate frames: the global frame \\(\\{G\\}\\), the IMU frame \\(\\{I\\}\\), and the camera frame \\(\\{C\\}\\). The global frame provides the coordinates in which we express the estimated trajectory; the IMU and camera frames move with their respective sensors."
+          },
+          {
+            "type": "figure",
+            "src": "/images/tutorials/vio-coordinate-frames.svg",
+            "width": 1936,
+            "height": 1034,
+            "alt": "Global frame G, rigidly mounted IMU frame I and camera frame C, and a fixed environment point f. A blue connector denotes the IMU pose; dotted lines indicate point positions and visual observation.",
+            "caption": "Global, IMU, and camera frames. The camera and IMU form a rigid sensor platform. The blue connector denotes a pose relation, not a trajectory. Dotted lines relate the same environment point \\(f\\) to the frames."
+          },
+          {
+            "type": "paragraph",
+            "text": "A representative inertial navigation state is"
+          },
+          {
+            "type": "equation",
+            "latex": "\\mathbf{x}_I=\\left({}^{I}_{G}\\mathbf{R},\\ {}^{G}\\mathbf{p}_{I},\\ {}^{G}\\mathbf{v}_{I},\\ \\mathbf{b}_{g},\\ \\mathbf{b}_{a}\\right)."
+          },
+          {
+            "type": "paragraph",
+            "text": "Here, \\({}^{G}\\mathbf{p}_{I}\\) and \\({}^{G}\\mathbf{v}_{I}\\) are the IMU position and velocity expressed in the global frame. The rotation matrix \\({}^{I}_{G}\\mathbf{R}\\) maps vector coordinates from the global frame into the IMU frame. The vectors \\(\\mathbf{b}_{g}\\) and \\(\\mathbf{b}_{a}\\) are the gyroscope and accelerometer biases. Velocity and biases are estimated alongside pose because they affect the integration of inertial measurements."
+          },
+          {
+            "type": "paragraph",
+            "text": "The frame labels specify how each quantity should be read. For a position, the superscript identifies the frame in which its coordinates are expressed, and the subscript identifies the object. Thus, \\({}^{G}\\mathbf{p}_{I}\\) is the position of the IMU origin expressed in \\(\\{G\\}\\). For a rotation, the lower frame label is the source and the upper label is the destination."
+          },
+          {
+            "type": "paragraph",
+            "text": "For example, an environment point \\(f\\) is transformed from global coordinates into IMU coordinates as"
+          },
+          {
+            "type": "equation",
+            "latex": "{}^{I}\\mathbf{p}_{f}={}^{I}_{G}\\mathbf{R}\\left({}^{G}\\mathbf{p}_{f}-{}^{G}\\mathbf{p}_{I}\\right)."
+          },
+          {
+            "type": "paragraph",
+            "text": "Subtracting the IMU position first expresses the point relative to the IMU origin; the rotation then expresses that displacement along the IMU axes."
+          }
+        ]
+      }
+    ],
     "readings": [],
     "related": []
   },

@@ -57,7 +57,7 @@ export default function Home() {
         </div>
         <p>Background for understanding, implementing, and evaluating visual–inertial odometry.</p>
         <TutorialContents compact />
-        <p className="home-tutorial-status">Chapter text is in preparation.</p>
+        <p className="home-tutorial-status">Further tutorial sections are in preparation.</p>
       </section>
     </div>
   );
