@@ -12,7 +12,7 @@ export default function Learn() {
         description="Notation, sensor models, calibration, estimation, and evaluation."
       />
       <div className="container page-content">
-        <p className="tutorial-status">Chapter 1 introduces VIO state and coordinate frames. Further sections are in preparation.</p>
+        <p className="tutorial-status">Notation and camera and IMU measurement models are available below. Further chapters are in preparation.</p>
         <TutorialContents />
       </div>
     </div>

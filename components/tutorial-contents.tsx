@@ -1,14 +1,16 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import chapters from "@/data/tutorials.json";
 
 export function TutorialContents({ compact = false }: { compact?: boolean }) {
   const Heading = compact ? "h3" : "h2";
+  const columnRows = Math.ceil(chapters.length / 2);
 
   return (
     <nav aria-label="Tutorial contents" className={compact ? "tutorial-contents compact" : "tutorial-contents"}>
-      <ol>
+      <ol style={{ "--tutorial-column-rows": columnRows } as CSSProperties}>
         {chapters.map((chapter, index) => (
-          <li key={chapter.slug}>
+          <li key={chapter.slug} className={index === 0 || index === columnRows ? "tutorial-column-start" : undefined}>
             <Link href={`/learn/${chapter.slug}/`}>
               <span className="tutorial-chapter-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <div>

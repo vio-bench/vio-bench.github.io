@@ -70,9 +70,11 @@ are recorded separately. SR and ATE/RPE SVGs are copied byte-for-byte.
 
 ## Tutorial entry
 
-The homepage shows all nine original chapter titles in their original order,
-starting with Notation. Homepage and full tutorial contents use the same
-`data/tutorials.json` source; the full contents also display its existing chapter
-summaries. A visible entry links to the full contents. The preparation notice
-remains: chapter text is not yet supplied. Do not replace the withdrawn material
-with invented teaching text or a third-party reading list.
+The homepage shows the current eight-chapter directory, starting with Notation.
+Homepage and full tutorial contents use the same `data/tutorials.json` source;
+the full contents also display chapter summaries. Coordinate transformations
+are part of Notation 1.2, rather than a separate chapter. The two-column
+homepage and full directory balance their rows using the actual chapter count.
+A visible entry links to the full contents. Chapters without author-requested
+text retain the preparation notice. Do not fill those gaps automatically or
+replace the chapter body with a third-party reading list.

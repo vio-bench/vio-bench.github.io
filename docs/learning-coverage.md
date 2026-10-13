@@ -5,30 +5,34 @@ a list of external readings, will be the main content.
 
 ## Chapter outline and writing status
 
-`data/tutorials.json` contains nine planned chapter outlines. Their `sections`
-arrays retain requested and reviewed author text. Chapter 1 now contains VIO state and coordinate frames, with the reviewed coordinate-frame diagram. The remaining chapters are empty. Reading recommendations
-and implementation guides are temporarily withdrawn; do not replace them until
-the user supplies or requests new material:
+`data/tutorials.json` contains eight chapter outlines. Their `sections` arrays
+retain requested and reviewed author text. Chapter 1 contains 1.1 VIO State
+and Coordinate Frames, with the reviewed diagram, and 1.2 Coordinate
+Transformations. The former standalone coordinate-frame chapter is merged
+into Notation. Chapter 2 contains 2.1 Camera Images and Projection, with its
+reproducible projection figure, and a single combined 2.2 IMU Measurements
+section. The remaining chapters are in preparation. Reading recommendations
+and implementation guides are temporarily withdrawn; do not replace them
+until the user supplies or requests new material:
 
 1. Notation
 2. Camera and IMU measurement models
-3. Coordinate frames and pose conventions
-4. Camera–IMU calibration and synchronization
-5. VIO initialization
-6. Filtering and optimization
-7. Trajectory evaluation
-8. Runtime and platform measurements
-9. Working with your own sensor data
+3. Camera–IMU calibration and synchronization
+4. VIO initialization
+5. Filtering and optimization
+6. Trajectory evaluation
+7. Runtime and platform measurements
+8. Working with your own sensor data
 
-The outline does not establish that the chapters have been written or that VIO
-is fully covered. The References page remains a preparation notice.
+The outline does not establish that VIO is fully covered. The References page
+remains a preparation notice.
 
-Preserve the original chapter titles and order (Notation was placed first in
-the original website revision `469141e529ad9203b7eee12f70c7b88551fadd6f`).
-The homepage and contents page display this complete nine-chapter directory
-from the same source. Chapter navigation uses that source too, with a current
-chapter indicator and named previous/next links. On mobile, the chapter sidebar
-is a collapsed directory so it does not displace the current chapter body.
+Preserve the current author-approved chapter order, with Notation first.
+The homepage, contents, sidebar, numbering, and previous/next navigation use
+this eight-chapter directory from the same source. Camera 2.1 refers back to
+Notation 1.2; calibration and trajectory evaluation depend on Notation rather
+than the removed chapter. On mobile, the chapter sidebar is a collapsed
+directory so it does not displace the current chapter body.
 
 Other chapter text and reading recommendations remain empty until the user
 supplies or requests new material; do not fill these gaps automatically.

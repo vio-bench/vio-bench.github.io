@@ -2,7 +2,7 @@
   {
     "slug": "notation",
     "title": "Notation",
-    "summary": "Symbols, coordinate frames, rotation and pose conventions, and state definitions.",
+    "summary": "VIO state, coordinate frames, and rigid-body coordinate transformations.",
     "prerequisites": [],
     "sections": [
       {
@@ -56,6 +56,64 @@
             "text": "Subtracting the IMU position first expresses the point relative to the IMU origin; the rotation then expresses that displacement along the IMU axes."
           }
         ]
+      },
+      {
+        "id": "coordinate-transformations",
+        "title": "1.2 Coordinate Transformations",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A rigid-body coordinate transformation combines rotation and translation in one matrix. We write \\({}^{A}_{B}\\mathbf{T}\\) for the transform that maps point coordinates from frame \\(\\{B\\}\\) into frame \\(\\{A\\}\\). Appending a 1 to a three-dimensional point gives its homogeneous coordinates. These operations change how the same point is expressed in different frames.",
+            "references": [
+              {
+                "title": "Modern Robotics, Sec. 3.3.1",
+                "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "For the global and IMU frames introduced above, the transformation matrix is"
+          },
+          {
+            "type": "equation",
+            "latex": "{}^{I}_{G}\\mathbf{T}=\\begin{bmatrix}{}^{I}_{G}\\mathbf{R} & -{}^{I}_{G}\\mathbf{R}\\,{}^{G}\\mathbf{p}_{I}\\\\ \\mathbf{0}^{\\mathsf{T}} & 1\\end{bmatrix}."
+          },
+          {
+            "type": "paragraph",
+            "text": "The translation block \\(-{}^{I}_{G}\\mathbf{R}\\,{}^{G}\\mathbf{p}_{I}\\) is the global origin expressed in the IMU frame. Multiplying this matrix by the point coordinates reproduces the relation in Section 1.1:"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{bmatrix}{}^{I}\\mathbf{p}_{f}\\\\1\\end{bmatrix}={}^{I}_{G}\\mathbf{T}\\begin{bmatrix}{}^{G}\\mathbf{p}_{f}\\\\1\\end{bmatrix}."
+          },
+          {
+            "type": "paragraph",
+            "text": "To express IMU-frame coordinates in the global frame, invert the transform. The rotation is transposed, and the translation becomes the IMU origin expressed in the global frame:"
+          },
+          {
+            "type": "equation",
+            "latex": "{}^{G}_{I}\\mathbf{T}=\\left({}^{I}_{G}\\mathbf{T}\\right)^{-1}=\\begin{bmatrix}\\left({}^{I}_{G}\\mathbf{R}\\right)^{\\mathsf{T}} & {}^{G}\\mathbf{p}_{I}\\\\\\mathbf{0}^{\\mathsf{T}} & 1\\end{bmatrix}."
+          },
+          {
+            "type": "paragraph",
+            "text": "The camera–IMU extrinsic transform \\({}^{C}_{I}\\mathbf{T}\\) maps IMU coordinates into camera coordinates. Its rotation block is \\({}^{C}_{I}\\mathbf{R}\\), and its translation block is the IMU origin expressed in \\(\\{C\\}\\). For rigidly mounted sensors, this transform is constant. The camera coordinates of the same environment point follow by composition:"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}{}^{C}_{G}\\mathbf{T}&={}^{C}_{I}\\mathbf{T}\\,{}^{I}_{G}\\mathbf{T},\\\\\\begin{bmatrix}{}^{C}\\mathbf{p}_{f}\\\\1\\end{bmatrix}&={}^{C}_{G}\\mathbf{T}\\begin{bmatrix}{}^{G}\\mathbf{p}_{f}\\\\1\\end{bmatrix}.\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "The rightmost transform acts first: global coordinates are mapped into the IMU frame, then into the camera frame. The order must follow these frame directions. The resulting \\({}^{C}\\mathbf{p}_{f}\\) is the input to the camera projection model in",
+            "crossReference": {
+              "title": "Section 2.1",
+              "url": "/learn/camera-and-imu/#camera-images-and-projection"
+            }
+          }
+        ]
       }
     ],
     "readings": [],
@@ -64,31 +122,172 @@
   {
     "slug": "camera-and-imu",
     "title": "Camera and IMU measurement models",
-    "summary": "The visual–inertial state, camera and IMU measurements, and the relationship between odometry and SLAM.",
+    "summary": "Image projection, gyroscope angular rate, and accelerometer specific force.",
     "prerequisites": [
       "notation"
     ],
     "readings": [],
     "related": [],
-    "sections": []
-  },
-  {
-    "slug": "coordinate-frames",
-    "title": "Coordinate frames and pose conventions",
-    "summary": "Coordinate frames, camera–IMU geometry, pose representations, and orientation errors.",
-    "prerequisites": [
-      "camera-and-imu"
-    ],
-    "readings": [],
-    "related": [],
-    "sections": []
+    "sections": [
+      {
+        "id": "camera-images-and-projection",
+        "title": "2.1 Camera Images and Projection",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A camera records an array of pixel intensities or colors at each image timestamp. Feature detection and tracking extract two-dimensional point coordinates from these images. A projection model relates those coordinates to the three-dimensional geometry viewed by the camera. We use point coordinates as a representative observation; direct methods can instead compare image intensities.",
+            "references": [
+              {
+                "title": "Direct visual–inertial estimation",
+                "url": "https://arxiv.org/abs/1804.05625"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Let \\({}^{C}\\mathbf{p}_f=(X,Y,Z)^\\top\\) denote an environment point expressed in the camera frame. We take the camera's optical axis as \\(+Z_C\\), with \\(X_C\\) pointing right and \\(Y_C\\) down in the image. For an ideal pinhole camera with known intrinsics, zero skew, and no lens distortion, its observed pixel coordinates \\(\\mathbf{z}_f=(u,v)^\\top\\) follow:"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}\\mathbf{z}_f&=\\pi\\!\\left({}^{C}\\mathbf{p}_f\\right)+\\mathbf{n}_c,\\\\[6pt] \\pi\\!\\left({}^{C}\\mathbf{p}_f\\right)&=\\begin{bmatrix} f_x X/Z+c_x \\\\ f_y Y/Z+c_y \\end{bmatrix},\\quad Z>0.\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "The focal lengths \\(f_x,f_y\\) and principal-point coordinates \\(c_x,c_y\\) are expressed in pixels. The principal point is where the optical axis meets the ideal image plane. The point coordinates \\(X,Y,Z\\) use a common length unit; in VIO we express them in meters. Here \\(Z\\) is depth along the optical axis. The term \\(\\mathbf{n}_c\\) represents error in the extracted pixel coordinates, not noise in pixel intensity. This example assumes ideal or undistorted observations.",
+            "references": [
+              {
+                "title": "Pinhole camera model",
+                "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+              }
+            ]
+          },
+          {
+            "type": "figure",
+            "src": "/images/tutorials/camera-projection.svg",
+            "width": 1716,
+            "height": 946,
+            "alt": "A camera center and a virtual image plane. One viewing ray passes through a blue image observation and two hollow candidate positions at different depths. Both candidate positions have the same ideal projection.",
+            "caption": "One image coordinate, multiple possible depths. The hollow points \\({}^{C}\\mathbf{p}_f\\) and \\(\\lambda\\,{}^{C}\\mathbf{p}_f\\), with \\(\\lambda>1\\), are alternative positions consistent with the same ideal observation \\(\\mathbf{z}_f\\). The virtual image plane is drawn in front of the camera center. Measurement noise is omitted in this schematic \\(\\left(\\mathbf{n}_c=\\mathbf{0}\\right)\\)."
+          },
+          {
+            "type": "paragraph",
+            "text": "Projection divides by depth. Multiplying all three point coordinates by the same positive factor leaves their ratios unchanged:"
+          },
+          {
+            "type": "equation",
+            "latex": "\\pi\\!\\left(\\lambda\\,{}^{C}\\mathbf{p}_f\\right)=\\pi\\!\\left({}^{C}\\mathbf{p}_f\\right),\\qquad \\lambda>0."
+          },
+          {
+            "type": "paragraph",
+            "text": "Thus, under this calibrated model, a single point observation determines a viewing ray, but does not determine the point's distance along it. The two hollow locations in the figure show different possible depths for one observation. Additional views or other information are needed to resolve that ambiguity.",
+            "references": [
+              {
+                "title": "Multiple View Geometry, Chapter 1",
+                "url": "https://www.robots.ox.ac.uk/~vgg/hzbook/hzbook2/HZintroduction.pdf"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The camera pose determines a fixed environment point's coordinates in \\(\\{C\\}\\) and therefore its predicted projection. Observations of fixed points across images provide constraints on camera motion and scene geometry. The transform between camera and IMU coordinates is described in",
+            "crossReference": {
+              "title": "Notation, Section 1.2",
+              "url": "/learn/notation/#coordinate-transformations"
+            }
+          }
+        ]
+      },
+      {
+        "id": "imu-measurements",
+        "title": "2.2 IMU Measurements",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "An IMU provides timestamped, three-axis gyroscope and accelerometer readings, rather than direct orientation, velocity, or position measurements. We use an additive model with scale and axis errors assumed corrected or negligible. Readings are expressed along the common IMU axes. We neglect Earth rotation, treat \\(\\{G\\}\\) as locally inertial, and assume constant gravity."
+          },
+          {
+            "type": "paragraph",
+            "text": "The gyroscope measures angular velocity, which describes how orientation changes over time. Its measurement model is"
+          },
+          {
+            "type": "equation",
+            "latex": "\\boldsymbol{\\omega}_m={}^{I}\\boldsymbol{\\omega}+\\mathbf{b}_g+\\mathbf{n}_g."
+          },
+          {
+            "type": "paragraph",
+            "text": "Here \\({}^{I}\\boldsymbol{\\omega}\\) is the IMU's angular velocity relative to \\(\\{G\\}\\), expressed along the IMU axes. Its direction gives the instantaneous rotation axis under the right-hand rule, and its magnitude gives angular speed; neither specifies the current orientation. The vectors \\(\\mathbf{b}_g\\) and \\(\\mathbf{n}_g\\) are bias and measurement noise. All terms have units of radians per second. For the global-to-IMU rotation \\({}^{I}_{G}\\mathbf{R}\\),"
+          },
+          {
+            "type": "equation",
+            "latex": "{}^{I}_{G}\\dot{\\mathbf{R}}=-\\left[{}^{I}\\boldsymbol{\\omega}\\right]_{\\times}\\,{}^{I}_{G}\\mathbf{R}."
+          },
+          {
+            "type": "paragraph",
+            "text": "A dot denotes a time derivative, and \\([\\mathbf{u}]_{\\times}\\mathbf{v}=\\mathbf{u}\\times\\mathbf{v}\\) defines the cross-product matrix. The minus sign follows the global-to-IMU coordinate convention. Integration requires an initial orientation relative to the chosen \\(\\{G\\}\\); the gyroscope does not supply it. Integrating the three components independently does not generally give roll, pitch, and yaw.",
+            "references": [
+              {
+                "title": "Inertial measurements and orientation integration",
+                "url": "https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-696.pdf"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Bias and noise play different roles. We model bias as an unknown offset that may change slowly, and noise as zero-mean random measurement error. An estimator subtracts an estimated bias before integration; the true bias and individual noise samples remain unknown. Bias errors and noise both affect the integrated state. Zero-mean noise need not cancel over a finite interval.",
+            "references": [
+              {
+                "title": "IMU bias and noise model",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The accelerometer measures specific force, the non-gravitational force per unit mass acting on the sensor. Its measurement model is"
+          },
+          {
+            "type": "equation",
+            "latex": "\\mathbf{a}_m={}^{I}_{G}\\mathbf{R}\\left({}^{G}\\mathbf{a}_I-{}^{G}\\mathbf{g}\\right)+\\mathbf{b}_a+\\mathbf{n}_a."
+          },
+          {
+            "type": "paragraph",
+            "text": "Here \\({}^{G}\\mathbf{a}_I=d({}^{G}\\mathbf{v}_I)/dt\\) is the IMU origin's motion acceleration and \\({}^{G}\\mathbf{g}\\) is gravitational acceleration, both expressed in \\(\\{G\\}\\). The reading \\(\\mathbf{a}_m\\), bias \\(\\mathbf{b}_a\\), and noise \\(\\mathbf{n}_a\\) use IMU axes and have units of meters per second squared, as do the global acceleration terms. The same bias/noise distinction applies to both sensors.",
+            "references": [
+              {
+                "title": "IMU measurement model",
+                "url": "https://rpg.ifi.uzh.ch/docs/RSS15_Forster.pdf"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Rotating the bias-corrected reading into \\(\\{G\\}\\) with \\(({}^{I}_{G}\\mathbf{R})^\\top\\) and adding gravity gives an acceleration estimate. An incorrect tilt can produce apparent motion acceleration even at rest. Velocity and position then require time integration and their initial values."
+          },
+          {
+            "type": "paragraph",
+            "text": "For a stationary, bias-free, noiseless sensor with aligned global and IMU axes and \\(+z\\) upward, \\({}^{G}\\mathbf{a}_I=\\mathbf{0}\\) and \\({}^{G}\\mathbf{g}=(0,0,-g)^\\top\\), with \\(g>0\\). Its accelerometer reads \\((0,0,g)^\\top\\): the table supports it against gravity. In ideal, non-rotating free fall it reads zero, even though the sensor accelerates under gravity.",
+            "references": [
+              {
+                "title": "Accelerometer specific force",
+                "url": "https://www.vectornav.com/resources/inertial-navigation-primer/theory-of-operation/theory-mems"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "calibration-and-time",
     "title": "Camera–IMU calibration and synchronization",
     "summary": "Camera and IMU calibration parameters, sensor synchronization, and calibration procedures.",
     "prerequisites": [
-      "coordinate-frames"
+      "notation",
+      "camera-and-imu"
     ],
     "readings": [],
     "related": [],
@@ -122,7 +321,7 @@
     "title": "Trajectory evaluation",
     "summary": "Trajectory conventions, association, alignment, error metrics, and coverage.",
     "prerequisites": [
-      "coordinate-frames"
+      "notation"
     ],
     "readings": [],
     "related": [],

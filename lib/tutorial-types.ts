@@ -1,7 +1,7 @@
 export type TechnicalSource = { title: string; url: string };
 
 export type TutorialBlock =
-  | { type: "paragraph"; text: string; references?: TechnicalSource[] }
+  | { type: "paragraph"; text: string; references?: TechnicalSource[]; crossReference?: TechnicalSource }
   | { type: "equation"; latex: string }
   | { type: "figure"; src: string; alt: string; caption: string; width: number; height: number };
 

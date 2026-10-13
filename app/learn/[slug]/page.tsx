@@ -57,6 +57,7 @@ export default async function Tutorial({ params }: { params: Promise<{ slug: str
                   );
                   return <p key={i}>
                     <MathText text={block.text} />
+                    {block.crossReference && <> <Link href={block.crossReference.url}>{block.crossReference.title}</Link>.</>}
                     {block.references && <span className="tutorial-citations">{" "}
                       {block.references.map((source, j) => <span key={source.url}>
                         {j > 0 && "; "}<a href={source.url}>{source.title}</a>
