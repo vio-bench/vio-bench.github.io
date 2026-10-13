@@ -11,7 +11,10 @@ and Coordinate Frames, with the reviewed diagram, and 1.2 Coordinate
 Transformations. The former standalone coordinate-frame chapter is merged
 into Notation. Chapter 2 contains 2.1 Camera Images and Projection, with its
 reproducible projection figure, and a single combined 2.2 IMU Measurements
-section. The remaining chapters are in preparation. Reading recommendations
+section. Chapter 3 contains 3.1 Camera Intrinsics and Distortion, with its
+reproducible radial-distortion schematic, 3.2 IMU Calibration and Noise, and
+3.3 Camera–IMU Extrinsics. Its later sections and the remaining chapters
+are in preparation. Reading recommendations
 and implementation guides are temporarily withdrawn; do not replace them
 until the user supplies or requests new material:
 

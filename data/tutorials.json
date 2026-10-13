@@ -291,7 +291,192 @@
     ],
     "readings": [],
     "related": [],
-    "sections": []
+    "sections": [
+      {
+        "id": "camera-intrinsics-and-distortion",
+        "title": "3.1 Camera Intrinsics and Distortion",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Section 2.1 assumed known focal lengths and principal-point coordinates, with lens distortion absent or already removed. Camera calibration determines these parameters for a chosen projection model. Real lenses can displace image points from their ideal pinhole positions. This displacement depends on image location and should be distinguished from random error in locating a feature."
+          },
+          {
+            "type": "paragraph",
+            "text": "For a pinhole camera with a lens-distortion model, we write"
+          },
+          {
+            "type": "equation",
+            "latex": "\\begin{aligned}\\mathbf{z}_f&=\\pi\\!\\left({}^{C}\\mathbf{p}_f;\\boldsymbol{\\theta}_c\\right)+\\mathbf{n}_c,\\\\\\boldsymbol{\\theta}_c&=\\left(f_x,f_y,c_x,c_y,\\mathbf{d}\\right).\\end{aligned}"
+          },
+          {
+            "type": "paragraph",
+            "text": "Here, \\(\\mathbf{z}_f\\) is a feature coordinate in the original, distorted image, and \\(\\mathbf{d}\\) contains the coefficients of the selected distortion model. The projection \\(\\pi\\) now includes this distortion. For this model, \\(\\mathbf{d}=\\mathbf{0}\\) recovers the ideal projection in Section 2.1. Other camera models use different parameterizations.",
+            "references": [
+              {
+                "title": "Camera models and distortion",
+                "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+              }
+            ]
+          },
+          {
+            "type": "figure",
+            "src": "/images/tutorials/camera-distortion.svg",
+            "width": 1364,
+            "height": 1100,
+            "alt": "One image-coordinate plane with u pointing right and v pointing down. Hollow circles mark ideal pinhole locations. Blue filled circles mark their distorted locations in a radial barrel-distortion example. Thin arrows point from each ideal location toward its distorted counterpart, with larger displacements farther from the principal point.",
+            "caption": "A radial-distortion example. Each arrow maps an ideal pinhole location (hollow circle) to its distorted location (blue dot) on the same pixel coordinate plane. The displacement grows with distance from the principal point \\((c_x,c_y)\\) in this example. This is a schematic mapping, not measured calibration data; random measurement noise is omitted."
+          },
+          {
+            "type": "paragraph",
+            "text": "One common calibration method observes a target with known geometry from several positions and orientations. The solver estimates camera parameters that explain the detected target points across images. It also estimates the target pose relative to the camera in each image: knowing the target geometry does not make these poses known. Views that cover different image regions and inclinations provide more useful constraints than repeated central, front-facing views.",
+            "references": [
+              {
+                "title": "Planar-target camera calibration",
+                "url": "https://www.microsoft.com/en-us/research/publication/a-flexible-new-technique-for-camera-calibration/"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The parameters must match the images used by the estimator. Original distorted images require the corresponding distortion model; undistorted images require the output camera model and should not be distorted again in prediction. Resizing scales focal lengths and principal-point coordinates; cropping shifts the principal point. These updates must follow the actual pixel-coordinate mapping. A known resize does not automatically require recalibration. Focus or lens-setting changes may require new parameters.",
+            "references": [
+              {
+                "title": "Using calibrated image coordinates",
+                "url": "https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "imu-calibration-and-noise",
+        "title": "3.2 IMU Calibration and Noise",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Section 2.2 assumed that IMU scale and axis errors were corrected or negligible. To describe these errors, consider a simplified model for the reported three-axis readings:"
+          },
+          {
+            "type": "equation",
+            "latex": "\\mathbf{y}=\\mathbf{M}\\mathbf{s}+\\mathbf{b}_{\\mathrm{raw}}+\\mathbf{n}_{\\mathrm{raw}}."
+          },
+          {
+            "type": "paragraph",
+            "text": "Here, \\(\\mathbf{s}\\) is the true angular velocity or specific force expressed in the chosen IMU frame, and \\(\\mathbf{y}\\) is the corresponding reported reading, in the same physical units. The dimensionless matrix \\(\\mathbf{M}\\) describes scale and axis errors; \\(\\mathbf{b}_{\\mathrm{raw}}\\) and \\(\\mathbf{n}_{\\mathrm{raw}}\\) are additive bias and noise in the reported readings. The gyroscope and accelerometer generally have different calibration matrices.",
+            "references": [
+              {
+                "title": "IMU intrinsic calibration models",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/Multi-IMU-and-IMU-intrinsic-calibration"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "A scale error changes the response in proportion to the input. For example, a noise-free gyro with a 2% gain error and zero bias reports 1.02 rad/s for a true rate of 1 rad/s, and 2.04 rad/s for 2 rad/s. A bias adds an offset: 0.02 rad/s can remain even when the true rate is zero. One fixed bias correction therefore cannot remove the gain error at every rate. Misaligned or nonorthogonal sensing axes and cross-axis sensitivity can mix components; a nominal x-axis reading can respond to motion about another axis. These effects are distinct from the camera–IMU mounting rotation."
+          },
+          {
+            "type": "paragraph",
+            "text": "Intrinsic calibration identifies or verifies these scale and axis corrections. For invertible \\(\\mathbf{M}\\), applying \\(\\mathbf{M}^{-1}\\) to the readings also maps bias and noise into the corrected axes. Factory corrections may already be applied, so the actual output convention must be checked before applying another correction. Corrected gyro and accelerometer readings must use the same IMU axes as the camera–IMU extrinsic transform. The biases \\(\\mathbf{b}_g,\\mathbf{b}_a\\) in Section 2.2 are expressed in those corrected axes. They can change during operation and are often estimated with the navigation state; a calibration-time bias estimate is not necessarily valid for every later run.",
+            "references": [
+              {
+                "title": "Calibrated IMU inputs",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/camera-imu-calibration"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Noise parameters describe statistical variation, rather than a correction to subtract from each sample. In the common white-noise and bias-random-walk model, measurement-noise density describes rapid fluctuations; a bias random-walk parameter describes the assumed strength of changes in bias over time. Neither is the current bias value. Gyroscope noise density, for example, can have units \\((\\mathrm{rad}/\\mathrm{s})/\\sqrt{\\mathrm{Hz}}\\), whereas a sampled reading has units rad/s. Converting density to sample variance depends on sampling and filtering assumptions.",
+            "references": [
+              {
+                "title": "IMU noise parameters and units",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Applicable sensor specifications or stationary recordings can help determine noise parameters. Allan deviation examines how fluctuations change with averaging time and can help fit the selected stochastic model. A stationary average can estimate gyro bias under the assumptions of Section 2.2, but an accelerometer also measures the gravity-related specific force at rest; its mean is not simply its bias. Parameter values must match the sensor settings, units, and model used by the estimator.",
+            "references": [
+              {
+                "title": "Obtaining IMU noise parameters",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "camera-imu-extrinsics",
+        "title": "3.3 Camera–IMU Extrinsics",
+        "paragraphs": [],
+        "references": [],
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Camera–IMU extrinsics describe the relative orientation and position of the two sensors. A rigid mounting makes this physical relationship constant; it does not make its calibrated estimate exact. These parameters are distinct from the sensing-axis corrections in Section 3.2 and the platform's changing global pose. Following Section 1.2, \\({}^{C}_{I}\\mathbf{T}\\) maps IMU point coordinates into camera coordinates:"
+          },
+          {
+            "type": "equation",
+            "latex": "{}^{C}\\mathbf{p}_{f}={}^{C}_{I}\\mathbf{R}\\,{}^{I}\\mathbf{p}_{f}+{}^{C}\\mathbf{p}_{I}."
+          },
+          {
+            "type": "paragraph",
+            "text": "Here, \\({}^{I}\\mathbf{p}_{f}\\) comes from the scene geometry and IMU pose, not an IMU point measurement. The rotation \\({}^{C}_{I}\\mathbf{R}\\) describes the IMU-axis directions relative to the camera axes: its columns are the IMU unit axes expressed in \\(\\{C\\}\\). Applying it re-expresses coordinates; it does not rotate the physical platform. The translation \\({}^{C}\\mathbf{p}_{I}\\) points from the camera origin to the IMU origin, expressed in camera coordinates, in meters. Setting \\({}^{I}\\mathbf{p}_{f}=\\mathbf{0}\\) leaves exactly this translation.",
+            "references": [
+              {
+                "title": "Rotation-matrix columns",
+                "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-2-1-rotation-matrices-part-1-of-2/"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "For the reverse mapping, the rotation is \\(\\left({}^{C}_{I}\\mathbf{R}\\right)^{\\mathsf{T}}\\), and the translation is the camera origin expressed in IMU coordinates:"
+          },
+          {
+            "type": "equation",
+            "latex": "{}^{I}\\mathbf{p}_{C}=-\\left({}^{C}_{I}\\mathbf{R}\\right)^{\\mathsf{T}}{}^{C}\\mathbf{p}_{I}."
+          },
+          {
+            "type": "paragraph",
+            "text": "The opposite displacement must also be expressed in different axes, so changing its sign alone is generally insufficient."
+          },
+          {
+            "type": "paragraph",
+            "text": "The resulting \\({}^{C}\\mathbf{p}_{f}\\) enters the camera projection model. Incorrect extrinsics can change the predicted image location even when the IMU pose and scene point are correct. Re-expressing the same direction vector uses only the rotation. Gyroscope and accelerometer readings are not point positions: rotating an accelerometer vector changes its expression axes, not the physical location where it was measured."
+          },
+          {
+            "type": "paragraph",
+            "text": "Calibration estimates this fixed transform from images and inertial measurements of the same moving platform. In a representative approach, the platform views a stationary target of known geometry. Images constrain camera poses; gyroscope and accelerometer data constrain angular velocity and specific force through Section 2.2's models. Rotation is constrained by agreement between image-inferred orientation changes and the inertial rotation model. Translation affects how the separated sensor origins move, particularly during rotation. In this approach, motion and biases are estimated together with the transform to explain both measurement streams, rather than treating either sensor's trajectory as known. Not every motion provides enough information to determine all extrinsic parameters.",
+            "references": [
+              {
+                "title": "Camera–IMU calibration",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/camera-imu-calibration"
+              },
+              {
+                "title": "Motion and calibration estimation",
+                "url": "https://arxiv.org/html/1901.07242v1"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "When using calibration parameters, check the mapping direction, translation units, and sensor axes. Kalibr's \\(\\texttt{T\\_cam\\_imu}\\) matches our \\({}^{C}_{I}\\mathbf{T}\\). Invert the complete transform when the reverse direction is required, and use the corrected IMU axes from Section 3.2. Data collection and validation will be discussed in Section 3.5.",
+            "references": [
+              {
+                "title": "Kalibr extrinsic-transform convention",
+                "url": "https://github.com/ethz-asl/kalibr/wiki/yaml-formats"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "initialization",
